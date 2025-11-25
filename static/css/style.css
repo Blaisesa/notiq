@@ -40,6 +40,30 @@ body {
     padding: 0 1.5rem;
 }
 
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.col {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Placeholder for future content */
+.placeholder {
+    background-color: var(--secondary-background-color);
+    border: 2px dashed var(--primary-color);
+    border-radius: 0.5rem;
+    height: 350px;
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-font-color);
+    font-size: 1.25rem;
+}
 
 /* --- Navigation Styling --- */
 .main-header {
@@ -126,7 +150,7 @@ img.logo {
 /* --- Main Content Styling --- */
 /* SPA Styling */
 .spa-page {
-    padding: 2.5rem 1.5rem; 
+    padding: 2.5rem 1.5rem 0 1.5rem; 
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -136,7 +160,7 @@ img.logo {
 /* Home Page Styling */
 .home-hero {
     text-align: center;
-    padding: 5rem 1rem;
+    padding: 5rem 1rem 0 1rem;
 }
 /* Hero Font Styles */
 .home-title {
@@ -155,7 +179,7 @@ img.logo {
     gap: 1rem;
     justify-content: center;
 }
-.home-buttons .primary, .home-buttons .secondary {
+.primary, .secondary {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: none;
@@ -163,21 +187,21 @@ img.logo {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.home-buttons .primary {
+.primary {
     background-color: var(--primary-color);
     color: white;
 }
-.home-buttons .primary:hover {
+.primary:hover {
     background-color: #4e4dd1;
 }
-.home-buttons .secondary {
+.secondary {
     color: whitesmoke;
     background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
-.home-buttons .secondary:hover {
+.secondary:hover {
     background: rgba(255, 255, 255, 0.5);
 }
 
@@ -207,6 +231,32 @@ img.logo {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Home Overview Section */
+.overview .col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.overview {
+    margin-top: 4rem;
+}
+.overview-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+.overview-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
+}
+.overview .primary {
+    align-self: flex-start;
+}
 
 /* --- Footer Styling --- */
 .main-footer {
