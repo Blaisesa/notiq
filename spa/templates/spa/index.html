@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    
+    <!-- HOME SECTION (This section is required for the SPA logic to initialize the #home route) -->
+    <section id="home-content" class="spa-page container active">
+        <div style="text-align: center; padding: 5rem 0; margin-top: 3rem; border: 1px dashed #ced4da; border-radius: 0.5rem; background-color: #ffffff;">
+            <h1 style="font-size: 3rem; color: #4f46e5; margin-bottom: 1rem;">Hello Notiq!</h1>
+            <p style="font-size: 1.25rem; color: #4b5563;">Base template and view are correctly linked.</p>
+            <p style="font-size: 1.25rem; color: #4b5563;">You can test the footer links now.</p>
+        </div>
+    </section>
+
+    <!-- Placeholder sections must still exist for the SPA JS to function when links are clicked. -->
+    <section id="about-content" class="spa-page container hidden"></section>
+    <section id="features-content" class="spa-page container hidden"></section>
+    <section id="contact-content" class="spa-page container hidden"></section>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <!-- Link External JavaScript - necessary for SPA navigation -->
+    <script src="{% static 'js/spa.js' %}"></script>
+{% endblock extra_js %}

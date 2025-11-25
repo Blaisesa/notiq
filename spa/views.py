@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 # Create your views here.
-def home(request):
-    return HttpResponse("Welcome to the Spa Home Page!")
+def spa_view(request):
+    """
+    View to render the Single Page Application (SPA) main page.
+    """
+    return render(request, 'spa/index.html')
