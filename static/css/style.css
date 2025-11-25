@@ -1,0 +1,183 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa; /* Very light gray */
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    
+    /* --- STICKY FOOTER FIX: START --- */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* --- STICKY FOOTER FIX: END --- */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* --- Navigation Styling --- */
+.main-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo-link {
+    font-size: 1.6rem; 
+    font-weight: 800;
+    color: #4f46e5; /* Notiq Primary Blue */
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+/* Nav Menu (UL List) Styling */
+.nav-menu {
+    list-style: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem; /* Space between links */
+}
+
+.nav-menu li {
+    /* Ensures list items behave well in flex container */
+    display: inline;
+}
+
+.nav-link, 
+.admin-link, 
+.logout-link,
+.auth-placeholder {
+    text-decoration: none;
+    padding: 0.5rem 0.25rem;
+    color: #495057;
+    font-weight: 500;
+    transition: color 0.2s ease, border-bottom 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Active Link Styling (used by spa.js) */
+.nav-menu a.active-link {
+    font-weight: 600;
+    color: #4f46e5; /* Primary Blue */
+    border-bottom: 2px solid #4f46e5;
+}
+
+.nav-link:hover {
+    color: #4f46e5;
+}
+
+.admin-link { color: #10b981; } /* Green */
+.logout-link { color: #ef4444; } /* Red */
+.auth-placeholder { 
+    background-color: #4f46e5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    font-weight: 600;
+}
+.auth-placeholder:hover {
+    background-color: #6366f1;
+}
+
+/* --- Footer Styling --- */
+.main-footer {
+    background-color: #343a40; /* Dark gray background */
+    color: #e9ecef; /* Light text */
+    padding: 2rem 0;
+    margin-top: 5rem;
+    font-size: 0.85rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #495057;
+    padding-top: 1.5rem;
+}
+
+.copyright {
+    margin-bottom: 1rem;
+    color: #adb5bd;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-link {
+    color: #e9ecef;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: #4f46e5;
+}
+
+
+/* --- Responsive Adjustments (Mobile first) --- */
+@media (max-width: 900px) {
+    /* Header layout changes for smaller screens */
+    .header-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    .logo-link {
+        margin-bottom: 1rem;
+    }
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        width: 100%;
+        padding-top: 0.5rem;
+        border-top: 1px solid #f8f9fa;
+    }
+    .nav-menu li {
+        margin: 0 0.5rem;
+    }
+
+    /* Footer layout changes for mobile */
+    .footer-content {
+        text-align: center;
+    }
+    .footer-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* --- SPA Content Structure --- */
+/* The MAIN element must grow to push the footer down */
+main {
+    flex-grow: 1; 
+}
+
+.spa-page {
+    padding: 2.5rem 1.5rem; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.hidden { display: none !important; }
+.active { display: block !important; }

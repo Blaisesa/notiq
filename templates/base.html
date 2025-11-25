@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Notiq{% endblock title %}</title>
+    
+    <!-- Link External CSS - Now handles all styling -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <header class="main-header">
+        <nav class="container header-nav">
+            <a href="/" class="logo-link">Notiq</a>
+            
+            <!-- SPA Navigation Links (These links are for the JS-driven SPA functionality) -->
+            <ul class="nav-menu" id="spa-nav">
+                <li><a href="#home" data-page="home" class="nav-link">Home</a></li>
+                <li><a href="#about" data-page="about" class="nav-link">About</a></li>
+                <li><a href="#features" data-page="features" class="nav-link">Features</a></li>
+                <li><a href="#contact" data-page="contact" class="nav-link">Contact</a></li>
+                
+                <!-- Authentication Links (Placeholders until allauth is installed) -->
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'admin:index' %}" class="admin-link">Admin Panel</a></li>
+                    <li><a href="{% url 'admin:logout' %}" class="logout-link">Logout</a></li>
+                {% else %}
+                    <!-- These will link to allauth URLs later -->
+                    <li><a href="#" class="auth-placeholder">Login</a></li>
+                    <li><a href="#" class="auth-placeholder">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT BLOCK - This is where index.html or legal_page.html content goes -->
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+    
+    <!-- FOOTER with Legal Links -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p class="copyright">&copy; {% now "Y" %} Notiq. All rights reserved.</p>
+            <div class="footer-links">
+                <!-- Links to your core/views.py pages -->
+                <a href="{% url 'gdpr_policy' %}" class="footer-link">GDPR Policy</a>
+                <a href="{% url 'terms_of_service' %}" class="footer-link">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript block for additional scripts -->
+    {% block extra_js %}
+        <!-- Link External JavaScript - Still necessary for SPA navigation -->
+        <script src="{% static 'js/spa.js' %}"></script>
+    {% endblock extra_js %}
+
+</body>
+</html>
