@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% load static %} {% block title %}{{ page.title }}{% endblock title %} {% block content %}
+{% if page %}
+{{ page.title }}
+
+Last Updated: {{ page.last_updated|date:"F j, Y" }}
+{# Renders the plain text content. If you allow HTML, use |safe filter carefully #} {{ page.content|linebreaks }}
+{% else %}
+404 - Policy Not Found
+
+The requested legal document could not be located in the database.
+{% endif %}
+{% endblock content %}
