@@ -5,10 +5,15 @@
     
     <!-- HOME SECTION (This section is required for the SPA logic to initialize the #home route) -->
     <section id="home-content" class="spa-page container active">
-        <div style="text-align: center; padding: 5rem 0; margin-top: 3rem; border: 1px dashed #ced4da; border-radius: 0.5rem; background-color: #ffffff;">
-            <h1 style="font-size: 3rem; color: #4f46e5; margin-bottom: 1rem;">Hello Notiq!</h1>
-            <p style="font-size: 1.25rem; color: #4b5563;">Base template and view are correctly linked.</p>
-            <p style="font-size: 1.25rem; color: #4b5563;">You can test the footer links now.</p>
+        <div class="home-hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="{% static 'videos/hero-background.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h1 class="home-title">Welcome to Notiq</h1>
+            <p class="home-subtitle">Your ultimate note-taking application.</p>
+            <div class="home-buttons"><button class="primary">Get Started</button><button class="secondary">Learn More</button></div>
+            <img class="hero-features" src="{% static "images/hero-features.png" %}" alt="Preview of Notiq features">
         </div>
     </section>
 

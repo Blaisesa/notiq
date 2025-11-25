@@ -1,16 +1,37 @@
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa; /* Very light gray */
-    color: #343a40;
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap');
+
+/* Global Styles */
+
+:root {
+    --primary-color: #5f5ed1; /* Notiq Primary Blue */
+    --secondary-color: #2d9cdc; /* Notiq Secondary Blue */
+    --link-color: #9747ff; /* Notiq Purple */
+    --link-hover-color: #dfacec; /* Notiq Light Purple */
+    --background-color: #13041f; /* Notiq Dark Background */
+    --secondary-background-color: #1e0b2c; /* Notiq Secondary Dark Background */
+    --primary-font-family: 'manrope', sans-serif;
+    --secondary-font-family: 'IBM Plex Sans', sans-serif;
+    --primary-font-color: #e0e0e0; /* Light Gray */
+    --secondary-font-color: #a0a0a0; /* Medium Gray */
+}
+
+/* Reset default margin and padding */
+* {
     margin: 0;
     padding: 0;
-    line-height: 1.6;
-    
-    /* --- STICKY FOOTER FIX: START --- */
+}
+
+main {
+    flex-grow: 1; 
+}
+
+body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* --- STICKY FOOTER FIX: END --- */
+    font-family: var(--primary-font-family);
+    color: var(--primary-font-color);
+    background-color: var(--background-color);
 }
 
 .container {
@@ -19,11 +40,13 @@ body {
     padding: 0 1.5rem;
 }
 
+
 /* --- Navigation Styling --- */
 .main-header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e9ecef;
+    background-color: var(--secondary-background-color);
+    border-bottom: 1px solid var(--background-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -33,15 +56,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
 }
 
-.logo-link {
-    font-size: 1.6rem; 
-    font-weight: 800;
-    color: #4f46e5; /* Notiq Primary Blue */
+/* Logo & Link Styling */
+a.logo-link {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: whitesmoke;
     text-decoration: none;
-    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+}
+img.logo {
+    max-height: 40px;
 }
 
 /* Nav Menu (UL List) Styling */
@@ -65,7 +92,7 @@ body {
 .auth-placeholder {
     text-decoration: none;
     padding: 0.5rem 0.25rem;
-    color: #495057;
+    color: var(--secondary-font-color);
     font-weight: 500;
     transition: color 0.2s ease, border-bottom 0.2s ease;
     white-space: nowrap;
@@ -74,12 +101,12 @@ body {
 /* Active Link Styling (used by spa.js) */
 .nav-menu a.active-link {
     font-weight: 600;
-    color: #4f46e5; /* Primary Blue */
-    border-bottom: 2px solid #4f46e5;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .nav-link:hover {
-    color: #4f46e5;
+    color: var(--primary-color);
 }
 
 .admin-link { color: #10b981; } /* Green */
@@ -96,10 +123,95 @@ body {
     background-color: #6366f1;
 }
 
+/* --- Main Content Styling --- */
+/* SPA Styling */
+.spa-page {
+    padding: 2.5rem 1.5rem; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.hidden { display: none !important; }
+.active { display: block !important; }
+
+/* Home Page Styling */
+.home-hero {
+    text-align: center;
+    padding: 5rem 1rem;
+}
+/* Hero Font Styles */
+.home-title {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.home-subtitle {
+    font-size: 1.25rem;
+    color: var(--secondary-font-color);
+}
+/* Home hero Buttons Styles */
+.home-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+.home-buttons .primary, .home-buttons .secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.home-buttons .primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+.home-buttons .primary:hover {
+    background-color: #4e4dd1;
+}
+.home-buttons .secondary {
+    color: whitesmoke;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+.home-buttons .secondary:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Hero Video styles */
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5; /* Slightly transparent for overlay effect */
+    /* fallback image shown if video unavailable */
+    background-image: url('/static/images/hero-fallback.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Hero Features Image */
+.hero-features {
+    margin-top: 4rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
 /* --- Footer Styling --- */
 .main-footer {
-    background-color: #343a40; /* Dark gray background */
-    color: #e9ecef; /* Light text */
+    background-color: var(--secondary-background-color);
+    color: var(--secondary-font-color);
     padding: 2rem 0;
     margin-top: 5rem;
     font-size: 0.85rem;
@@ -110,7 +222,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #495057;
+    border-top: 1px solid #495057; /* Subtle top border */
     padding-top: 1.5rem;
 }
 
@@ -125,13 +237,13 @@ body {
 }
 
 .footer-link {
-    color: #e9ecef;
+    color: var(--link-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-    color: #4f46e5;
+    color: var(--link-hover-color);
 }
 
 
@@ -168,16 +280,3 @@ body {
     }
 }
 
-/* --- SPA Content Structure --- */
-/* The MAIN element must grow to push the footer down */
-main {
-    flex-grow: 1; 
-}
-
-.spa-page {
-    padding: 2.5rem 1.5rem; 
-    max-width: 1200px;
-    margin: 0 auto;
-}
-.hidden { display: none !important; }
-.active { display: block !important; }
