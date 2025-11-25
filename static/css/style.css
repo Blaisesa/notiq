@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
 
 /* Global Styles */
 
@@ -7,10 +7,10 @@
     --secondary-color: #2d9cdc; /* Notiq Secondary Blue */
     --link-color: #9747ff; /* Notiq Purple */
     --link-hover-color: #dfacec; /* Notiq Light Purple */
-    --background-color: #13041f; /* Notiq Dark Background */
+    --background-color: #0e0218; /* Notiq Dark Background */
     --secondary-background-color: #1e0b2c; /* Notiq Secondary Dark Background */
-    --primary-font-family: 'manrope', sans-serif;
-    --secondary-font-family: 'IBM Plex Sans', sans-serif;
+    --primary-font-family: "manrope", sans-serif;
+    --secondary-font-family: "IBM Plex Sans", sans-serif;
     --primary-font-color: #e0e0e0; /* Light Gray */
     --secondary-font-color: #a0a0a0; /* Medium Gray */
 }
@@ -22,7 +22,7 @@
 }
 
 main {
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 body {
@@ -110,8 +110,8 @@ img.logo {
     display: inline;
 }
 
-.nav-link, 
-.admin-link, 
+.nav-link,
+.admin-link,
 .logout-link,
 .auth-placeholder {
     text-decoration: none;
@@ -133,9 +133,13 @@ img.logo {
     color: var(--primary-color);
 }
 
-.admin-link { color: #10b981; } /* Green */
-.logout-link { color: #ef4444; } /* Red */
-.auth-placeholder { 
+.admin-link {
+    color: #10b981;
+} /* Green */
+.logout-link {
+    color: #ef4444;
+} /* Red */
+.auth-placeholder {
     background-color: #4f46e5;
     color: white;
     padding: 0.5rem 1rem;
@@ -150,12 +154,16 @@ img.logo {
 /* --- Main Content Styling --- */
 /* SPA Styling */
 .spa-page {
-    padding: 2.5rem 1.5rem 0 1.5rem; 
+    padding: 2.5rem 1.5rem 0 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
 }
-.hidden { display: none !important; }
-.active { display: block !important; }
+.hidden {
+    display: none !important;
+}
+.active {
+    display: block !important;
+}
 
 /* Home Page Styling */
 .home-hero {
@@ -179,7 +187,8 @@ img.logo {
     gap: 1rem;
     justify-content: center;
 }
-.primary, .secondary {
+.primary,
+.secondary {
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     border: none;
@@ -214,9 +223,9 @@ img.logo {
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    opacity: 0.5; /* Slightly transparent for overlay effect */
+    opacity: 0.2; /* Slightly transparent for overlay effect */
     /* fallback image shown if video unavailable */
-    background-image: url('/static/images/hero-fallback.jpg');
+    background-image: url("/static/images/hero-fallback.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -239,6 +248,7 @@ img.logo {
 }
 .overview {
     margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 .overview-title {
     font-size: 2rem;
@@ -254,8 +264,42 @@ img.logo {
     max-width: 600px;
     margin-bottom: 1.5rem;
 }
-.overview .primary {
-    align-self: flex-start;
+.overview-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+/* Feature Preview Section */
+.feature-preview {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.subtitle {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 4px;
+    background: linear-gradient(currentColor, currentColor) no-repeat;
+    background-size: calc(100% - 1.75rem) 2px;
+    background-position: -1.75rem 100%;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+.feature-preview h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+.feature-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 650px;
 }
 
 /* --- Footer Styling --- */
@@ -296,7 +340,6 @@ img.logo {
     color: var(--link-hover-color);
 }
 
-
 /* --- Responsive Adjustments (Mobile first) --- */
 @media (max-width: 900px) {
     /* Header layout changes for smaller screens */
@@ -329,4 +372,3 @@ img.logo {
         justify-content: center;
     }
 }
-
