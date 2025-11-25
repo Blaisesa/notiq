@@ -1,25 +1,61 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block content %}
 
-{% block content %}
-    
-    <!-- HOME SECTION (This section is required for the SPA logic to initialize the #home route) -->
-    <section id="home-content" class="spa-page container active">
-        <div style="text-align: center; padding: 5rem 0; margin-top: 3rem; border: 1px dashed #ced4da; border-radius: 0.5rem; background-color: #ffffff;">
-            <h1 style="font-size: 3rem; color: #4f46e5; margin-bottom: 1rem;">Hello Notiq!</h1>
-            <p style="font-size: 1.25rem; color: #4b5563;">Base template and view are correctly linked.</p>
-            <p style="font-size: 1.25rem; color: #4b5563;">You can test the footer links now.</p>
+<!-- HOME SECTION (This section is required for the SPA logic to initialize the #home route) -->
+<section id="home-content" class="spa-page container active">
+    <div class="home-hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source
+                src="{% static 'videos/hero-background.mp4' %}"
+                type="video/mp4"
+            />
+            Your browser does not support the video tag.
+        </video>
+        <h1 class="home-title">Welcome to Notiq</h1>
+        <p class="home-subtitle">Your ultimate note-taking application.</p>
+        <div class="home-buttons">
+            <button class="primary">Get Started</button>
+            <button class="secondary">Learn More</button>
         </div>
-    </section>
+        <img class="hero-features" src="{% static "images/hero-features.png" %}"
+        alt="Preview of Notiq features">
+    </div>
+    <div class="overview row">
+        <div class="col">
+            <h2 class="overview-title">Why Choose Notiq?</h2>
+            <p class="overview-content">
+                Notiq offers a seamless and intuitive note-taking experience,
+                designed to help you stay organized and productive. With
+                features like real-time collaboration, rich text formatting, and
+                cloud synchronization, Notiq is the perfect tool for students,
+                professionals, and anyone who values effective note management.
+            </p>
+            <span class="overview-buttons">
+                <button class="primary">Get Started</button
+                ><button class="secondary">Learn More</button>
+            </span>
+        </div>
+        <div>
+            <span class="placeholder"></span>
+        </div>
+    </div>
+    <div class="feature-preview">
+        <p class="subtitle">Your Notes, Smarter and Faster</p>
+        <h3>Take Control of Your Ideas with Notiq</h3>
+        <p class="feature-content">
+            Notiq is a sleek, modern note-taking app designed to help you
+            capture ideas, organize projects, and brainstorm with AI assistance.
+            From structured notes to interactive elements, everything is built
+            to make your workflow smooth, intuitive, and productive.
+        </p>
+    </div>
+</section>
 
-    <!-- Placeholder sections must still exist for the SPA JS to function when links are clicked. -->
-    <section id="about-content" class="spa-page container hidden"></section>
-    <section id="features-content" class="spa-page container hidden"></section>
-    <section id="contact-content" class="spa-page container hidden"></section>
+<!-- Placeholder sections must still exist for the SPA JS to function when links are clicked. -->
+<section id="about-content" class="spa-page container hidden"></section>
+<section id="features-content" class="spa-page container hidden"></section>
+<section id="contact-content" class="spa-page container hidden"></section>
 
-{% endblock content %}
-
-{% block extra_js %}
-    <!-- Link External JavaScript - necessary for SPA navigation -->
-    <script src="{% static 'js/spa.js' %}"></script>
+{% endblock content %} {% block extra_js %}
+<!-- Link External JavaScript - necessary for SPA navigation -->
+<script src="{% static 'js/spa.js' %}"></script>
 {% endblock extra_js %}
