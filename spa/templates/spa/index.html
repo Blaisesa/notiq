@@ -22,9 +22,9 @@
             />
             Your browser does not support the video tag.
         </video>
-        <h1 class="home-title">Welcome to Notiq</h1>
-        <p class="home-subtitle">Your ultimate note-taking application.</p>
-        <div class="home-buttons">
+        <h1 class="hero-title">Welcome to Notiq</h1>
+        <p class="hero-subtitle">Your ultimate note-taking application.</p>
+        <div class="hero-buttons">
             <button class="primary">Get Started</button>
             <button class="secondary">Learn More</button>
         </div>
@@ -143,8 +143,8 @@
     <div class="newsletter-cta">
         <h3>Stay Updated with Notiq</h3>
         <p>
-            Subscribe to our newsletter to receive the latest updates, tips,
-            and exclusive offers directly in your inbox.
+            Subscribe to our newsletter to receive the latest updates, tips, and
+            exclusive offers directly in your inbox.
         </p>
         <form class="newsletter-form">
             <input
@@ -157,9 +157,20 @@
         </form>
     </div>
 </section>
-
-<!-- Placeholder sections must still exist for the SPA JS to function when links are clicked. -->
-<section id="about-content" class="spa-page container hidden"></section>
+<!-- ABOUT SECTION -->
+<section id="about-content" class="spa-page container hidden">
+    <div class="about-hero">
+        <img src="{% static "images/about-hero.jpg" %}" alt="About Notiq hero
+        image" class="about-hero-img">
+        <div class="glass-container">
+            <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
+            <p class="hero-subtitle">
+                Notiq helps you turn ideas into structured notes with
+                AI-assisted insights and an intuitive workspace.
+            </p>
+        </div>
+    </div>
+</section>
 <section id="features-content" class="spa-page container hidden"></section>
 <section id="contact-content" class="spa-page container hidden"></section>
 

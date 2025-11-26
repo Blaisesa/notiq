@@ -171,17 +171,17 @@ img.logo {
     padding: 5rem 1rem 0 1rem;
 }
 /* Hero Font Styles */
-.home-title {
+.hero-title {
     font-size: 3rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
 }
-.home-subtitle {
+.hero-subtitle {
     font-size: 1.25rem;
     color: var(--secondary-font-color);
 }
-/* Home hero Buttons Styles */
-.home-buttons {
+/* Hero Buttons Styles */
+.hero-buttons {
     margin-top: 2rem;
     display: flex;
     gap: 1rem;
@@ -487,6 +487,50 @@ img.logo {
 }
 .newsletter-button:hover {
     background-color: #4e4dd1;
+}
+
+/* About page Styling */
+.about-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 1rem 0 1rem;
+    margin-bottom: 4rem;
+}
+.about-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 60vh;
+    z-index: -1;
+    opacity: 0.75; /* Slightly transparent for overlay effect */
+}
+.about-hero .hero-title {
+    position: relative;
+    z-index: 1;
+    color: whitesmoke;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+.about-hero .hero-subtitle {
+    position: relative;
+    z-index: 1;
+    color: whitesmoke;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+.glass-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* --- Footer Styling --- */
