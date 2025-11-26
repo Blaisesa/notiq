@@ -1,12 +1,13 @@
 {% extends "base.html" %} {% load static %} {% block title %}{{ page.title }}{% endblock title %} {% block content %}
 {% if page %}
-{{ page.title }}
+<div class="container terms">
+    <h1>{{ page.title }}</h1>
 
-Last Updated: {{ page.last_updated|date:"F j, Y" }}
-{# Renders the plain text content. If you allow HTML, use |safe filter carefully #} {{ page.content|linebreaks }}
-{% else %}
-404 - Policy Not Found
+    <p>Last Updated: {{ page.updated_at|date:"F j, Y" }}</p>
+    {{ page.content|linebreaks }}
+    {% else %}
+    404 - Policy Not Found
 
-The requested legal document could not be located in the database.
+    The requested legal document could not be located in the database.</div>
 {% endif %}
 {% endblock content %}
