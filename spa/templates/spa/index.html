@@ -170,6 +170,178 @@
             </p>
         </div>
     </div>
+    {% comment %} about section {% endcomment %}
+    <div class="about-info row">
+        <div class="col">
+            <h2>About Notiq</h2>
+            <p>
+                Notiq was founded with the mission to revolutionize the way
+                people take notes and manage information. Our team is dedicated
+                to creating a user-friendly platform that combines powerful
+                features with a sleek design, making note-taking an enjoyable
+                experience.
+            </p>
+            <p>
+                We believe that effective note-taking is essential for
+                productivity and creativity. That's why we've built Notiq to
+                cater to the needs of students, professionals, and anyone who
+                values organized information.
+            </p>
+        </div>
+        <span class="placeholder"></span>
+    </div>
+    {% comment %} Mission section {% endcomment %}
+    <div class="mission-section">
+        <h3>Our Mission</h3>
+        <p>
+            Our mission is simple: make note-taking smarter and more enjoyable.
+            We combine traditional note management with AI-assisted
+            brainstorming, giving you insights and suggestions to refine your
+            ideas.
+        </p>
+    </div>
+    {% comment %} About Page Tabs {% endcomment %}
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-link active" data-tab="founder-content">
+                Founder
+            </button>
+            <button class="tab-link" data-tab="why-content">Why Notiq?</button>
+            <button class="tab-link" data-tab="features-section">
+                Key Features
+            </button>
+        </div>
+
+        <div class="tab-content-wrapper">
+            <div id="founder-content" class="tab-content active">
+                <div class="row founder-section">
+                    <span class="placeholder"></span>
+                    <div class="col founder-info">
+                        <h4>Meet the Founder</h4>
+                        <p>
+                            Jane Doe, the visionary behind Notiq, has a
+                            background in software development and a passion for
+                            productivity tools. With years of experience in the
+                            tech industry, Jane recognized the need for a more
+                            intuitive and powerful note-taking application.
+                        </p>
+                        <p>
+                            Jane's dedication to user-centric design and
+                            innovative features has driven Notiq's development,
+                            ensuring it meets the needs of modern users.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="why-content" class="tab-content">
+                <div class="row why-section">
+                    <span class="placeholder"></span>
+                    <div class="col why-info">
+                        <h4>Why Notiq?</h4>
+                        <p>
+                            Notiq stands out in the crowded note-taking market
+                            due to its unique combination of features and user
+                            experience. Here are a few reasons why users choose
+                            Notiq:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>AI Assistance:</strong> Our AI
+                                features help you brainstorm and refine your
+                                ideas, making note-taking more productive.
+                            </li>
+                            <li>
+                                <strong>Intuitive Design:</strong> Notiq's
+                                sleek and user-friendly interface ensures a
+                                seamless experience across all devices.
+                            </li>
+                            <li>
+                                <strong>Collaboration:</strong> Share notes
+                                and collaborate in real-time with colleagues or
+                                classmates.
+                            </li>
+                            <li>
+                                <strong>Cloud Sync:</strong> Access your
+                                notes from anywhere with secure cloud
+                                synchronization.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div id="features-section" class="tab-content features-section">
+                <div class="grid-wrapper">
+                    <div class="feature-item">
+                        <i class="fa-solid fa-pen-fancy"></i>
+                        <h4>Rich Text Editing</h4>
+                        <p>
+                            Format your notes with ease using our rich text
+                            editor. Customize fonts, colors, and styles to make
+                            your notes visually appealing.
+                        </p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-users"></i>
+                        <h4>Real-time Collaboration</h4>
+                        <p>
+                            Work together with others on shared notes and
+                            projects. See changes in real-time and communicate
+                            seamlessly.
+                        </p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <h4>Cloud Synchronization</h4>
+                        <p>
+                            Access your notes from any device with secure cloud
+                            synchronization. Never lose your important
+                            information again.
+                        </p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fa-solid fa-robot"></i>
+                        <h4>AI-Assisted Brainstorming</h4>
+                        <p>
+                            Leverage AI to generate ideas, organize thoughts, and
+                            enhance your note-taking experience.
+                        </p>
+                    </div>
+                </div>
+                <div class="hero-buttons"><a href="#features" data-page="features" class="tab-btn">View More</a></div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="faqs row">
+        <div class="col">
+            <h2>Frequently Asked Questions</h2>
+            <p>Most common questions about Notiq.</p>
+            <a href="" class="primary-btn">Get in Touch</a>
+        </div>
+        <div class="col">
+            <details class="faq-item">
+                <summary>What platforms does Notiq support?</summary>
+                <p>
+                    Notiq is available on web, iOS, and Android platforms,
+                    ensuring you can access your notes from any device.
+                </p>
+            </details>
+            <details class="faq-item">
+                <summary>Is there a free version of Notiq?</summary>
+                <p>
+                    Notiq is a freemium service, offering its services for free.
+                </p>
+            </details>
+            <details class="faq-item">
+                <summary>How secure is my data with Notiq?</summary>
+                <p>
+                    We prioritize your data security and privacy. Notiq uses
+                    encryption and secure cloud storage to protect your notes.
+                </p>
+            </details>
+        </div>
+    </div>
 </section>
 <section id="features-content" class="spa-page container hidden"></section>
 <section id="contact-content" class="spa-page container hidden"></section>
@@ -178,5 +350,5 @@
 <!-- Link External JavaScript - necessary for SPA navigation -->
 <script src="{% static 'js/spa.js' %}"></script>
 <!-- Link Slider JavaScript - necessary for preview slider -->
-<script src="{% static 'js/slider.js' %}"></script>
+<script src="{% static 'js/components.js' %}"></script>
 {% endblock extra_js %}
