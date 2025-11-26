@@ -161,7 +161,7 @@
 <section id="about-content" class="spa-page container hidden">
     <div class="about-hero">
         <img src="{% static "images/about-hero.jpg" %}" alt="About Notiq hero
-        image" class="about-hero-img">
+        image" class="about-hero-img" loading="lazy">
         <div class="glass-container">
             <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
             <p class="hero-subtitle">
@@ -343,7 +343,50 @@
         </div>
     </div>
 </section>
-<section id="features-content" class="spa-page container hidden"></section>
+<section id="features-content" class="spa-page container hidden">
+    <div class="features-hero row">
+        <div class="col">
+            <h1 class="hero-title">Explore Notiq's Powerful Features</h1>
+            <p class="hero-subtitle">
+            Discover how Notiq can enhance your note-taking experience with
+            cutting-edge tools and functionalities.
+            </p>
+            <div class="hero-buttons"><a href="" class="primary-btn">Start Now</a></div>
+        </div>
+        <span class="placeholder"></span>
+    </div>
+    <div class="features-subhero row">
+        <div class="col">
+            <h2>Feature Highlights</h2>
+            <p>
+                Notiq is packed with features designed to make your note-taking
+                efficient and enjoyable. Here are some of the standout features
+                that set Notiq apart:
+            </p>
+        </div>
+        <div class="col">
+            <h2>Feature Highlights</h2>
+            <p>
+                Notiq is packed with features designed to make your note-taking
+                efficient and enjoyable. Here are some of the standout features
+                that set Notiq apart:
+            </p>
+        </div>
+    </div>
+    <div class="feature-preview">
+        <p class="tagline">Notes that think with you.</p>
+        <h3>Everything You Need to Capture and Organize Ideas</h3>
+        <p class="feature-content">
+            Explore Notiq’s powerful features designed to make note-taking smarter, faster, and more intuitive.
+        </p> 
+    </div>
+    <div class="features row">
+        <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+    </div>
+    <div class="other-features row">
+        <div class="placeholder"></div><div class="placeholder"></div><div class="placeholder"></div>
+    </div>
+</section>
 <section id="contact-content" class="spa-page container hidden"></section>
 
 {% endblock content %} {% block extra_js %}

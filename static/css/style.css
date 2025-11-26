@@ -677,6 +677,7 @@ img.logo {
     position: relative;
     padding-left: 0.75rem;
 }
+
 /* Feature Section */
 .features-section {
     margin-bottom: 4rem;
@@ -724,6 +725,7 @@ img.logo {
     transition: background-color 0.2s ease;
     align-self: center;
 }
+
 /* FAQS Section */
 .primary-btn {
     background-color: var(--primary-color);
@@ -786,6 +788,59 @@ details.faq-item[open] summary, details.faq-item[open] h2 {
     color: white;
 }
 
+/* --- Features Page Styling --- */
+.features-hero {
+    text-align: left;
+    padding: 5rem 1rem 0 1rem;
+}
+.features-hero .col {
+    max-width: 750px;
+}
+.features-hero p {
+    color: var(--secondary-font-color);
+    margin-top: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+}
+.features-hero .hero-buttons {
+    justify-content: flex-start;
+    margin-top: 2rem;
+}
+.features-subhero {
+    padding: 5rem 15vw 5rem 15vw;
+    margin: 0 0 4rem 0;
+    background-color: var(--secondary-background-color);
+    width: 100vw;
+    max-width: 99%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+.features-subhero h2 {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.features-subhero p {
+    color: var(--secondary-font-color);
+    max-width: 600px;
+    line-height: 1.6;
+}
+.features.row {
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    background-color: var(--primary-background-color);
+}
+.other-features.row {
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
 /* --- Footer Styling --- */
 .main-footer {
     background-color: var(--secondary-background-color);
