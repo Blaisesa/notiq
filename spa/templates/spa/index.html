@@ -1,9 +1,21 @@
 {% extends "base.html" %} {% load static %} {% block content %}
 
-<!-- HOME SECTION (This section is required for the SPA logic to initialize the #home route) -->
+<!-- HOME SECTION -->
 <section id="home-content" class="spa-page container active">
+    {% comment %} Hero Section {% endcomment %}
     <div class="home-hero">
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video
+            class="hero-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="{% static 'images/hero-background-fallback.webp' %}"
+        >
+            <source
+                src="{% static 'videos/hero-background.webm' %}"
+                type="video/webm"
+            />
             <source
                 src="{% static 'videos/hero-background.mp4' %}"
                 type="video/mp4"
@@ -19,6 +31,7 @@
         <img class="hero-features" src="{% static "images/hero-features.png" %}"
         alt="Preview of Notiq features">
     </div>
+    {% comment %} Overview Section {% endcomment %}
     <div class="overview row">
         <div class="col">
             <h2 class="overview-title">Why Choose Notiq?</h2>
@@ -38,8 +51,31 @@
             <span class="placeholder"></span>
         </div>
     </div>
+    {% comment %} Creditted by Section {% endcomment %}
+    <div class="creditted-by">
+        <p>Credited by</p>
+        <div class="logo-scroller">
+            <div class="logo-track">
+                <i class="fa-brands fa-apple credits"></i>
+                <i class="fa-brands fa-google credits"></i>
+                <i class="fa-brands fa-microsoft credits"></i>
+                <i class="fa-brands fa-amazon credits"></i>
+                <i class="fa-brands fa-meta credits"></i>
+                <i class="fa-brands fa-cloudflare credits"></i>
+                <i class="fa-brands fa-discord credits"></i>
+                <i class="fa-brands fa-apple credits"></i>
+                <i class="fa-brands fa-google credits"></i>
+                <i class="fa-brands fa-microsoft credits"></i>
+                <i class="fa-brands fa-amazon credits"></i>
+                <i class="fa-brands fa-meta credits"></i>
+                <i class="fa-brands fa-cloudflare credits"></i>
+                <i class="fa-brands fa-discord credits"></i>
+            </div>
+        </div>
+    </div>
+    {% comment %} Features Preview Section {% endcomment %}
     <div class="feature-preview">
-        <p class="subtitle">Your Notes, Smarter and Faster</p>
+        <p class="tagline">Your Notes, Smarter and Faster</p>
         <h3>Take Control of Your Ideas with Notiq</h3>
         <p class="feature-content">
             Notiq is a sleek, modern note-taking app designed to help you
@@ -47,6 +83,51 @@
             From structured notes to interactive elements, everything is built
             to make your workflow smooth, intuitive, and productive.
         </p>
+    </div>
+    <div class="container row">
+        <div id="left" class="col">
+            <div class="feature-box">
+                <i class="fa-solid fa-pen-fancy"></i>
+                <h4>Rich Text Editing</h4>
+                <p>
+                    Format your notes with ease using our rich text editor.
+                    Customize fonts, colors, and styles to make your notes
+                    visually appealing.
+                </p>
+            </div>
+            <div class="feature-box">
+                <i class="fa-solid fa-pen-fancy"></i>
+                <h4>Rich Text Editing</h4>
+                <p>
+                    Format your notes with ease using our rich text editor.
+                    Customize fonts, colors, and styles to make your notes
+                    visually appealing.
+                </p>
+            </div>
+        </div>
+        <div id="center" class="col">
+            <span class="placeholder"></span>
+        </div>
+        <div id="right" class="col">
+            <div class="feature-box">
+                <i class="fa-solid fa-pen-fancy"></i>
+                <h4>Rich Text Editing</h4>
+                <p>
+                    Format your notes with ease using our rich text editor.
+                    Customize fonts, colors, and styles to make your notes
+                    visually appealing.
+                </p>
+            </div>
+            <div class="feature-box">
+                <i class="fa-solid fa-pen-fancy"></i>
+                <h4>Rich Text Editing</h4>
+                <p>
+                    Format your notes with ease using our rich text editor.
+                    Customize fonts, colors, and styles to make your notes
+                    visually appealing.
+                </p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -58,4 +139,6 @@
 {% endblock content %} {% block extra_js %}
 <!-- Link External JavaScript - necessary for SPA navigation -->
 <script src="{% static 'js/spa.js' %}"></script>
+<!-- Link Slider JavaScript - necessary for preview slider -->
+<script src="{% static 'js/slider.js' %}"></script>
 {% endblock extra_js %}

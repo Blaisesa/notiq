@@ -269,6 +269,94 @@ img.logo {
     gap: 1rem;
     justify-content: flex-start;
 }
+/* Creditted by section */
+/* Container for the text and scroller */
+.creditted-by {
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* SCROLLER CONTAINER (Viewport) */
+.logo-scroller {
+    /* Hides the logos that are off-screen */
+    overflow: hidden;
+    /* Sets the width where logos will be visible */
+    max-width: 100%;
+    margin: 20px auto;
+    /* You can add padding here for spacing if needed */
+}
+
+/* LOGO TRACK (The element that moves) */
+.logo-track {
+    display: flex;
+    /* Ensures all logos stay on one line */
+    width: fit-content;
+    /* The animation definition */
+    animation: scroll 30s linear infinite; /* Adjust '30s' for speed */
+}
+
+/* INDIVIDUAL LOGO STYLES */
+.credits {
+    /* Define the width of each logo */
+    min-width: 120px;
+    /* Centers the icon within its allocated space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4.5rem; /* Adjust icon size */
+    color: var(--primary-color);
+    opacity: 0.5;
+    transition: all 0.5s ease;
+}
+
+/* Optional: Pause animation on hover */
+.logo-scroller:hover .logo-track {
+    animation-play-state: paused;
+}
+
+.credits:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/* 4. THE KEYFRAMES ANIMATION */
+@keyframes scroll {
+    /* Starts at the original position (0px) */
+    from {
+        transform: translateX(0);
+    }
+    /* Moves to exactly half the width of the track (Set 1 ends) */
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* 5. Fading Edges (Optional but highly recommended) */
+.logo-scroller {
+    /* Enables positioning for the pseudo-elements */
+    position: relative;
+}
+
+/* FADE EFFECT: Creates a gradient over the left/right edges */
+.logo-scroller::before,
+.logo-scroller::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px; /* Width of the fade */
+    z-index: 2; /* Ensures it is on top of the logos */
+}
+
+.logo-scroller::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background-color), rgba(255, 255, 255, 0));
+}
+
+.logo-scroller::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background-color), rgba(255, 255, 255, 0));
+}
 
 /* Feature Preview Section */
 .feature-preview {
@@ -280,7 +368,7 @@ img.logo {
     justify-content: center;
     align-items: center;
 }
-.subtitle {
+.tagline {
     display: inline-block;
     position: relative;
     padding-bottom: 4px;
@@ -300,6 +388,37 @@ img.logo {
     gap: 2rem;
     justify-content: center;
     max-width: 650px;
+}
+/* Feature Boxes */
+.feature-box {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 2rem 0;
+    align-items: center;
+    text-align: center;
+}
+.feature-box i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.feature-box h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+.feature-box p {
+    color: var(--secondary-font-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 /* --- Footer Styling --- */
