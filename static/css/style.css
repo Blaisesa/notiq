@@ -224,16 +224,12 @@ img.logo {
     object-fit: cover;
     z-index: -1;
     opacity: 0.2; /* Slightly transparent for overlay effect */
-    /* fallback image shown if video unavailable */
-    background-image: url("/static/images/hero-fallback.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 /* Hero Features Image */
 .hero-features {
     margin-top: 4rem;
+    padding-top: 4rem;
     max-width: 100%;
     height: auto;
     border-radius: 0.5rem;
@@ -358,6 +354,13 @@ img.logo {
     background: linear-gradient(to left, var(--background-color), rgba(255, 255, 255, 0));
 }
 
+.creditted-by p {
+    color: var(--secondary-font-color);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding-top: 4rem;
+}
+
 /* Feature Preview Section */
 .feature-preview {
     margin-top: 4rem;
@@ -419,6 +422,71 @@ img.logo {
     color: var(--secondary-font-color);
     font-size: 0.95rem;
     line-height: 1.5;
+}
+#left .feature-box i {
+    transform: scaleX(-1);
+}
+#left .feature-box:hover {
+    transform: translateY(-5px) rotate(-2deg) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+#right .feature-box:hover {
+    transform: translateY(-5px) rotate(2deg) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Newsletter Sign Up CTA */
+.newsletter-cta {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+.newsletter-cta h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+.newsletter-cta p {
+    color: var(--secondary-font-color);
+    margin-bottom: 1.5rem;
+}
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+.newsletter-input {
+    padding: 0.75rem 1rem;
+    border-radius: 4rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 250px;
+    max-width: 100%;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.newsletter-input:focus {
+    border-color: var(--primary-color);
+}
+.newsletter-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.newsletter-button:hover {
+    background-color: #4e4dd1;
 }
 
 /* --- Footer Styling --- */
