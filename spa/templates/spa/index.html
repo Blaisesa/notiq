@@ -16,13 +16,13 @@
             <p class="hero-subtitle">Your ultimate note-taking application.</p>
             <div class="hero-buttons">
                 <button class="primary">Get Started</button>
-                <button class="secondary">Learn More</button>
+                <a href="#overview" class="secondary">Learn More</a>
             </div>
             <!-- prettier-ignore -->
             <img class="hero-features" src="{% static "images/hero-features.png"%}" alt="Preview of Notiq features">
         </div>
         {% comment %} Overview Section {% endcomment %}
-        <div class="overview row">
+        <div id="overview" class="overview row">
             <div class="col">
                 <h2 class="overview-title">Why Choose Notiq?</h2>
                 <p class="overview-content">
@@ -35,7 +35,7 @@
                 </p>
                 <span class="overview-buttons">
                     <button class="primary">Get Started</button
-                    ><button class="secondary">Learn More</button>
+                    ><a href="#about-content" data-page="about" class="secondary">Learn About Notiq</a>
                 </span>
             </div>
             <div>
@@ -130,6 +130,7 @@
             </div>
             <div id="center" class="col">
                 <span class="placeholder"></span>
+                <a href="#features-content" data-page="features" class="secondary">More Features</a>
             </div>
             <div id="right" class="col">
                 <div class="feature-box">
@@ -389,7 +390,7 @@
                     with cutting-edge tools and functionalities.
                 </p>
                 <div class="hero-buttons">
-                    <a href="" class="primary-btn">Start Now</a>
+                    <a href="" class="primary">Start Now</a> <a href="#about-content" data-page="about" class="secondary">About Notiq</a>
                 </div>
             </div>
             <img src="{% static "images/features-hero.png" %}" alt="An image
