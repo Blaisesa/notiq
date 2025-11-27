@@ -1,36 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const newsletterWrapper = document.getElementById("newsletter-wrapper");
-    const newsletterForm = newsletterWrapper.querySelector(".newsletter-form");
+    const forms = document.querySelectorAll(".newsletter-form");
 
-    newsletterForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    forms.forEach(form => {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        const formData = new FormData(newsletterForm);
+            // Remove any existing message
+            const existingMsg = form.parentElement.querySelector(".newsletter-message");
+            if (existingMsg) existingMsg.remove();
 
-        try {
-            const response = await fetch(newsletterForm.action, {
-                method: "POST",
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                },
-                body: formData
-            });
+            const formData = new FormData(form);
 
-            if (response.ok) {
-                // Replace form with thank-you message
-                newsletterWrapper.innerHTML = `
-                    <div class="newsletter-thankyou">
-                        🎉 Thank you for subscribing to our newsletter!
-                    </div>
-                `;
-            } else {
-                // Handle form errors
-                const errorText = await response.text();
-                alert("There was an error: " + errorText);
+            try {
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                // Create message element
+                const messageEl = document.createElement("p");
+                messageEl.classList.add("newsletter-message");
+                messageEl.style.marginTop = "10px";
+                messageEl.style.fontWeight = "bold";
+
+                if (data.success) {
+                    messageEl.textContent = "Thank you for subscribing!";
+                    form.style.display = "none"; // hide the form
+                } else {
+                    messageEl.textContent = `There was an error: ${data.error || "Please try again."}`;
+                }
+
+                // Insert message below the form
+                form.parentElement.appendChild(messageEl);
+
+            } catch (err) {
+                console.error("Newsletter submission error:", err);
             }
-        } catch (err) {
-            console.error(err);
-            alert("Something went wrong. Please try again.");
-        }
+        });
     });
 });
