@@ -147,19 +147,19 @@ function navigateTo(newPageId) {
 
 // --- Event Handlers ---
 function handleLinkClick(event) {
-    const link = event.target.closest("a");
-    if (!link || !link.hasAttribute("data-page")) return;
+    const link = event.target.closest("a[data-page]");
+    if (!link) return;
 
+    event.preventDefault();
     const pageId = link.getAttribute("data-page");
 
-    // Check if SPA page exists in the DOM
-    const targetPage = document.getElementById(`${pageId}-content`);
-    if (!targetPage) {
-        // Not in SPA, allow normal navigation
+    const spaContainer = document.querySelector(".spa-page");
+    if (!spaContainer) {
+        // SPA not present — go to full-page URL
+        window.location.href = `/#${pageId}`;
         return;
     }
 
-    event.preventDefault();
     if (pageId === window.location.hash.slice(1)) return;
 
     window.history.pushState(null, null, `#${pageId}`);

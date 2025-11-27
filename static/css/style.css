@@ -167,8 +167,8 @@ img.logo {
 /* ========================================= */
 
 #router {
-    overflow: hidden; 
-    position: relative; 
+    overflow: hidden;
+    position: relative;
     width: 100%;
 }
 
@@ -184,7 +184,7 @@ img.logo {
     transform: translateX(-50%); /* Default centered position */
 
     opacity: 0;
-    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease; /* slide + fade */
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease; /* slide + fade */
     will-change: transform, opacity;
 }
 
@@ -381,12 +381,20 @@ img.logo {
 
 .logo-scroller::before {
     left: 0;
-    background: linear-gradient(to right, var(--background-color), rgba(255, 255, 255, 0));
+    background: linear-gradient(
+        to right,
+        var(--background-color),
+        rgba(255, 255, 255, 0)
+    );
 }
 
 .logo-scroller::after {
     right: 0;
-    background: linear-gradient(to left, var(--background-color), rgba(255, 255, 255, 0));
+    background: linear-gradient(
+        to left,
+        var(--background-color),
+        rgba(255, 255, 255, 0)
+    );
 }
 
 .creditted-by p {
@@ -636,7 +644,7 @@ img.logo {
     font-weight: 600;
     color: #888;
     transition: all 0.3s ease;
-    outline: none; 
+    outline: none;
 }
 
 /* Active Button Style */
@@ -651,12 +659,11 @@ img.logo {
     color: var(--secondary-font-color);
 }
 
-
 /* --- Tab Content Styles --- */
 .tab-content {
     padding: 20px;
     /* By default, all tab content is hidden */
-    display: none; 
+    display: none;
     animation: fadeIn 0.5s;
 }
 
@@ -667,8 +674,14 @@ img.logo {
 
 /* Simple fade-in animation for smooth transition */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Founder Styling */
@@ -833,17 +846,25 @@ details.faq-item p {
 details.faq-item[open] {
     background-color: var(--primary-color);
 }
-details.faq-item[open] summary, details.faq-item[open] h2 {
+details.faq-item[open] summary,
+details.faq-item[open] h2 {
     color: white;
 }
 
 /* --- Features Page Styling --- */
 .features-hero {
     text-align: left;
-    padding: 5rem 1rem 0 1rem;
+    margin-top: -40px;
+}
+.feat-hero {
+    max-height: 400px;
+    width: 50%;
+    object-fit: cover;
+    object-position: bottom;
 }
 .features-hero .col {
     max-width: 750px;
+    margin-top: 40px;
 }
 .features-hero p {
     color: var(--secondary-font-color);
@@ -856,16 +877,11 @@ details.faq-item[open] summary, details.faq-item[open] h2 {
     margin-top: 2rem;
 }
 .features-subhero {
-    padding: 5rem 15vw 5rem 15vw;
+    padding: 5rem 2rem 5rem 2rem;
     margin: 0 0 4rem 0;
     background-color: var(--secondary-background-color);
-    width: 100vw;
-    max-width: 99%;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 .features-subhero h2 {
     font-size: 1.75rem;
