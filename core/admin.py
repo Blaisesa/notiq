@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import SystemPage
+from .models import SystemPage, NewsletterSubscriber
+
+admin.site.register(SystemPage)
+admin.site.register(NewsletterSubscriber)
 
 
 # Register your models here.
@@ -8,4 +11,6 @@ class SystemPageAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
-admin.site.register(SystemPage, SystemPageAdmin)
+class NewsletterSubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'subscribed_at')
+    search_fields = ('email',)

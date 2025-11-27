@@ -5,12 +5,20 @@
     <section id="home-content" class="spa-page container active">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source
+                    src="{% static 'videos/hero-background.mp4' %}"
+                    type="video/mp4"
+                />
+                Your browser does not support the video tag.
+            </video>
             <h1 class="hero-title">Welcome to Notiq</h1>
             <p class="hero-subtitle">Your ultimate note-taking application.</p>
             <div class="hero-buttons">
                 <button class="primary">Get Started</button>
                 <button class="secondary">Learn More</button>
             </div>
+            <!-- prettier-ignore -->
             <img class="hero-features" src="{% static "images/hero-features.png"%}" alt="Preview of Notiq features">
         </div>
         {% comment %} Overview Section {% endcomment %}
@@ -151,23 +159,36 @@
                 Subscribe to our newsletter to receive the latest updates, tips,
                 and exclusive offers directly in your inbox.
             </p>
-            <form class="newsletter-form">
-                <input
-                    class="newsletter-input"
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                />
-                <button type="submit" class="newsletter-button">
-                    Subscribe
-                </button>
-            </form>
+            <div id="newsletter-wrapper">
+                <form
+                    class="newsletter-form"
+                    method="post"
+                    action="{% url 'newsletter_signup' %}"
+                >
+                    {% csrf_token %}
+                    <input
+                        id="id_email"
+                        name="email"
+                        class="newsletter-input"
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                    />
+                    <button
+                        type="submit"
+                        id="signup-button"
+                        class="newsletter-button"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
     <!-- ABOUT SECTION -->
     <section id="about-content" class="spa-page container hidden">
         <div class="about-hero">
-            <img src="{% static "images/about-hero.jpg" %}" alt="About Notiq
+            <img src="{% static "images/about-hero.png" %}" alt="About Notiq
             hero image" class="about-hero-img" loading="lazy">
             <div class="glass-container">
                 <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
@@ -179,6 +200,7 @@
         </div>
         {% comment %} about section {% endcomment %}
         <div class="about-info row">
+            <img class="about-inspo-img" src="{%static 'images/about-inspo.png'%}" alt="Inspiration Flows" loading="lazy">
             <div class="col">
                 <h2>About Notiq</h2>
                 <p>
@@ -195,7 +217,6 @@
                     who values organized information.
                 </p>
             </div>
-            <span class="placeholder"></span>
         </div>
         {% comment %} Mission section {% endcomment %}
         <div class="mission-section">
@@ -246,7 +267,7 @@
                 </div>
                 <div id="why-content" class="tab-content">
                     <div class="row why-section">
-                        <span class="placeholder"></span>
+                        <img class="why-image" src="{%static 'images/creativity.png'%}" alt="Creativity Flow" loading="lazy">
                         <div class="col why-info">
                             <h4>Why Notiq?</h4>
                             <p>
@@ -371,7 +392,8 @@
                     <a href="" class="primary-btn">Start Now</a>
                 </div>
             </div>
-            <span class="placeholder"></span>
+            <img src="{% static "images/features-hero.png" %}" alt="An image
+            showcasing Notiq's innovation" class="feat-hero" loading="lazy">
         </div>
         <div class="features-subhero row">
             <div class="col">
@@ -416,17 +438,30 @@
                 Subscribe to our newsletter to receive the latest updates, tips,
                 and exclusive offers directly in your inbox.
             </p>
-            <form class="newsletter-form">
-                <input
-                    class="newsletter-input"
-                    type="email"
-                    placeholder="Enter your email address"
-                    required
-                />
-                <button type="submit" class="newsletter-button">
-                    Subscribe
-                </button>
-            </form>
+            <div id="newsletter-wrapper">
+                <form
+                    class="newsletter-form"
+                    method="post"
+                    action="{% url 'newsletter_signup' %}"
+                >
+                    {% csrf_token %}
+                    <input
+                        id="id_email"
+                        name="email"
+                        class="newsletter-input"
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                    />
+                    <button
+                        type="submit"
+                        id="signup-button"
+                        class="newsletter-button"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
     <section id="contact-content" class="spa-page container hidden"></section>
@@ -436,4 +471,5 @@
 <script src="{% static 'js/spa.js' %}"></script>
 <!-- Link Slider JavaScript - necessary for preview slider -->
 <script src="{% static 'js/components.js' %}"></script>
+<script src="{% static 'js/forms.js' %}"></script>
 {% endblock extra_js %}
