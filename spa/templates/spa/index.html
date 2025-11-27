@@ -5,6 +5,13 @@
     <section id="home-content" class="spa-page container active">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source
+                    src="{% static 'videos/hero-background.mp4' %}"
+                    type="video/mp4"
+                />
+                Your browser does not support the video tag.
+            </video>
             <h1 class="hero-title">Welcome to Notiq</h1>
             <p class="hero-subtitle">Your ultimate note-taking application.</p>
             <div class="hero-buttons">
@@ -181,7 +188,7 @@
     <!-- ABOUT SECTION -->
     <section id="about-content" class="spa-page container hidden">
         <div class="about-hero">
-            <img src="{% static "images/about-hero.jpg" %}" alt="About Notiq
+            <img src="{% static "images/about-hero.png" %}" alt="About Notiq
             hero image" class="about-hero-img" loading="lazy">
             <div class="glass-container">
                 <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
@@ -193,6 +200,7 @@
         </div>
         {% comment %} about section {% endcomment %}
         <div class="about-info row">
+            <img class="about-inspo-img" src="{%static 'images/about-inspo.png'%}" alt="Inspiration Flows" loading="lazy">
             <div class="col">
                 <h2>About Notiq</h2>
                 <p>
@@ -209,7 +217,6 @@
                     who values organized information.
                 </p>
             </div>
-            <span class="placeholder"></span>
         </div>
         {% comment %} Mission section {% endcomment %}
         <div class="mission-section">
@@ -260,7 +267,7 @@
                 </div>
                 <div id="why-content" class="tab-content">
                     <div class="row why-section">
-                        <span class="placeholder"></span>
+                        <img class="why-image" src="{%static 'images/creativity.png'%}" alt="Creativity Flow" loading="lazy">
                         <div class="col why-info">
                             <h4>Why Notiq?</h4>
                             <p>
@@ -385,8 +392,8 @@
                     <a href="" class="primary-btn">Start Now</a>
                 </div>
             </div>
-            <img src="{% static "images/features-hero.jpg" %}" alt="An image
-            showcasing Notiq's innovation" class="feat-hero">
+            <img src="{% static "images/features-hero.png" %}" alt="An image
+            showcasing Notiq's innovation" class="feat-hero" loading="lazy">
         </div>
         <div class="features-subhero row">
             <div class="col">
