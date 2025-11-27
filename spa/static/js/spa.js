@@ -2,11 +2,13 @@
  * SPA logic for smooth manual CSS sliding transitions
  * Forward: old slides right, new slides left
  * Backward: old slides left, new slides right
+ * Dynamically adjusts height on content changes
  */
 
 const mainContainer = document.querySelector("main");
 let currentPageElement = null;
 let lastPageIndex = 0;
+let resizeTimeout;
 
 // --- Height Management ---
 function adjustMainContainerHeight(pageElement) {
@@ -16,6 +18,30 @@ function adjustMainContainerHeight(pageElement) {
     const minHeight = window.innerHeight - footerHeight;
     const calculatedHeight = Math.max(pageElement.scrollHeight, minHeight);
     mainContainer.style.height = `${calculatedHeight}px`;
+}
+
+// --- Dynamic Height Observer ---
+const observer = new MutationObserver(() => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        adjustMainContainerHeight(currentPageElement);
+    }, 50);
+});
+
+function observeCurrentPage() {
+    observer.disconnect();
+    if (!currentPageElement) return;
+    observer.observe(currentPageElement, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class", "style", "open"]
+    });
+
+    // Listen for <details> toggle events
+    currentPageElement.querySelectorAll("details").forEach((d) => {
+        d.addEventListener("toggle", () => adjustMainContainerHeight(currentPageElement));
+    });
 }
 
 // --- Utility Functions ---
@@ -39,9 +65,10 @@ function navigateTo(newPageId) {
 
     if (!oldPage) {
         currentPageElement = newPage;
-        adjustMainContainerHeight(newPage);
         newPage.classList.remove("hidden");
         updateNavLinks(newPageId);
+        adjustMainContainerHeight(newPage);
+        observeCurrentPage();
         return;
     }
 
@@ -50,17 +77,15 @@ function navigateTo(newPageId) {
     const forward = newIndex > lastPageIndex;
     lastPageIndex = newIndex;
 
-    const oldEnd = forward ? "150%" : "-150%";  // old slides out
-    const newStart = forward ? "-150%" : "150%"; // new slides in
+    const oldEnd = forward ? "150%" : "-150%";
+    const newStart = forward ? "-150%" : "150%";
 
     // --- Prepare new page ---
     newPage.style.transition = "none";
     newPage.style.transform = `translateX(${newStart})`;
-    newPage.style.opacity = 0;       // start fully transparent
+    newPage.style.opacity = 0;
     newPage.style.zIndex = 2;
     newPage.classList.remove("hidden");
-
-    adjustMainContainerHeight(newPage);
 
     // Force reflow
     requestAnimationFrame(() => {
@@ -71,21 +96,29 @@ function navigateTo(newPageId) {
 
             // --- Slide + Fade ---
             newPage.style.transform = "translateX(-50%)";
-            newPage.style.opacity = 1;       // fade in
+            newPage.style.opacity = 1;
             oldPage.style.transform = `translateX(${oldEnd})`;
-            oldPage.style.opacity = 0;       // fade out
+            oldPage.style.opacity = 0;
         });
     });
 
-    // Cleanup
+    // --- Cleanup & Adjust Height AFTER transition ---
     const onTransitionEnd = () => {
         oldPage.classList.add("hidden");
         oldPage.style.transition = "none";
         oldPage.style.transform = "translateX(-50%)";
-        oldPage.style.opacity = 1; // reset opacity
+        oldPage.style.opacity = 1;
         oldPage.style.zIndex = "";
+
         currentPageElement = newPage;
-        newPage.style.transition = ""; // ensure future transitions use CSS
+        newPage.style.transition = ""; // restore CSS transitions
+
+        // --- Adjust height after slide/fade completes ---
+        adjustMainContainerHeight(newPage);
+
+        // Start observing for dynamic changes
+        observeCurrentPage();
+
         oldPage.removeEventListener("transitionend", onTransitionEnd);
     };
     oldPage.addEventListener("transitionend", onTransitionEnd);
@@ -121,20 +154,17 @@ document.addEventListener("DOMContentLoaded", () => {
         currentPageElement = initialPage;
         lastPageIndex = parseInt(initialPage.getAttribute("data-index"));
         adjustMainContainerHeight(initialPage);
+        observeCurrentPage();
     }
 
     updateNavLinks(initialId);
     window.history.replaceState(null, null, `#${initialId}`);
 
     window.addEventListener("load", () => adjustMainContainerHeight(currentPageElement));
-    window.addEventListener("resize", () => {
-        const currentId = getInitialPageId();
-        const currentPage = document.getElementById(`${currentId}-content`);
-        setTimeout(() => adjustMainContainerHeight(currentPage), 50);
-    });
+    window.addEventListener("resize", () => setTimeout(() => adjustMainContainerHeight(currentPageElement), 50));
 });
 
-// Browser back/forward buttons
+// --- Browser back/forward buttons ---
 window.addEventListener("popstate", () => {
     const targetPage = getInitialPageId();
     navigateTo(targetPage);

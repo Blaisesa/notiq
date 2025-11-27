@@ -305,7 +305,9 @@ img.logo {
 /* Container for the text and scroller */
 .creditted-by {
     text-align: center;
-    padding: 20px 0;
+    padding: 30px 0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 /* SCROLLER CONTAINER (Viewport) */
@@ -314,7 +316,8 @@ img.logo {
     overflow: hidden;
     /* Sets the width where logos will be visible */
     max-width: 100%;
-    margin: 20px auto;
+    padding: 1rem 0;
+    margin: 30px auto;
     /* You can add padding here for spacing if needed */
 }
 
