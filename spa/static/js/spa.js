@@ -9,6 +9,8 @@ const mainContainer = document.querySelector("main");
 let currentPageElement = null;
 let lastPageIndex = 0;
 let resizeTimeout;
+let isTransitioning = false;
+let queuedPageId = null;
 
 // --- Height Management ---
 function adjustMainContainerHeight(pageElement) {
@@ -59,9 +61,19 @@ function updateNavLinks(pageId) {
 
 // --- Core Navigation ---
 function navigateTo(newPageId) {
+    if (isTransitioning) {
+        queuedPageId = newPageId;
+        return;
+    }
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
     const oldPage = currentPageElement;
     const newPage = document.getElementById(`${newPageId}-content`);
     if (!newPage || newPage === oldPage) return;
+    isTransitioning = true;
+
+    // --- First Load ---
 
     if (!oldPage) {
         currentPageElement = newPage;
@@ -113,6 +125,13 @@ function navigateTo(newPageId) {
         currentPageElement = newPage;
         newPage.style.transition = ""; // restore CSS transitions
 
+        isTransitioning = false; // allow next navigation
+        if (queuedPageId) {
+            const nextPage = queuedPageId;
+            queuedPageId = null;
+            navigateTo(nextPage);
+        }
+
         // --- Adjust height after slide/fade completes ---
         adjustMainContainerHeight(newPage);
 
@@ -129,13 +148,22 @@ function navigateTo(newPageId) {
 // --- Event Handlers ---
 function handleLinkClick(event) {
     const link = event.target.closest("a");
-    if (link && link.hasAttribute("data-page")) {
-        event.preventDefault();
-        const pageId = link.getAttribute("data-page");
-        if (pageId === window.location.hash.slice(1)) return;
-        window.history.pushState(null, null, `#${pageId}`);
-        navigateTo(pageId);
+    if (!link || !link.hasAttribute("data-page")) return;
+
+    const pageId = link.getAttribute("data-page");
+
+    // Check if SPA page exists in the DOM
+    const targetPage = document.getElementById(`${pageId}-content`);
+    if (!targetPage) {
+        // Not in SPA, allow normal navigation
+        return;
     }
+
+    event.preventDefault();
+    if (pageId === window.location.hash.slice(1)) return;
+
+    window.history.pushState(null, null, `#${pageId}`);
+    navigateTo(pageId);
 }
 
 // --- Initialization ---
