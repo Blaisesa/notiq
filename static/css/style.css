@@ -22,7 +22,9 @@
 }
 
 main {
-    flex-grow: 1;
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--background-color);
 }
 
 body {
@@ -32,6 +34,8 @@ body {
     font-family: var(--primary-font-family);
     color: var(--primary-font-color);
     background-color: var(--background-color);
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .container {
@@ -158,17 +162,43 @@ img.logo {
 }
 
 /* --- Main Content Styling --- */
-/* SPA Styling */
+/* ========================================= */
+/* 1. SPA Container and Page Positioning FIX */
+/* ========================================= */
+
+#router {
+    overflow: hidden; 
+    position: relative; 
+    width: 100%;
+}
+
 .spa-page {
     padding: 2.5rem 1.5rem 0 1.5rem;
     max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    background-color: var(--background-color);
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Default centered position */
+
+    opacity: 1;
+    transition: transform 0.55s ease, opacity 0.35s ease;
+    will-change: transform, opacity;
 }
+
+/* Fully hidden pages */
 .hidden {
-    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-200%) !important;
 }
+
+/* Active page (centered) */
 .active {
-    display: block !important;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Home Page Styling */
@@ -432,9 +462,19 @@ img.logo {
     transform: translateY(-5px) rotate(-2deg) scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
+#right.col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 #right .feature-box:hover {
     transform: translateY(-5px) rotate(2deg) scale(1.02);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+#center.col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Newsletter Sign Up CTA */
@@ -444,7 +484,7 @@ img.logo {
     padding: 2rem;
     text-align: center;
     margin-top: 4rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 .newsletter-cta h3 {
     font-size: 1.75rem;
@@ -852,7 +892,7 @@ details.faq-item[open] summary, details.faq-item[open] h2 {
     background-color: var(--secondary-background-color);
     color: var(--secondary-font-color);
     padding: 2rem 0;
-    margin-top: 5rem;
+    margin-top: 4rem;
     font-size: 0.85rem;
 }
 
