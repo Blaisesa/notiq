@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from .forms import NewsletterSubscriberForm
 from .models import SystemPage
 
 
@@ -24,3 +26,17 @@ def terms_of_service_page(request):
     View to render the Terms of Service page.
     """
     return legal_page(request, slug='terms_of_service')
+
+
+def newsletter_signup(request):
+    """
+    Handle newsletter signup without redirecting.
+    Displays a form and processes submissions.
+    """
+    if request.method == 'POST':
+        form = NewsletterSubscriberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({"success": True})
+    return JsonResponse({"success": False}, status=400)
