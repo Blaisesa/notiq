@@ -2,7 +2,7 @@
 
 <my-router style="view-transition-name: router-area">
     <!-- HOME SECTION -->
-    <main id="home-content" class="spa-page container active">
+    <section id="home-content" class="spa-page container active">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
             <h1 class="hero-title">Welcome to Notiq</h1>
@@ -163,9 +163,9 @@
                 </button>
             </form>
         </div>
-    </main>
+    </section>
     <!-- ABOUT SECTION -->
-    <main id="about-content" class="spa-page container hidden">
+    <section id="about-content" class="spa-page container hidden">
         <div class="about-hero">
             <img src="{% static "images/about-hero.jpg" %}" alt="About Notiq
             hero image" class="about-hero-img" loading="lazy">
@@ -358,8 +358,8 @@
                 </details>
             </div>
         </div>
-    </main>
-    <main id="features-content" class="spa-page container hidden">
+    </section>
+    <section id="features-content" class="spa-page container hidden">
         <div class="features-hero row">
             <div class="col">
                 <h1 class="hero-title">Explore Notiq's Powerful Features</h1>
@@ -428,8 +428,8 @@
                 </button>
             </form>
         </div>
-    </main>
-    <main id="contact-content" class="spa-page container hidden"></main>
+    </section>
+    <section id="contact-content" class="spa-page container hidden"></section>
 </my-router>
 {% endblock content %} {% block extra_js %}
 <!-- Link External JavaScript - necessary for SPA navigation -->

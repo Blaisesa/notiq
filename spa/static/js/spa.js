@@ -10,9 +10,12 @@ let lastPageIndex = 0;
 
 // --- Height Management ---
 function adjustMainContainerHeight(pageElement) {
-    if (mainContainer && pageElement) {
-        mainContainer.style.height = `${pageElement.scrollHeight}px`;
-    }
+    if (!mainContainer || !pageElement) return;
+    const footer = document.querySelector("footer");
+    const footerHeight = footer ? footer.offsetHeight : 0;
+    const minHeight = window.innerHeight - footerHeight;
+    const calculatedHeight = Math.max(pageElement.scrollHeight, minHeight);
+    mainContainer.style.height = `${calculatedHeight}px`;
 }
 
 // --- Utility Functions ---

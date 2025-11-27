@@ -22,15 +22,15 @@
 }
 
 main {
-    min-height: 100vh;
     position: relative;
     background-color: var(--background-color);
+    transition: height 0.55s ease-in-out;
+    overflow: hidden;
 }
 
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     font-family: var(--primary-font-family);
     color: var(--primary-font-color);
     background-color: var(--background-color);
@@ -183,7 +183,7 @@ img.logo {
     left: 50%;
     transform: translateX(-50%); /* Default centered position */
 
-    opacity: 1;
+    opacity: 0;
     transition: transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease; /* slide + fade */
     will-change: transform, opacity;
 }
@@ -549,7 +549,7 @@ img.logo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    max-height: 65vh;
+    max-height: 55vh;
     z-index: -1;
     opacity: 0.75; /* Slightly transparent for overlay effect */
 }
@@ -924,7 +924,12 @@ details.faq-item[open] summary, details.faq-item[open] h2 {
 .footer-link:hover {
     color: var(--link-hover-color);
 }
-
+/* Spacer to prevent content overlap with footer */
+.spa-page::after {
+    content: "";
+    display: block;
+    height: 80px; /* height of footer */
+}
 /* --- Responsive Adjustments (Mobile first) --- */
 @media (max-width: 900px) {
     /* Header layout changes for smaller screens */
