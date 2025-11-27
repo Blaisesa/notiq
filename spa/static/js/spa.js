@@ -1,90 +1,141 @@
 /**
- * Core JavaScript logic for Single Page Application (SPA) navigation.
- * Handles hash-based routing, active link styling, and content switching.
+ * SPA logic for smooth manual CSS sliding transitions
+ * Forward: old slides right, new slides left
+ * Backward: old slides left, new slides right
  */
 
-// Function to handle the routing logic
-function navigateTo(pageId) {
-    // 1. Determine the target content ID based on the data-page attribute
-    const contentId = `${pageId}-content`;
-    
-    // 2. Hide all SPA pages
-    document.querySelectorAll('.spa-page').forEach(page => {
-        page.classList.remove('active');
-        page.classList.add('hidden');
-    });
+const mainContainer = document.querySelector("main");
+let currentPageElement = null;
+let lastPageIndex = 0;
 
-    // 3. Show the active page
-    const activePage = document.getElementById(contentId);
-    if (activePage) {
-        // We use a small timeout to allow the transition effect (if any) to work cleanly
-        setTimeout(() => {
-            activePage.classList.remove('hidden');
-            activePage.classList.add('active');
-        }, 50); 
-    } else {
-        // Fallback for an invalid page ID (e.g., redirect to home)
-        navigateTo('home');
+// --- Height Management ---
+function adjustMainContainerHeight(pageElement) {
+    if (!mainContainer || !pageElement) return;
+    const footer = document.querySelector("footer");
+    const footerHeight = footer ? footer.offsetHeight : 0;
+    const minHeight = window.innerHeight - footerHeight;
+    const calculatedHeight = Math.max(pageElement.scrollHeight, minHeight);
+    mainContainer.style.height = `${calculatedHeight}px`;
+}
+
+// --- Utility Functions ---
+function getInitialPageId() {
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(`${hash}-content`)) return hash;
+    return "home";
+}
+
+function updateNavLinks(pageId) {
+    document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active-link"));
+    const activeLink = document.querySelector(`.nav-menu a[data-page="${pageId}"]`);
+    if (activeLink) activeLink.classList.add("active-link");
+}
+
+// --- Core Navigation ---
+function navigateTo(newPageId) {
+    const oldPage = currentPageElement;
+    const newPage = document.getElementById(`${newPageId}-content`);
+    if (!newPage || newPage === oldPage) return;
+
+    if (!oldPage) {
+        currentPageElement = newPage;
+        adjustMainContainerHeight(newPage);
+        newPage.classList.remove("hidden");
+        updateNavLinks(newPageId);
         return;
     }
 
-    // 4. Update the active state of navigation links
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.classList.remove('active-link');
+    const currentIndex = parseInt(oldPage.getAttribute("data-index"));
+    const newIndex = parseInt(newPage.getAttribute("data-index"));
+    const forward = newIndex > lastPageIndex;
+    lastPageIndex = newIndex;
+
+    const oldEnd = forward ? "150%" : "-150%";  // old slides out
+    const newStart = forward ? "-150%" : "150%"; // new slides in
+
+    // --- Prepare new page ---
+    newPage.style.transition = "none";
+    newPage.style.transform = `translateX(${newStart})`;
+    newPage.style.opacity = 0;       // start fully transparent
+    newPage.style.zIndex = 2;
+    newPage.classList.remove("hidden");
+
+    adjustMainContainerHeight(newPage);
+
+    // Force reflow
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const easing = "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease";
+            newPage.style.transition = easing;
+            oldPage.style.transition = easing;
+
+            // --- Slide + Fade ---
+            newPage.style.transform = "translateX(-50%)";
+            newPage.style.opacity = 1;       // fade in
+            oldPage.style.transform = `translateX(${oldEnd})`;
+            oldPage.style.opacity = 0;       // fade out
+        });
     });
 
-    // Select the specific link that triggered the navigation
-    const activeLink = document.querySelector(`.nav-menu a[data-page="${pageId}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active-link');
-    }
+    // Cleanup
+    const onTransitionEnd = () => {
+        oldPage.classList.add("hidden");
+        oldPage.style.transition = "none";
+        oldPage.style.transform = "translateX(-50%)";
+        oldPage.style.opacity = 1; // reset opacity
+        oldPage.style.zIndex = "";
+        currentPageElement = newPage;
+        newPage.style.transition = ""; // ensure future transitions use CSS
+        oldPage.removeEventListener("transitionend", onTransitionEnd);
+    };
+    oldPage.addEventListener("transitionend", onTransitionEnd);
+
+    updateNavLinks(newPageId);
 }
 
-// Function to handle link clicks
+// --- Event Handlers ---
 function handleLinkClick(event) {
-    // Only handle links that have the data-page attribute (our SPA links)
-    if (event.target.closest('a') && event.target.closest('a').hasAttribute('data-page')) {
-        event.preventDefault(); // STOP the browser from following the link normally
-
-        const link = event.target.closest('a');
-        const pageId = link.getAttribute('data-page');
-
-        // Update the browser history (URL hash) and navigate
+    const link = event.target.closest("a");
+    if (link && link.hasAttribute("data-page")) {
+        event.preventDefault();
+        const pageId = link.getAttribute("data-page");
+        if (pageId === window.location.hash.slice(1)) return;
         window.history.pushState(null, null, `#${pageId}`);
         navigateTo(pageId);
     }
 }
 
-// Function to get the initial page ID from the URL hash
-function getInitialPageId() {
-    const hash = window.location.hash.slice(1); // Remove the '#'
-    
-    // Check if the hash corresponds to a valid page content ID
-    if (hash && document.getElementById(`${hash}-content`)) {
-        return hash;
-    }
-    // Default to 'home' if hash is empty or invalid
-    return 'home';
-}
+// --- Initialization ---
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("click", handleLinkClick);
 
-// --- Event Listeners and Initial Load ---
+    document.querySelectorAll(".spa-page").forEach((page, index) => page.setAttribute("data-index", index));
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Set up the click handler on the navigation menu
-    const navMenu = document.getElementById('spa-nav');
-    if (navMenu) {
-        navMenu.addEventListener('click', handleLinkClick);
+    const initialId = getInitialPageId();
+    const initialPage = document.getElementById(`${initialId}-content`);
+
+    if (initialPage) {
+        document.querySelectorAll(".spa-page").forEach(p => p.classList.add("hidden"));
+        initialPage.classList.remove("hidden");
+        initialPage.classList.add("active");
+        currentPageElement = initialPage;
+        lastPageIndex = parseInt(initialPage.getAttribute("data-index"));
+        adjustMainContainerHeight(initialPage);
     }
 
-    // 2. Handle initial page load based on URL hash
-    const initialPage = getInitialPageId();
-    // Use replaceState to set the initial hash cleanly without adding a new history entry
-    window.history.replaceState(null, null, `#${initialPage}`);
-    navigateTo(initialPage);
+    updateNavLinks(initialId);
+    window.history.replaceState(null, null, `#${initialId}`);
+
+    window.addEventListener("load", () => adjustMainContainerHeight(currentPageElement));
+    window.addEventListener("resize", () => {
+        const currentId = getInitialPageId();
+        const currentPage = document.getElementById(`${currentId}-content`);
+        setTimeout(() => adjustMainContainerHeight(currentPage), 50);
+    });
 });
 
-// 3. Handle back/forward button clicks (popstate event)
-window.addEventListener('popstate', () => {
+// Browser back/forward buttons
+window.addEventListener("popstate", () => {
     const targetPage = getInitialPageId();
     navigateTo(targetPage);
 });
