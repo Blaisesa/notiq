@@ -32,10 +32,8 @@ function updateNavLinks(pageId) {
 function navigateTo(newPageId) {
     const oldPage = currentPageElement;
     const newPage = document.getElementById(`${newPageId}-content`);
-
     if (!newPage || newPage === oldPage) return;
 
-    // Handle first load
     if (!oldPage) {
         currentPageElement = newPage;
         adjustMainContainerHeight(newPage);
@@ -49,29 +47,30 @@ function navigateTo(newPageId) {
     const forward = newIndex > lastPageIndex;
     lastPageIndex = newIndex;
 
-    // Directions
-    const oldEnd = forward ? "150%" : "-150%"; // old page slides out
-    const newStart = forward ? "-150%" : "150%"; // new page slides in
+    const oldEnd = forward ? "150%" : "-150%";  // old slides out
+    const newStart = forward ? "-150%" : "150%"; // new slides in
 
-    // Prepare new page
+    // --- Prepare new page ---
     newPage.style.transition = "none";
     newPage.style.transform = `translateX(${newStart})`;
+    newPage.style.opacity = 0;       // start fully transparent
     newPage.style.zIndex = 2;
     newPage.classList.remove("hidden");
 
     adjustMainContainerHeight(newPage);
 
-    // Force reflow using requestAnimationFrame
+    // Force reflow
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            // Apply transitions
-            const easing = "transform 0.55s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.35s ease";
+            const easing = "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease";
             newPage.style.transition = easing;
             oldPage.style.transition = easing;
 
-            // Start sliding
-            newPage.style.transform = "translateX(-50%)"; // center new
-            oldPage.style.transform = `translateX(${oldEnd})`; // slide old out
+            // --- Slide + Fade ---
+            newPage.style.transform = "translateX(-50%)";
+            newPage.style.opacity = 1;       // fade in
+            oldPage.style.transform = `translateX(${oldEnd})`;
+            oldPage.style.opacity = 0;       // fade out
         });
     });
 
@@ -80,6 +79,7 @@ function navigateTo(newPageId) {
         oldPage.classList.add("hidden");
         oldPage.style.transition = "none";
         oldPage.style.transform = "translateX(-50%)";
+        oldPage.style.opacity = 1; // reset opacity
         oldPage.style.zIndex = "";
         currentPageElement = newPage;
         newPage.style.transition = ""; // ensure future transitions use CSS
