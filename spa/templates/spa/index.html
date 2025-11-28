@@ -35,7 +35,12 @@
                 </p>
                 <span class="overview-buttons">
                     <button class="primary">Get Started</button
-                    ><a href="#about-content" data-page="about" class="secondary">Learn About Notiq</a>
+                    ><a
+                        href="#about-content"
+                        data-page="about"
+                        class="secondary"
+                        >Learn About Notiq</a
+                    >
                 </span>
             </div>
             <div>
@@ -130,7 +135,12 @@
             </div>
             <div id="center" class="col">
                 <span class="placeholder"></span>
-                <a href="#features-content" data-page="features" class="secondary">More Features</a>
+                <a
+                    href="#features-content"
+                    data-page="features"
+                    class="secondary"
+                    >More Features</a
+                >
             </div>
             <div id="right" class="col">
                 <div class="feature-box">
@@ -201,7 +211,12 @@
         </div>
         {% comment %} about section {% endcomment %}
         <div class="about-info row">
-            <img class="about-inspo-img" src="{%static 'images/about-inspo.png'%}" alt="Inspiration Flows" loading="lazy">
+            <img
+                class="about-inspo-img"
+                src="{%static 'images/about-inspo.png'%}"
+                alt="Inspiration Flows"
+                loading="lazy"
+            />
             <div class="col">
                 <h2>About Notiq</h2>
                 <p>
@@ -268,7 +283,12 @@
                 </div>
                 <div id="why-content" class="tab-content">
                     <div class="row why-section">
-                        <img class="why-image" src="{%static 'images/creativity.png'%}" alt="Creativity Flow" loading="lazy">
+                        <img
+                            class="why-image"
+                            src="{%static 'images/creativity.png'%}"
+                            alt="Creativity Flow"
+                            loading="lazy"
+                        />
                         <div class="col why-info">
                             <h4>Why Notiq?</h4>
                             <p>
@@ -390,7 +410,10 @@
                     with cutting-edge tools and functionalities.
                 </p>
                 <div class="hero-buttons">
-                    <a href="" class="primary">Start Now</a> <a href="#about-content" data-page="about" class="secondary">About Notiq</a>
+                    <a href="" class="primary">Start Now</a>
+                    <a href="#about-content" data-page="about" class="secondary"
+                        >About Notiq</a
+                    >
                 </div>
             </div>
             <img src="{% static "images/features-hero.png" %}" alt="An image
@@ -423,14 +446,22 @@
             </p>
         </div>
         <div class="features row">
-            <div class="placeholder"></div>
-            <div class="placeholder"></div>
-            <div class="placeholder"></div>
+            {% for feature in main_features %}
+            <div class="main feature-box">
+                <i class="{{ feature.icon }}"></i>
+                <h4>{{ feature.title }}</h4>
+                <p>{{ feature.description }}</p>
+            </div>
+            {% endfor %}
         </div>
-        <div class="other-features row">
-            <div class="placeholder"></div>
-            <div class="placeholder"></div>
-            <div class="placeholder"></div>
+        <div class="features row">
+            {% for feature in secondary_features %}
+            <div class="feature-box">
+                <i class="{{ feature.icon }}"></i>
+                <h4>{{ feature.title }}</h4>
+                <p>{{ feature.description }}</p>
+            </div>
+            {% endfor %}
         </div>
         {% comment %} Newsletter Sign up form {% endcomment %}
         <div class="newsletter-cta">
@@ -465,7 +496,90 @@
             </div>
         </div>
     </section>
-    <section id="contact-content" class="spa-page container hidden"></section>
+    <section id="contact-content" class="spa-page container hidden">
+        <div class="contact-hero">
+            <h1 class="hero-title">Get in Touch with Notiq</h1>
+            <p class="hero-subtitle">
+                We'd love to hear from you! Whether you have questions,
+                feedback, or need support, our team is here to help.
+            </p>
+        </div>
+        <div class="contact-form-wrapper">
+            <span class="placeholder"></span>
+        </div>
+        <div id="glowing-cards">
+            <div class="glowing-card">
+                <div class="glowing-card-content">
+                    <i class="fa-brands fa-google"></i>
+                    <h2>Gmail</h2>
+
+                    <p>Message me directly</p>
+
+                    <a href="#">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Send Email</span>
+                    </a>
+                </div>
+            </div>
+            <div class="glowing-card">
+                <div class="glowing-card-content">
+                    <i class="fa-brands fa-github"></i>
+                    <h2>GitHub</h2>
+
+                    <p>Followers: <span>330</span></p>
+
+                    <a href="#">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Follow me</span>
+                    </a>
+                </div>
+            </div>
+            <div class="glowing-card">
+                <div class="glowing-card-content">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <h2>Linkedin</h2>
+
+                    <p>Followers: <span>550</span></p>
+
+                    <a href="#">
+                        <i class="fa-solid fa-link"></i>
+                        <span>Follow me</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="newsletter-cta">
+            <h3>Stay Updated with Notiq</h3>
+            <p>
+                Subscribe to our newsletter to receive the latest updates, tips,
+                and exclusive offers directly in your inbox.
+            </p>
+            <div id="newsletter-wrapper">
+                <form
+                    class="newsletter-form"
+                    method="post"
+                    action="{% url 'newsletter_signup' %}"
+                >
+                    {% csrf_token %}
+                    <input
+                        id="id_email"
+                        name="email"
+                        class="newsletter-input"
+                        type="email"
+                        placeholder="Enter your email address"
+                        required
+                    />
+                    <button
+                        type="submit"
+                        id="signup-button"
+                        class="newsletter-button"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 </my-router>
 {% endblock content %} {% block extra_js %}
 <!-- Link External JavaScript - necessary for SPA navigation -->
