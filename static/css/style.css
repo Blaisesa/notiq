@@ -1179,6 +1179,7 @@ details.faq-item[open] h2 {
     color: var(--link-hover-color);
 }
 
+/* Signup Link Styling */
 p#signup-link {
     font-size: 0.95rem;
     flex-direction: row;
@@ -1188,6 +1189,18 @@ p#signup-link {
 p#signup-link a {
     margin-left: 0.25rem;
     font-weight: 600;
+}
+/* Password Reset Styling */
+.password-reset a.primary {
+    color: whitesmoke;
+}
+
+.password-reset a.primary {
+    margin-top: 1rem;
+}
+
+.password-reset p {
+    text-align: center;
 }
 
 /* --- Footer Styling --- */
