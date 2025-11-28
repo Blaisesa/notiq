@@ -1,7 +1,7 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import SystemPage, NewsletterSubscriber, Feature
 
-admin.site.register(SystemPage)
 admin.site.register(NewsletterSubscriber)
 admin.site.register(Feature)
 
@@ -10,6 +10,13 @@ admin.site.register(Feature)
 class SystemPageAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'created_at', 'updated_at')
     prepopulated_fields = {'slug': ('title',)}
+
+
+class SystemPageSummernoteAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
+
+
+admin.site.register(SystemPage, SystemPageSummernoteAdmin)
 
 
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
