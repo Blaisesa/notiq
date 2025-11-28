@@ -85,7 +85,7 @@
                     </li>
 
                     <!-- Authentication Links (Placeholders until allauth is installed) -->
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and user.is_staff %}
                     <li>
                         <a href="{% url 'admin:index' %}" class="admin-link"
                             >Admin Panel</a
@@ -98,8 +98,8 @@
                     </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
-                    <li><a href="/admin" class="auth-placeholder">Login</a></li>
-                    <li><a href="#" class="auth-placeholder">Sign Up</a></li>
+                    <li><a href="{{ login_url }}" class="auth-placeholder">Login</a></li>
+                    <li><a href="{{ signup_url }}" class="auth-placeholder">Sign Up</a></li>
                     {% endif %}
                 </ul>
             </nav>
