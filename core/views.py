@@ -18,14 +18,14 @@ def gdpr_page(request):
     """
     View to render the GDPR page.
     """
-    return legal_page(request, slug='gdpr_policy')
+    return legal_page(request, slug='gdpr-policy')
 
 
 def terms_of_service_page(request):
     """
     View to render the Terms of Service page.
     """
-    return legal_page(request, slug='terms_of_service')
+    return legal_page(request, slug='terms-of-service')
 
 
 def newsletter_signup(request):
