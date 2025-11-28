@@ -96,6 +96,12 @@
                             >Logout</a
                         >
                     </li>
+                    {% elif user.is_authenticated %}
+                    <li>
+                        <a href="{{ logout_url }}" class="logout-link"
+                            >Logout</a
+                        >
+                    </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
                     <li><a href="{{ login_url }}" class="auth-placeholder">Login</a></li>
