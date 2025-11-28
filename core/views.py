@@ -40,3 +40,14 @@ def newsletter_signup(request):
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({"success": True})
     return JsonResponse({"success": False}, status=400)
+
+
+def feature_list(request):
+    """
+    View to display a list of active features.
+    """
+    from .models import Feature  # Import here to avoid circular imports
+    features = Feature.objects.filter(is_active=True).order_by(
+        '-is_main', 'title'
+        )
+    return render(request, 'core/feature_list.html', {'features': features})

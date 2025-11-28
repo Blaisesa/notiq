@@ -8,4 +8,5 @@ urlpatterns = [
          name='terms_of_service'),
     path('newsletter-signup/', views.newsletter_signup,
          name='newsletter_signup'),
+    path('features/', views.feature_list, name='feature_list'),
 ]
