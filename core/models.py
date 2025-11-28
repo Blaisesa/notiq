@@ -31,3 +31,30 @@ class NewsletterSubscriber(models.Model):
 
     def __str__(self):
         return self.email
+
+
+# Feature Elements
+class Feature(models.Model):
+    """
+    Model to represent a feature element with an icon, title, and description.
+    This is used to showcase features on the features page.
+    is main indicates if the feature is a primary feature.
+    is active indicates if the feature should be displayed.
+    """
+    icon = models.CharField(
+                            max_length=100,
+                            help_text="CSS class for the icon",
+                            default="fa-solid fa-pen-fancy"
+                            )
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    is_main = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-is_main', 'title']
+
+    def __str__(self):
+        return self.title

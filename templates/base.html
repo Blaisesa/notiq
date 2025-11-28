@@ -5,6 +5,31 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Notiq{% endblock title %}</title>
+        <!-- Favicons -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{% static 'images/favicon-32x32.png' %}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{% static 'images/favicon-16x16.png' %}"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="{% static 'images/apple-touch-icon.png' %}"
+        />
+        <!--Font Awesome-->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-MN/I+z...=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
         <!-- Link External CSS - Now handles all styling -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -101,7 +126,6 @@
             crossorigin="anonymous"
         ></script>
         <!-- JavaScript block for additional scripts -->
-        {% block extra_js %}
-        {% endblock extra_js %}
+        {% block extra_js %} {% endblock extra_js %}
     </body>
 </html>

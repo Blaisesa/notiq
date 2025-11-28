@@ -44,6 +44,8 @@ body {
     margin: 0 auto;
     padding: 0 1.5rem;
 }
+
+/* Terms Pages */
 .terms {
     margin-top: 2rem;
     padding: 2rem;
@@ -51,6 +53,8 @@ body {
     color: var(--secondary-font-color);
     background-color: var(--secondary-background-color);
 }
+
+/* Global Components */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -67,6 +71,201 @@ a {
     text-decoration: none;
     transition: color 0.2s ease;
 }
+
+/* Feature Boxes */
+.feature-box {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 2rem;
+    align-items: center;
+    text-align: center;
+}
+.main.feature-box {
+    max-width: 100%;
+    padding: 2rem;
+}
+.main.feature-box:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+.feature-box i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.feature-box h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+.feature-box p {
+    color: var(--secondary-font-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Glowing Card Effect */
+#glowing-cards {
+    width: 70%;
+    padding-inline: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.glowing-card {
+    min-width: 200px;
+    height: 250px;
+    flex: 1 1 250px;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    position: relative;
+}
+
+#glowing-cards:hover > .glowing-card {
+    background: radial-gradient(
+        400px circle at var(--mouse-x) var(--mouse-y),
+        hsl(var(--color) / 1),
+        rgba(255, 255, 255, 0.12) 40%
+    );
+}
+
+.glowing-card-content {
+    position: absolute;
+    inset: 1px;
+    background-color: var(--secondary-background-color);
+    border-radius: inherit;
+}
+
+.glowing-card:nth-child(1) {
+    --color: 130 80% 60%;
+}
+.glowing-card:nth-child(2) {
+    --color: 0 0% 100%;
+}
+.glowing-card:nth-child(3) {
+    --color: 220 100% 35%;
+}
+
+.glowing-card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(
+        500px circle at var(--mouse-x) var(--mouse-y),
+        hsl(var(--color) / 0.35),
+        transparent 40%
+    );
+    border-radius: inherit;
+    opacity: 0;
+    z-index: 2;
+}
+
+#glowing-cards:hover > .glowing-card::before {
+    opacity: 1;
+}
+
+.glowing-card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+}
+
+.glowing-card-content > i {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.glowing-card-content > p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.glowing-card-content > a {
+    width: 90%;
+    padding-block: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+    color: whitesmoke;
+}
+.glowing-card-content > a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Newsletter Sign Up CTA */
+.newsletter-cta {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+.newsletter-cta h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+.newsletter-cta p {
+    color: var(--secondary-font-color);
+    margin-bottom: 1.5rem;
+}
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+.newsletter-input {
+    padding: 0.75rem 1rem;
+    border-radius: 4rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 250px;
+    max-width: 100%;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.newsletter-input:focus {
+    border-color: var(--primary-color);
+}
+.newsletter-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.newsletter-button:hover {
+    background-color: #4e4dd1;
+}
+
 /* Placeholder for future content */
 .placeholder {
     background-color: var(--secondary-background-color);
@@ -242,7 +441,8 @@ img.logo {
     background-color: var(--primary-color);
     color: white;
 }
-.primary:hover, .primary-btn:hover {
+.primary:hover,
+.primary-btn:hover {
     background-color: #4e4dd1;
 }
 .secondary {
@@ -441,37 +641,8 @@ img.logo {
     justify-content: center;
     max-width: 650px;
 }
-/* Feature Boxes */
-.feature-box {
-    background-color: var(--secondary-background-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 250px;
-    max-width: 300px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin: 2rem 0;
-    align-items: center;
-    text-align: center;
-}
-.feature-box i {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-.feature-box h4 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: var(--primary-color);
-}
-.feature-box p {
-    color: var(--secondary-font-color);
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
+
+/* Feature Preview Home section */
 #left .feature-box i {
     transform: scaleX(-1);
 }
@@ -492,60 +663,6 @@ img.logo {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* Newsletter Sign Up CTA */
-.newsletter-cta {
-    background-color: var(--secondary-background-color);
-    border-radius: 0.5rem;
-    padding: 2rem;
-    text-align: center;
-    margin-top: 4rem;
-    margin-bottom: 3rem;
-}
-.newsletter-cta h3 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-}
-.newsletter-cta p {
-    color: var(--secondary-font-color);
-    margin-bottom: 1.5rem;
-}
-.newsletter-form {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
-}
-.newsletter-input {
-    padding: 0.75rem 1rem;
-    border-radius: 4rem;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 250px;
-    max-width: 100%;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-.newsletter-input:focus {
-    border-color: var(--primary-color);
-}
-.newsletter-button {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 4rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.newsletter-button:hover {
-    background-color: #4e4dd1;
 }
 
 /* About page Styling */
@@ -935,6 +1052,36 @@ details.faq-item[open] h2 {
     margin-top: 2rem;
     margin-bottom: 4rem;
 }
+/* --- Contact Section Styling --- */
+#contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.contact-hero {
+    text-align: center;
+    padding: 5rem 1rem 4rem 1rem;
+    margin-bottom: 4rem;
+}
+.contact-hero .hero-title {
+    color: var(--primary-color);
+}
+.contact-hero .hero-subtitle {
+    color: var(--secondary-font-color);
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+.contact-form-wrapper {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    max-width: 700px;
+    margin-bottom: 4rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* --- Footer Styling --- */
 .main-footer {
     background-color: var(--secondary-background-color);
