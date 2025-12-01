@@ -89,6 +89,9 @@ a {
     text-decoration: none;
     transition: color 0.2s ease;
 }
+a:hover {
+    color: var(--link-hover-color);
+}
 
 /* Feature Boxes */
 .feature-box {
@@ -515,6 +518,7 @@ a.profile-link i:hover {
 }
 .secondary:hover {
     background: rgba(255, 255, 255, 0.5);
+    color: whitesmoke;
 }
 
 /* Hero Video styles */
