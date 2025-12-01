@@ -1376,6 +1376,10 @@ nav.danger-zone-nav {
     justify-content: space-between;
 }
 
+.email-management-form p {
+    max-width: 440px;
+}
+
 .email-management-form button {
     padding: 0.5rem 1rem;
     border: none;
@@ -1386,6 +1390,12 @@ nav.danger-zone-nav {
     cursor: pointer;
     transition: background-color 0.2s ease;
     margin-top: 1rem;
+}
+.email-management-form form button[name="action_remove"] {
+    background-color: red;
+}
+.email-management-form form button[name="action_remove"]:hover {
+    background-color: darkred;
 }
 .email-management-form button:hover {
     background-color: #4e4dd1;
