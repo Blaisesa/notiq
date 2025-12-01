@@ -1,0 +1,18 @@
+<form 
+    class="contact-form" 
+    method="post" 
+    action="{% url 'contact_submit' %}" 
+    hx-post="{% url 'contact_submit' %}" 
+    hx-target=".form-wrapper" 
+    hx-swap="innerHTML"
+>
+    {% csrf_token %}
+
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+
+    {{ form.as_p }} 
+
+    <button type="submit" class="primary-btn">Send Message</button>
+</form>

@@ -42,7 +42,7 @@ body {
 }
 
 body.fade-ready {
-    transition: opacity .35s ease;
+    transition: opacity 0.35s ease;
     opacity: 1;
 }
 
@@ -89,6 +89,9 @@ a {
     text-decoration: none;
     transition: color 0.2s ease;
 }
+a:hover {
+    color: var(--link-hover-color);
+}
 
 /* Feature Boxes */
 .feature-box {
@@ -131,8 +134,7 @@ a {
 
 /* Glowing Card Effect */
 #glowing-cards {
-    width: 70%;
-    padding-inline: 20px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -229,10 +231,11 @@ a {
 .newsletter-cta {
     background-color: var(--secondary-background-color);
     border-radius: 0.5rem;
-    padding: 2rem;
+    padding: 2rem 0;
     text-align: center;
     margin-top: 4rem;
     margin-bottom: 3rem;
+    width: 100%;
 }
 .newsletter-cta h3 {
     font-size: 1.75rem;
@@ -515,6 +518,7 @@ a.profile-link i:hover {
 }
 .secondary:hover {
     background: rgba(255, 255, 255, 0.5);
+    color: whitesmoke;
 }
 
 /* Hero Video styles */
@@ -1118,12 +1122,11 @@ details.faq-item[open] h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 .contact-hero {
-    text-align: center;
+    text-align: left;
     padding: 5rem 1rem 4rem 1rem;
-    margin-bottom: 4rem;
+    flex-grow: 1;
 }
 .contact-hero .hero-title {
     color: var(--primary-color);
@@ -1131,8 +1134,29 @@ details.faq-item[open] h2 {
 .contact-hero .hero-subtitle {
     color: var(--secondary-font-color);
     max-width: 600px;
-    margin: 0 auto;
-    margin-top: 1rem;
+    margin-top: 4rem;
+}
+.contact {
+    margin-top: 2rem;
+    max-width: 780px;
+}
+.row.contact-form {
+    width: 100%;
+}
+form textarea {
+    resize: vertical;
+    min-height: 120px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #444;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+form textarea:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    border: 1px solid var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 /* --- Login Form Styling --- */
@@ -1348,7 +1372,8 @@ nav h3 {
     text-underline-offset: 6px;
 }
 
-.account-links-nav ul, .danger-zone-nav ul {
+.account-links-nav ul,
+.danger-zone-nav ul {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -1368,7 +1393,8 @@ nav.danger-zone-nav {
 .danger-zone-nav li {
     display: flex;
 }
-.danger-zone-nav li a, .danger-zone-nav li i {
+.danger-zone-nav li a,
+.danger-zone-nav li i {
     color: #ef4444; /* Red color for danger zone links */
 }
 .danger-zone-nav li a {
@@ -1379,7 +1405,7 @@ nav.danger-zone-nav {
 }
 
 /* Email Management Form Styling */
-.email-management-form p:has(#email_radio_0){
+.email-management-form p:has(#email_radio_0) {
     margin-top: 1rem;
     flex-direction: row;
     justify-content: space-between;

@@ -362,7 +362,10 @@
                         </div>
                     </div>
                     <div class="hero-buttons">
-                        <a href="#features" data-page="features" class="secondary"
+                        <a
+                            href="#features"
+                            data-page="features"
+                            class="secondary"
                             >View More</a
                         >
                     </div>
@@ -497,15 +500,17 @@
         </div>
     </section>
     <section id="contact-content" class="spa-page container hidden">
-        <div class="contact-hero">
-            <h1 class="hero-title">Get in Touch with Notiq</h1>
-            <p class="hero-subtitle">
-                We'd love to hear from you! Whether you have questions,
-                feedback, or need support, our team is here to help.
-            </p>
-        </div>
-        <div class="form-wrapper">
-            <span class="placeholder"></span>
+        <div class="row contact-form">
+            <div class="contact-hero">
+                <h1 class="hero-title">Get in Touch with Notiq</h1>
+                <p class="hero-subtitle">
+                    We'd love to hear from you! Whether you have questions,
+                    feedback, or need support, our team is here to help.
+                </p>
+            </div>
+            <div class="form-wrapper contact login">
+                {% include "core/contact_form.html" with form=contact_form %}
+            </div>
         </div>
         <div id="glowing-cards">
             <div class="glowing-card">
@@ -576,6 +581,8 @@
     </section>
 </my-router>
 {% endblock content %} {% block extra_js %}
+<!-- HTMX for dynamic content loading -->
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 <!-- Link Slider JavaScript - necessary for preview slider -->
 <script src="{% static 'js/components.js' %}"></script>
 <script src="{% static 'js/forms.js' %}"></script>

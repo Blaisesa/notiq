@@ -102,6 +102,11 @@
                         >
                     </li>
                     {% elif user.is_authenticated %}
+                    <li>
+                        <a href="#">
+                            Open Notiq App
+                        </a>
+                    </li>
                     <li class="profile">
                         <a href="{% url 'profile' %}" class="profile-link"
                             ><i class="fa-solid fa-user"></i>

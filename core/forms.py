@@ -18,3 +18,29 @@ class NewsletterSubscriberForm(forms.ModelForm):
                 'required': True,
             }),
         }
+
+
+class ContactForm(forms.Form):
+    # Field for the user's name (required)
+    name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'Your Name'})
+    )
+
+    # Field for the user's email (required and validated)
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'Your Email Address'})
+    )
+
+    # Field for the subject line (optional)
+    subject = forms.CharField(
+        max_length=150,
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Subject (Optional)'})
+    )
+
+    # Field for the message body (required, uses a textarea)
+    message = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Your Message'}),
+        max_length=1000
+    )
