@@ -40,11 +40,20 @@ body {
     opacity: 0;
     transition: opacity 0.2s ease;
 }
-body.fade-in {
-  opacity: 1;
+
+body.fade-ready {
+    transition: opacity .35s ease;
+    opacity: 1;
 }
-body.fade-out {
+
+/* Starting hidden state */
+.page-hidden {
     opacity: 0;
+}
+
+/* Fade transition is only active AFTER initial load */
+.page-fade-ready {
+    transition: opacity 0.35s ease-in-out;
 }
 
 .container {
