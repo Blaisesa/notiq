@@ -97,10 +97,10 @@
                         >
                     </li>
                     {% elif user.is_authenticated %}
-                    <li>
-                        <a href="{{ logout_url }}" class="logout-link"
-                            >Logout</a
-                        >
+                    <li class="profile">
+                        <a href="{% url 'profile' %}" class="profile-link"
+                            ><i class="fa-solid fa-user"></i>
+                        </a>
                     </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
