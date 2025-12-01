@@ -37,6 +37,23 @@ body {
     background-color: var(--background-color);
     width: 100%;
     overflow-x: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+body.fade-ready {
+    transition: opacity .35s ease;
+    opacity: 1;
+}
+
+/* Starting hidden state */
+.page-hidden {
+    opacity: 0;
+}
+
+/* Fade transition is only active AFTER initial load */
+.page-fade-ready {
+    transition: opacity 0.35s ease-in-out;
 }
 
 .container {
@@ -48,6 +65,7 @@ body {
 /* Terms Pages */
 .terms {
     margin-top: 2rem;
+    margin-bottom: 2rem;
     padding: 2rem;
     line-height: 1.6;
     color: var(--secondary-font-color);
@@ -279,6 +297,20 @@ a {
     min-height: 80vh;
 }
 
+/* Sidebar */
+.sidebar {
+    background-color: var(--secondary-background-color);
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 80vh;
+    max-height: 100%;
+}
+
 /* Placeholder for future content */
 .placeholder {
     background-color: var(--secondary-background-color);
@@ -377,6 +409,22 @@ img.logo {
 }
 .auth-placeholder:hover {
     background-color: #6366f1;
+}
+
+a.profile-link i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--secondary-background-color);
+    display: inline-block;
+    border: 2px solid var(--primary-color);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+a.profile-link i:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
 }
 
 /* --- Main Content Styling --- */
@@ -1229,12 +1277,172 @@ p#signup-link a {
 .logout button:hover {
     background-color: #7e0000;
 }
+
+/* --- Profile Page Styling --- */
+.profile-page {
+    width: 100%;
+}
+.page-wrapper.profile-page {
+    justify-content: flex-start;
+}
+.page-wrapper.profile-page .row {
+    width: 100%;
+    margin: 0;
+}
+.profile-page h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+p.email {
+    color: var(--secondary-font-color);
+    margin-bottom: 2rem;
+}
+.profile-nav {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+.profile-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+.profile-nav li {
+    display: inline;
+}
+.profile-nav button {
+    background: none;
+    border: none;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--secondary-font-color);
+    font-weight: 500;
+    transition: color 0.2s ease, border-bottom 0.2s ease;
+    white-space: nowrap;
+    transition: color 0.2s ease, border-bottom 0.2s ease, margin-left 0.2s ease;
+}
+.profile-nav button.active-profile-link {
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    margin-left: 6px;
+}
+.profile-nav button:hover {
+    color: var(--primary-color);
+}
+
+nav h3 {
+    font-size: 1rem;
+    color: var(--secondary-font-color);
+    margin-bottom: 1rem;
+    text-align: left;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+}
+
+.account-links-nav ul, .danger-zone-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+}
+
+.account-links-nav li a:hover {
+    color: var(--primary-color);
+}
+
+nav.danger-zone-nav {
+    border-top: 1px solid #ef4444; /* Subtle top border */
+    padding-top: 1.5rem;
+}
+.danger-zone-nav li {
+    display: flex;
+}
+.danger-zone-nav li a, .danger-zone-nav li i {
+    color: #ef4444; /* Red color for danger zone links */
+}
+.danger-zone-nav li a {
+    flex-grow: 1;
+}
+.danger-zone-nav li a:hover {
+    color: #910303; /* Darker red color for danger zone links */
+}
+
+/* Email Management Form Styling */
+.email-management-form p:has(#email_radio_0){
+    margin-top: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.email-management-form p {
+    max-width: 440px;
+}
+
+.email-management-form button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 1rem;
+}
+.email-management-form form button[name="action_remove"] {
+    background-color: red;
+}
+.email-management-form form button[name="action_remove"]:hover {
+    background-color: darkred;
+}
+.email-management-form button:hover {
+    background-color: #4e4dd1;
+}
+.email-management-form input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #444;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+    max-width: 400px;
+}
+.email-management-form input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    border: 1px solid var(--primary-color);
+    border-color: var(--primary-color);
+}
+.email-management-form h2 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-top: 1rem;
+    text-align: left;
+}
+.email-management-form input#email_radio_0 {
+    width: auto;
+    margin-right: 0.5rem;
+}
+.email-management-form input#email_radio_0:checked {
+    accent-color: var(--primary-color);
+}
+
 /* --- Footer Styling --- */
 .main-footer {
     background-color: var(--secondary-background-color);
     color: var(--secondary-font-color);
     padding: 2rem 0;
-    margin-top: 4rem;
     font-size: 0.85rem;
 }
 
@@ -1266,6 +1474,7 @@ p#signup-link a {
 .footer-link:hover {
     color: var(--link-hover-color);
 }
+
 /* Spacer to prevent content overlap with footer */
 .spa-page::after {
     content: "";

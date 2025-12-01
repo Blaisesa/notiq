@@ -37,12 +37,14 @@ function observeCurrentPage() {
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["class", "style", "open"]
+        attributeFilter: ["class", "style", "open"],
     });
 
     // Listen for <details> toggle events
     currentPageElement.querySelectorAll("details").forEach((d) => {
-        d.addEventListener("toggle", () => adjustMainContainerHeight(currentPageElement));
+        d.addEventListener("toggle", () =>
+            adjustMainContainerHeight(currentPageElement)
+        );
     });
 }
 
@@ -54,8 +56,12 @@ function getInitialPageId() {
 }
 
 function updateNavLinks(pageId) {
-    document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active-link"));
-    const activeLink = document.querySelector(`.nav-menu a[data-page="${pageId}"]`);
+    document
+        .querySelectorAll(".nav-menu a")
+        .forEach((link) => link.classList.remove("active-link"));
+    const activeLink = document.querySelector(
+        `.nav-menu a[data-page="${pageId}"]`
+    );
     if (activeLink) activeLink.classList.add("active-link");
 }
 
@@ -67,7 +73,7 @@ function navigateTo(newPageId) {
     }
     // Scroll to top
     window.scrollTo({ top: 0, behavior: "smooth" });
-    
+
     const oldPage = currentPageElement;
     const newPage = document.getElementById(`${newPageId}-content`);
     if (!newPage || newPage === oldPage) return;
@@ -102,7 +108,8 @@ function navigateTo(newPageId) {
     // Force reflow
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            const easing = "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease";
+            const easing =
+                "transform 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.55s ease";
             newPage.style.transition = easing;
             oldPage.style.transition = easing;
 
@@ -154,14 +161,17 @@ function handleLinkClick(event) {
     const pageId = link.getAttribute("data-page");
 
     const spaContainer = document.querySelector(".spa-page");
+
     if (!spaContainer) {
-        // SPA not present — go to full-page URL
-        window.location.href = `/#${pageId}`;
+        const fullUrl = link.dataset.url || "/";
+        window.location.href = `${fullUrl}#${pageId}`;
         return;
     }
 
+    // Already on this page in SPA, do nothing
     if (pageId === window.location.hash.slice(1)) return;
 
+    // SPA navigation
     window.history.pushState(null, null, `#${pageId}`);
     navigateTo(pageId);
 }
@@ -170,13 +180,17 @@ function handleLinkClick(event) {
 document.addEventListener("DOMContentLoaded", () => {
     document.body.addEventListener("click", handleLinkClick);
 
-    document.querySelectorAll(".spa-page").forEach((page, index) => page.setAttribute("data-index", index));
+    document
+        .querySelectorAll(".spa-page")
+        .forEach((page, index) => page.setAttribute("data-index", index));
 
     const initialId = getInitialPageId();
     const initialPage = document.getElementById(`${initialId}-content`);
 
     if (initialPage) {
-        document.querySelectorAll(".spa-page").forEach(p => p.classList.add("hidden"));
+        document
+            .querySelectorAll(".spa-page")
+            .forEach((p) => p.classList.add("hidden"));
         initialPage.classList.remove("hidden");
         initialPage.classList.add("active");
         currentPageElement = initialPage;
@@ -188,8 +202,12 @@ document.addEventListener("DOMContentLoaded", () => {
     updateNavLinks(initialId);
     window.history.replaceState(null, null, `#${initialId}`);
 
-    window.addEventListener("load", () => adjustMainContainerHeight(currentPageElement));
-    window.addEventListener("resize", () => setTimeout(() => adjustMainContainerHeight(currentPageElement), 50));
+    window.addEventListener("load", () =>
+        adjustMainContainerHeight(currentPageElement)
+    );
+    window.addEventListener("resize", () =>
+        setTimeout(() => adjustMainContainerHeight(currentPageElement), 50)
+    );
 });
 
 // --- Browser back/forward buttons ---

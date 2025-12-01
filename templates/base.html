@@ -36,6 +36,7 @@
 
         <!-- Link External CSS - Now handles all styling -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        {% block extra_head %}{% endblock extra_head %}
     </head>
     <body>
         <!-- NAVIGATION BAR -->
@@ -56,6 +57,7 @@
                             href="/#home-content"
                             data-page="home"
                             class="nav-link"
+                            data-url="/"
                             >Home</a
                         >
                     </li>
@@ -64,6 +66,7 @@
                             href="/#about-content"
                             data-page="about"
                             class="nav-link"
+                            data-url="/"
                             >About</a
                         >
                     </li>
@@ -72,6 +75,7 @@
                             href="/#features-content"
                             data-page="features"
                             class="nav-link"
+                            data-url="/"
                             >Features</a
                         >
                     </li>
@@ -80,6 +84,7 @@
                             href="/#contact-content"
                             data-page="contact"
                             class="nav-link"
+                            data-url="/"
                             >Contact</a
                         >
                     </li>
@@ -97,10 +102,10 @@
                         >
                     </li>
                     {% elif user.is_authenticated %}
-                    <li>
-                        <a href="{{ logout_url }}" class="logout-link"
-                            >Logout</a
-                        >
+                    <li class="profile">
+                        <a href="{% url 'profile' %}" class="profile-link"
+                            ><i class="fa-solid fa-user"></i>
+                        </a>
                     </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
@@ -135,6 +140,8 @@
             crossorigin="anonymous"
         ></script>
         <!-- JavaScript block for additional scripts -->
-        {% block extra_js %} {% endblock extra_js %}
+        <script src="{% static 'js/spa.js' %}"></script>
+        <script src="{% static 'js/script.js' %}"></script> 
+        {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>
