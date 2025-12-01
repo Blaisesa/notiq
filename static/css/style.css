@@ -1123,7 +1123,6 @@ details.faq-item[open] h2 {
 .contact-hero {
     text-align: center;
     padding: 5rem 1rem 4rem 1rem;
-    margin-bottom: 4rem;
 }
 .contact-hero .hero-title {
     color: var(--primary-color);
@@ -1134,6 +1133,7 @@ details.faq-item[open] h2 {
     margin: 0 auto;
     margin-top: 1rem;
 }
+
 
 /* --- Login Form Styling --- */
 .login.form-wrapper {

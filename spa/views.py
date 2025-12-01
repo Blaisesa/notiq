@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from core.models import Feature
+from core.forms import ContactForm
 
 
 # Create your views here.
@@ -15,6 +16,7 @@ def spa_view(request):
     context = {
         'main_features': main_features,
         'secondary_features': secondary_features,
+        'contact_form': ContactForm(),
     }
 
     return render(request, 'spa/index.html', context)
