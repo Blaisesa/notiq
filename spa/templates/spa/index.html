@@ -500,15 +500,17 @@
         </div>
     </section>
     <section id="contact-content" class="spa-page container hidden">
-        <div class="contact-hero">
-            <h1 class="hero-title">Get in Touch with Notiq</h1>
-            <p class="hero-subtitle">
-                We'd love to hear from you! Whether you have questions,
-                feedback, or need support, our team is here to help.
-            </p>
-        </div>
-        <div class="form-wrapper container contact">
-            {% include "core/contact_form.html" with form=contact_form %}
+        <div class="row contact-form">
+            <div class="contact-hero">
+                <h1 class="hero-title">Get in Touch with Notiq</h1>
+                <p class="hero-subtitle">
+                    We'd love to hear from you! Whether you have questions,
+                    feedback, or need support, our team is here to help.
+                </p>
+            </div>
+            <div class="form-wrapper contact login">
+                {% include "core/contact_form.html" with form=contact_form %}
+            </div>
         </div>
         <div id="glowing-cards">
             <div class="glowing-card">
