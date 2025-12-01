@@ -1136,10 +1136,6 @@ details.faq-item[open] h2 {
     max-width: 600px;
     margin-top: 4rem;
 }
-.contact {
-    margin-top: 2rem;
-    max-width: 780px;
-}
 .row.contact-form {
     width: 100%;
 }
@@ -1152,6 +1148,7 @@ form textarea {
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s ease;
+    font-family: inherit;
 }
 form textarea:focus {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
@@ -1462,6 +1459,16 @@ nav.danger-zone-nav {
 }
 .email-management-form input#email_radio_0:checked {
     accent-color: var(--primary-color);
+}
+/* Contact form positioning */
+.contact {
+    margin: 4rem 0 4rem auto;
+    max-width: 780px;
+}
+.row.contact-form {
+    overflow: visible;
+    height: auto;
+    display: flex;
 }
 
 /* --- Footer Styling --- */
