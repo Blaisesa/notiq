@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core',
     'spa',
     'accounts',
+    'notes',
 ]
 
 SITE_ID = 1
