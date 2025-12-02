@@ -27,6 +27,20 @@ class CategoryListView(generics.ListAPIView):
         return queryset
 
 
+class NoteListCreate(UserDataMixin, generics.ListCreateAPIView):
+    """
+    View to list all notes for the authenticated user
+    and create new notes.
+    """
+    serializer_class = NoteSerializer
+    permission_classes = permission_classes
+
+    queryset = Note.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 class NoteDetail(UserDataMixin, generics.RetrieveUpdateDestroyAPIView):
     """
     View to retrieve, update, or delete a specific note.

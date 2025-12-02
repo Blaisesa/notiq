@@ -18,8 +18,4 @@ urlpatterns = [
         'templates/',
         views.TemplateListCreate.as_view(), name='template-list-create'
         ),
-    path(
-        'templates/<int:pk>/',
-        views.TemplateDetail.as_view(), name='template-detail'
-        ),
 ]
