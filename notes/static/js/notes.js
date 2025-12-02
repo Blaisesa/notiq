@@ -35,6 +35,128 @@ canvas.addEventListener("drop", (e) => {
 });
 
 // --- 3. ELEMENT CREATION & LOGIC ---
+
+// --- REUSABLE FUNCTION FOR ATTACHING ACTION BUTTON LISTENERS ---
+function attachElementLogic(contentContainer, type) {
+    // --- LOGIC TO MAKE TABLE BUTTONS WORK ---
+    if (type === "table") {
+        const tableEl = contentContainer.querySelector(".simple-table");
+
+        // Helper function to get the number of columns
+        const getColCount = () => tableEl.querySelector("tr").cells.length;
+
+        // --- Add Column Logic ---
+        contentContainer
+            .querySelector(".add-col-btn")
+            .addEventListener("click", () => {
+                // Add a header cell
+                const newHeader = document.createElement("th");
+                newHeader.contentEditable = "true";
+                // Only use 'Header' title if there is already a header row
+                const currentHeaders = tableEl.querySelector("thead tr");
+                newHeader.textContent = currentHeaders ? `Header ${getColCount() + 1}` : "";
+                currentHeaders.appendChild(newHeader);
+
+                // Add a data cell to every body row
+                tableEl.querySelectorAll("tbody tr").forEach((row) => {
+                    const newCell = document.createElement("td");
+                    newCell.contentEditable = "true";
+                    newCell.textContent = "";
+                    row.appendChild(newCell);
+                });
+            });
+
+        // --- Remove Column Logic ---
+        contentContainer
+            .querySelector(".remove-col-btn")
+            .addEventListener("click", () => {
+                const colCount = getColCount();
+                if (colCount > 1) {
+                    // Remove the last header cell
+                    tableEl.querySelector("thead tr").lastElementChild.remove();
+
+                    // Remove the last cell from every body row
+                    tableEl.querySelectorAll("tbody tr").forEach((row) => {
+                        row.lastElementChild.remove();
+                    });
+                }
+            });
+
+        // --- Add Row Logic ---
+        contentContainer
+            .querySelector(".add-row-btn")
+            .addEventListener("click", () => {
+                const newRow = document.createElement("tr");
+                const colCount = getColCount();
+
+                // Add cells based on the current number of columns
+                for (let i = 0; i < colCount; i++) {
+                    const newCell = document.createElement("td");
+                    newCell.contentEditable = "true";
+                    newCell.textContent = "";
+                    newRow.appendChild(newCell);
+                }
+                tableEl.querySelector("tbody").appendChild(newRow);
+            });
+
+        // --- Remove Row Logic ---
+        contentContainer
+            .querySelector(".remove-row-btn")
+            .addEventListener("click", () => {
+                const tbody = tableEl.querySelector("tbody");
+                if (tbody.children.length > 1) {
+                    tbody.lastElementChild.remove();
+                }
+            });
+    }
+
+    // --- LOGIC TO MAKE CHECKLIST BUTTONS WORK ---
+    if (type === "checklist") {
+        const wrapper = contentContainer.querySelector(".checklist-wrapper");
+
+        // Helper function to create a new list item (made global/reusable)
+        const createNewChecklistItem = (text = "New item", checked = false) => {
+            const newItem = document.createElement("div");
+            newItem.className = "checklist-item";
+            newItem.innerHTML = `
+                <input type="checkbox" ${checked ? 'checked' : ''}>
+                <div contenteditable="true" class="editable-text">${text}</div>
+                <button class="remove-item-btn">&times;</button>
+            `;
+
+            // Attach the remove listener immediately
+            newItem
+                .querySelector(".remove-item-btn")
+                .addEventListener("click", (e) => {
+                    e.currentTarget.closest(".checklist-item").remove();
+                });
+
+            return newItem;
+        };
+        
+        // Expose the helper function if needed outside (optional, but good practice)
+        contentContainer.createNewChecklistItem = createNewChecklistItem;
+
+        // 1. Add Item functionality (if the button exists)
+        const addBtn = contentContainer.querySelector(".add-checklist-item-btn");
+        if (addBtn) {
+            addBtn.addEventListener("click", () => {
+                const newItem = createNewChecklistItem();
+                wrapper.appendChild(newItem);
+            });
+        }
+
+        // 2. Initial Remove listeners for items already created
+        contentContainer
+            .querySelectorAll(".remove-item-btn")
+            .forEach((button) => {
+                button.addEventListener("click", (e) => {
+                    e.currentTarget.closest(".checklist-item").remove();
+                });
+            });
+    }
+}
+
 function addElementToCanvas(type) {
     const newEl = document.createElement("div");
     newEl.className = "note-element";
@@ -121,118 +243,8 @@ function addElementToCanvas(type) {
             break;
     }
 
-    // --- LOGIC TO MAKE TABLE BUTTONS WORK ---
-    if (type === "table") {
-        const tableEl = contentContainer.querySelector(".simple-table");
-
-        // Helper function to get the number of columns
-        const getColCount = () => tableEl.querySelector("tr").cells.length;
-
-        // --- Add Column Logic ---
-        contentContainer
-            .querySelector(".add-col-btn")
-            .addEventListener("click", () => {
-                // Add a header cell
-                const newHeader = document.createElement("th");
-                newHeader.contentEditable = "true";
-                newHeader.textContent = `Header ${getColCount() + 1}`;
-                tableEl.querySelector("thead tr").appendChild(newHeader);
-
-                // Add a data cell to every body row
-                tableEl.querySelectorAll("tbody tr").forEach((row) => {
-                    const newCell = document.createElement("td");
-                    newCell.contentEditable = "true";
-                    newCell.textContent = "";
-                    row.appendChild(newCell);
-                });
-            });
-
-        // --- Remove Column Logic ---
-        contentContainer
-            .querySelector(".remove-col-btn")
-            .addEventListener("click", () => {
-                const colCount = getColCount();
-                if (colCount > 1) {
-                    // Remove the last header cell
-                    tableEl.querySelector("thead tr").lastElementChild.remove();
-
-                    // Remove the last cell from every body row
-                    tableEl.querySelectorAll("tbody tr").forEach((row) => {
-                        row.lastElementChild.remove();
-                    });
-                }
-            });
-
-        // --- Add Row Logic ---
-        contentContainer
-            .querySelector(".add-row-btn")
-            .addEventListener("click", () => {
-                const newRow = document.createElement("tr");
-                const colCount = getColCount();
-
-                // Add cells based on the current number of columns
-                for (let i = 0; i < colCount; i++) {
-                    const newCell = document.createElement("td");
-                    newCell.contentEditable = "true";
-                    newCell.textContent = "";
-                    newRow.appendChild(newCell);
-                }
-                tableEl.querySelector("tbody").appendChild(newRow);
-            });
-
-        // --- Remove Row Logic ---
-        contentContainer
-            .querySelector(".remove-row-btn")
-            .addEventListener("click", () => {
-                const tbody = tableEl.querySelector("tbody");
-                if (tbody.children.length > 1) {
-                    tbody.lastElementChild.remove();
-                }
-            });
-    }
-
-    // --- LOGIC TO MAKE CHECKLIST BUTTONS WORK ---
-    if (type === "checklist") {
-        const wrapper = contentContainer.querySelector(".checklist-wrapper");
-
-        // Helper function to create a new list item
-        const createNewChecklistItem = (text = "New item") => {
-            const newItem = document.createElement("div");
-            newItem.className = "checklist-item";
-            newItem.innerHTML = `
-        <input type="checkbox">
-        <div contenteditable="true" class="editable-text">${text}</div>
-        <button class="remove-item-btn">&times;</button>
-      `;
-
-            // Attach the remove listener immediately
-            newItem
-                .querySelector(".remove-item-btn")
-                .addEventListener("click", (e) => {
-                    // Remove the parent .checklist-item
-                    e.currentTarget.closest(".checklist-item").remove();
-                });
-
-            return newItem;
-        };
-
-        // 1. Add Item functionality
-        contentContainer
-            .querySelector(".add-checklist-item-btn")
-            .addEventListener("click", () => {
-                const newItem = createNewChecklistItem();
-                wrapper.appendChild(newItem);
-            });
-
-        // 2. Initial Remove listeners for items created in the HTML string
-        contentContainer
-            .querySelectorAll(".remove-item-btn")
-            .forEach((button) => {
-                button.addEventListener("click", (e) => {
-                    e.currentTarget.closest(".checklist-item").remove();
-                });
-            });
-    }
+    // Attach specific logic based on type
+    attachElementLogic(contentContainer, type);
 
     // Remove Button
     const removeBtn = document.createElement("button");
@@ -247,7 +259,7 @@ function addElementToCanvas(type) {
     newEl.addEventListener("dragstart", dragStartElement);
     newEl.addEventListener("dragover", dragOverElement);
     newEl.addEventListener("drop", dropElement);
-    newEl.addEventListener("dragend", dragEndElement); // CRITICAL NEW LISTENER
+    newEl.addEventListener("dragend", dragEndElement);
 
     canvas.appendChild(newEl);
 }
@@ -424,7 +436,7 @@ async function saveNote(noteID = currentNoteId) {
     console.log("URL:", url);
     console.log("Payload:", payload);
 
-    
+
     // CSRF token retrieval for Django
     const csrftoken = getCookie("csrftoken");
 
