@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core',
     'spa',
     'accounts',
+    'rest_framework',
     'notes',
 ]
 
