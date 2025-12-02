@@ -134,6 +134,9 @@ h1, h2, h3, h4, h5, h6 {
 /* --- Canvas for Notes --- */
 .canvas {
     flex: 1;
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
     padding: 2rem;
     box-sizing: border-box;
     overflow-y: auto;
@@ -142,3 +145,168 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --- Note Elements Styles --- */
+.note-element {
+  background: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: default; 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid transparent;
+  transition: box-shadow 0.2s;
+  position: relative;
+  padding-left: 35px; /* Ensure space for handle */
+}
+
+.note-element:hover {
+  border-color: #555;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.drag-handle {
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  cursor: grab; 
+  font-size: 24px;
+  color: #888;
+  padding: 0 5px; /* Hitbox padding */
+  user-select: none;
+}
+
+.drag-handle:hover {
+  color: #fff;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Content Container inside Note Element */
+.element-content {
+  flex: 1; /* Takes up all space not used by Remove button */
+  margin-right: 1rem;
+}
+
+/* --- Element Specific Styles --- */
+
+/* Headings */
+.editable-header { margin: 0; font-size: 1.5rem; color: #fff; }
+
+/* Text & Checklists */
+
+/* --- Checklist Styles --- */
+.checklist-wrapper {
+  margin-bottom: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.checklist-item .editable-text {
+  flex-grow: 1; /* Allows the text area to expand */
+  min-width: 50px;
+}
+
+.checklist-item .remove-item-btn {
+  background: none;
+  border: none;
+  color: #f44336; /* Red color */
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+.checklist-item .remove-item-btn:hover {
+  background: #383838;
+  border-radius: 2px;
+}
+
+.add-checklist-item-btn {
+  background: #2a2a2a;
+  color: #4caf50;
+  border: 1px solid #4caf50;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* Divider */
+.fancy-divider { border: 0; height: 1px; background: #555; margin: 10px 0; }
+
+/* Code Block */
+.code-block {
+  background: #111;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  font-size: 0.9rem;
+}
+
+/* Table */
+.table-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.table-actions button {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.simple-table th, .simple-table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+/* Img + Text Row */
+.row-layout { display: flex; gap: 20px; align-items: center; }
+.row-image {
+  flex: 1;
+  background: #444;
+  height: 100px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+.row-text { flex: 2; }
+
+/* --- UI Utilities --- */
+.remove-btn {
+  background: transparent;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.remove-btn:hover { opacity: 1; background: #ff4d4f; color: white; }
