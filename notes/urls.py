@@ -3,6 +3,10 @@ from . import views
 
 urlpatterns = [
     path(
+        '',
+        views.notes_editor_view, name='notes_editor'
+    ),
+    path(
         'notes/',
         views.NoteListCreate.as_view(), name='note-list-create'
         ),

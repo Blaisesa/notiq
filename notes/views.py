@@ -1,5 +1,6 @@
-from rest_framework import generics, permissions
+from django.shortcuts import render
 from django.db import models
+from rest_framework import generics, permissions
 from .models import Note, Category, Template
 from .serializers import NoteSerializer, CategorySerializer, TemplateSerializer
 from .mixins import UserDataMixin
@@ -81,3 +82,16 @@ class TemplateListCreate(generics.ListCreateAPIView):
                 )
 
         serializer.save(user=user)
+
+
+def notes_editor_view(request):
+    """
+    View to render the main notes editor application page.
+    This serves as the entry point for the notes SPA.
+    Ensure that the user is authenticated to access this view.
+    """
+    if not request.user.is_authenticated:
+        from django.contrib.auth.views import redirect_to_login
+        return redirect_to_login(request.get_full_path())
+
+    return render(request, 'notes/notes_editor.html')
