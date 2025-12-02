@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas");
 let draggedEl = null; // Holds the element being reordered
+let currentNoteId = null; // Holds the ID of the current note
+const API_BASE_URL = "/api/notes/"; // Base URL for API endpoints
 
 // --- 1. SIDEBAR DRAG (Creating new items) ---
 document.querySelectorAll(".sidebar .element").forEach((el) => {
@@ -250,7 +252,7 @@ function addElementToCanvas(type) {
     canvas.appendChild(newEl);
 }
 
-// --- 4. REORDERING LOGIC (The Fix) ---
+// --- 4. REORDERING LOGIC ---
 
 function dragStartElement(e) {
     // CRITICAL: Get the PARENT element that needs to be moved.
@@ -306,3 +308,183 @@ function dragEndElement(e) {
     e.target.closest(".note-element").classList.remove("dragging");
     draggedEl = null;
 }
+
+// --- 5. SERIALIZATION LOGIC & SAVING ---
+
+// Convert the current state of the canvas DOM elements into a serializable JSON array.
+function serializeCanvas() {
+    const elements = []; // Array to hold serialized elements
+    const noteElements = document.querySelectorAll("#canvas .note-element"); // Select all note elements within the canvas
+    let idCounter = 0; // Initialize ID counter
+
+    noteElements.forEach((el) => {
+        const type = el.dataset.type;
+        const elementData = {
+            id: `element-${idCounter++}`, // Assign a unique temporary ID
+            type: type,
+            content: null, // Placeholder for content
+            data: {}, // Placeholder for additional data
+        };
+
+        const contentContainer = el.querySelector(".element-content");
+        // Extract content based on element type
+        switch (type) {
+            case "heading":
+                // Get the text content of the editable header
+                elementData.content =
+                    contentContainer.querySelector(
+                        ".editable-header"
+                    ).textContent;
+                break;
+
+            case "text":
+            case "code":
+                // Get the text content of the editable div
+                elementData.content = contentContainer.querySelector(
+                    '[contenteditable="true"]'
+                ).textContent;
+                break;
+
+            case "divider":
+                // Divider has no content to save
+                break;
+
+            case "checklist":
+                const items = [];
+                // Scrape each checklist item
+                contentContainer
+                    .querySelectorAll(".checklist-item")
+                    .forEach((itemEl) => {
+                        items.push({
+                            text: itemEl.querySelector(".editable-text")
+                                .textContent,
+                            checked: itemEl.querySelector(
+                                'input[type="checkbox"]'
+                            ).checked,
+                        });
+                    });
+                elementData.data.items = items;
+                break;
+
+            case "table":
+                const table = contentContainer.querySelector(".simple-table");
+                const headers = Array.from(
+                    table.querySelectorAll("thead th")
+                ).map((th) => th.textContent);
+                const rows = [];
+
+                table.querySelectorAll("tbody tr").forEach((rowEl) => {
+                    const rowData = Array.from(
+                        rowEl.querySelectorAll("td")
+                    ).map((td) => td.textContent);
+                    rows.push(rowData);
+                });
+
+                elementData.data = {
+                    headers: headers,
+                    rows: rows,
+                };
+                break;
+            // Temporary placeholder content for image, voice, img-text
+            case "image":
+            case "voice":
+            case "img-text":
+                elementData.data.placeholder = `Media content for ${type}`;
+                break;
+        }
+        elements.push(elementData);
+    });
+
+    return elements;
+}
+
+// Save the current note by sending serialized data to the backend API.
+async function saveNote(noteID = currentNoteId) {
+    const titleInput = document.getElementById("note-title");
+    const title = titleInput ? titleInput.value : "Untitled Note";
+    const elementsData = serializeCanvas();
+
+    // Use a temporary category ID (1) for now.
+    // NOTE: If your Note model accepts 'category', not 'category_id', use 'category' below.
+    const categoryID = 1;
+
+    const payload = {
+        title: title,
+        category_id: categoryID, // Ensure this matches your serializer field name
+        data: { elements: elementsData }, // Wrap elements in a 'data' object
+    };
+
+    const method = noteID ? "PATCH" : "POST";
+    // Append ID only for PATCH (update) requests
+    const url = noteID ? `${API_BASE_URL}${noteID}/` : API_BASE_URL;
+
+    // TESTING LOGS
+    console.log("Saving Note (POST/PATCH)");
+    console.log("Method:", method);
+    console.log("URL:", url);
+    console.log("Payload:", payload);
+
+    
+    // CSRF token retrieval for Django
+    const csrftoken = getCookie("csrftoken");
+
+    try {
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": csrftoken, // Include CSRF token
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`API Error: ${response.status} - ${errorText}`);
+        }
+
+        const savedNote = await response.json();
+
+        // TESTING LOG
+        console.log("API Response Data:", savedNote);
+
+        // Update the global ID after a successful POST (creation)
+        if (method === "POST") {
+            currentNoteId = savedNote.id;
+            // TESTING LOG
+            console.log("New Note ID Set:", currentNoteId);
+        }
+
+        console.log("Note saved successfully:", savedNote);
+        alert(`Note '${savedNote.title}' saved! ID: ${savedNote.id}`);
+        return savedNote;
+    } catch (error) {
+        console.error("Error saving note:", error);
+        alert("Failed to save the note. Please check the console.");
+    }
+}
+
+// Helper function to get CSRF token from cookies (for Django)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// --- 6. EVENT LISTENERS FOR SAVE BUTTON ---
+document.addEventListener("DOMContentLoaded", () => {
+    // Hook up the save button from the toolbar
+    const saveButton = document.querySelector(".toolbar #save");
+    saveButton.addEventListener("click", () => saveNote());
+});

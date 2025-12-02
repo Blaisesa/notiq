@@ -22,7 +22,13 @@ class NoteSerializer(serializers.ModelSerializer):
     Serializer for the Note model.
     It includes a nested representation of the Category.
     """
-    category = serializers.ReadOnlyField(source='category.name')
+    category_name = serializers.ReadOnlyField(source='category.name')
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source='category',  # Map this field back to the 'category' foreign key
+        write_only=True,
+        required=False  # Allow creating a note without a category
+    )
 
     class Meta:
         model = Note
@@ -32,8 +38,8 @@ class NoteSerializer(serializers.ModelSerializer):
             'data',
             'created_at',
             'updated_at',
-            'category',
-            'category_name'
+            'category_id',  # to set the category
+            'category_name'  # to read the category name
             ]
         read_only_fields = ['user', 'created_at', 'updated_at']
 
@@ -43,6 +49,14 @@ class TemplateSerializer(serializers.ModelSerializer):
     Serializer for the Template model.
     It includes a nested representation of the Category.
     """
+    category_name = serializers.ReadOnlyField(source='category.name')
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source='category',  # Map this field back to the 'category' foreign key
+        write_only=True,
+        required=False  # Allow creating a note without a category
+    )
+
     class Meta:
         model = Template
         fields = [
@@ -51,6 +65,7 @@ class TemplateSerializer(serializers.ModelSerializer):
             'data',
             'is_public',
             'created_at',
-            'category',
+            'category_id',
+            'category_name'
             ]
         read_only_fields = ['user', 'created_at', 'updated_at']
