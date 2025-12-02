@@ -1,0 +1,410 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
+
+/* Root Variables */
+:root {
+    /* Notiq Website Root Styles */
+    --primary-color: #5f5ed1; /* Notiq Primary Blue */
+    --secondary-color: #2d9cdc; /* Notiq Secondary Blue */
+    --link-color: #9747ff; /* Notiq Purple */
+    --link-hover-color: #dfacec; /* Notiq Light Purple */
+    --background-color: #0e0218; /* Notiq Dark Background */
+    --secondary-background-color: #1e0b2c; /* Notiq Secondary Dark Background */
+    --primary-font-family: "manrope", sans-serif;
+    --secondary-font-family: "IBM Plex Sans", sans-serif;
+    --primary-font-color: #e0e0e0; /* Light Gray */
+    --secondary-font-color: #a0a0a0; /* Medium Gray */
+    /* Notiq app Colors */
+    --app-background-color: #121212; /* App Dark Background */
+    --app-secondary-background-color: #1e1e1e; /* App Secondary Dark Background */
+    --app-border-color: #333333; /* App Border Gray */
+}
+body {
+    font-family: var(--secondary-font-family);
+    background-color: var(--background-color);
+    color: var(--primary-font-color);
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font-family);
+    color: var(--primary-font-color);
+    margin: 0;
+}
+
+/* Drawer Styles */
+/* Base style for the drawer */
+.history-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Adjust width as needed */
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0); /* Default visible position */
+    z-index: 1000;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+/* Class to hide the drawer off-screen */
+.history-drawer.closed {
+    transform: translateX(100%);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.1s;
+}
+
+.history-item:hover {
+    background-color: #e0e0e0;
+}
+
+.history-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-date {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* --- Main Notes App Layout --- */
+
+.notes-app {
+    background-color: var(--app-background-color);
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    margin-top: 40px;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    background-color: var(--app-secondary-background-color);
+    border-right: 1px solid var(--app-border-color);
+    padding: 1.5rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    width: 280px;
+    display: block;
+    min-height: 100vh;
+}
+.sidebar h2 {
+    font-size: 1.5rem;
+    color: var(--primary-font-color);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--secondary-font-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.tab.active {
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-font-color);
+    scale: 1.05;
+}
+.tab:hover {
+    color: var(--primary-font-color);
+    border-bottom: 2px solid var(--primary-color);
+    scale: 1.05;
+}
+
+/* Note Elements list */
+.heading {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+.heading-divider{
+    width: 100%;
+    height: 1px;
+    background-color: var(--primary-font-color);
+}
+.element {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    cursor: grabbing;
+    transition: background-color 0.3s ease;
+    color: var(--primary-font-color);
+    border: 1px solid var(--app-border-color);
+    transition: all 0.3s ease;
+}
+.element:hover {
+    background-color: var(--app-background-color);
+    scale: 1.05;
+    border: 1px solid var(--primary-color);
+    transform: translate(5px, -5px);
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.divider {
+    height: 1px;
+    background-color: var(--app-border-color);
+    margin: 1rem 0;
+}
+.buttons button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    color: var(--primary-font-color);
+    background-color: var(--primary-color);
+}
+.buttons button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* --- Canvas for Notes --- */
+.canvas {
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+    padding: 3rem 0;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: var(--app-secondary-background-color);
+    margin: 1rem 4rem;
+    max-height: 100vh;
+}
+.toolbar {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: calc(100% - 8px); /* Adjust for border and padding */
+    padding: 2px;
+    border: 2px solid var(--app-border-color);
+    background-color: var(--app-secondary-background-color);
+    height: 40px;
+}
+.toolbar button {
+    background: none;
+    border: none;
+    color: var(--primary-font-color);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+/* --- Note Elements Styles --- */
+.note-element {
+  background: #333;
+  padding: 1rem;
+  margin: 0 2rem;
+  border-radius: 8px;
+  cursor: default; 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid transparent;
+  transition: box-shadow 0.2s;
+  position: relative;
+  padding-left: 35px; /* Ensure space for handle */
+}
+
+.note-element:hover {
+  border-color: #555;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.drag-handle {
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  cursor: grab; 
+  font-size: 24px;
+  color: #888;
+  padding: 0 5px; /* Hitbox padding */
+  user-select: none;
+}
+
+.drag-handle:hover {
+  color: #fff;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Content Container inside Note Element */
+.element-content {
+  flex: 1; /* Takes up all space not used by Remove button */
+  margin-right: 1rem;
+}
+
+/* --- Element Specific Styles --- */
+
+/* Headings */
+.editable-header { margin: 0; font-size: 1.5rem; color: #fff; }
+
+/* Text & Checklists */
+
+/* --- Checklist Styles --- */
+.checklist-wrapper {
+  margin-bottom: 10px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.checklist-item .editable-text {
+  flex-grow: 1; /* Allows the text area to expand */
+  min-width: 50px;
+}
+
+.checklist-item .remove-item-btn {
+  background: none;
+  border: none;
+  color: #f44336; /* Red color */
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+.checklist-item .remove-item-btn:hover {
+  background: #383838;
+  border-radius: 2px;
+}
+
+.add-checklist-item-btn {
+  background: #2a2a2a;
+  color: #4caf50;
+  border: 1px solid #4caf50;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
+/* Divider */
+.fancy-divider { border: 0; height: 1px; background: #555; margin: 10px 0; }
+
+/* Code Block */
+.code-block {
+  background: #111;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  font-size: 0.9rem;
+}
+
+/* Table */
+.table-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+.table-actions button {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.simple-table th, .simple-table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+/* Img + Text Row */
+.row-layout { display: flex; gap: 20px; align-items: center; }
+.row-image {
+  flex: 1;
+  background: #444;
+  height: 100px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+.row-text { flex: 2; }
+
+/* --- UI Utilities --- */
+.remove-btn {
+  background: transparent;
+  border: 1px solid #ff4d4f;
+  color: #ff4d4f;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.remove-btn:hover { opacity: 1; background: #ff4d4f; color: white; }
+
+/* Footer Override */
+footer {
+    display: none;
+}

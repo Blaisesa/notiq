@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+{% endblock extra_head %}
+
+{% block content %}
+<div class="notes-app">
+    <div class="sidebar">
+        <div class="tabs"><span class="tab active">Elements</span><span class="tab">Templates</span></div>
+        <div class="heading"><h2>Basic</h2><span class="heading-divider"></span></div>
+        <div class="element" draggable="true" data-type="heading">Heading</div>
+        <div class="element" draggable="true" data-type="text">Text Paragraph</div>
+        <div class="element" draggable="true" data-type="checklist">To-Do List</div>
+        <div class="element" draggable="true" data-type="divider">--- Divider ---</div>
+
+        <div class="heading"><h2>Media</h2><span class="heading-divider"></span></div>
+        <div class="element" draggable="true" data-type="image">Image</div>
+        <div class="element" draggable="true" data-type="voice">Voice Note</div>
+      
+        <div class="heading"><h2>Technical</h2><span class="heading-divider"></span></div>
+        <div class="element" draggable="true" data-type="table">Table</div>
+        <div class="element" draggable="true" data-type="code">Code Block</div>
+
+        <div class="heading"><h2>Layouts</h2><span class="heading-divider"></span></div>
+        <div class="element" draggable="true" data-type="img-text">Image Box</div>
+    </div>
+    <div id="history-drawer" class="history-drawer closed">
+    <div class="drawer-header">
+        <h2>Note History</h2>
+        <button id="close-drawer-btn" class="close-btn">&times;</button>
+    </div>
+        <ul id="note-history-list" class="note-list">
+        </ul>
+    </div>
+    <div class="toolbar">
+        <button>new note</button>
+        <button id="save">save</button>
+        <button id="toggle-history-btn">history</button>
+        <button>clear</button>
+        <button>settings</button>
+        <button>download</button>
+    </div>
+    <div class="canvas" id="canvas">
+        
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+    <script src="{% static 'js/notes-script.js' %}"></script>
+    <script src="{% static 'js/history.js' %}"></script>
+    <script src="{% static 'js/load-notes.js' %}"></script>
+    <script src="{% static 'js/save-notes.js' %}"></script>
+{% endblock extra_js %}
