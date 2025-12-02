@@ -27,18 +27,31 @@
         <div class="heading"><h2>Layouts</h2><span class="heading-divider"></span></div>
         <div class="element" draggable="true" data-type="img-text">Image Box</div>
     </div>
+    <div id="history-drawer" class="history-drawer closed">
+    <div class="drawer-header">
+        <h2>Note History</h2>
+        <button id="close-drawer-btn" class="close-btn">&times;</button>
+    </div>
+        <ul id="note-history-list" class="note-list">
+        </ul>
+    </div>
+    <div class="toolbar">
+        <button>new note</button>
+        <button id="save">save</button>
+        <button id="toggle-history-btn">history</button>
+        <button>clear</button>
+        <button>settings</button>
+        <button>download</button>
+    </div>
     <div class="canvas" id="canvas">
-        <div class="toolbar">
-            <button>new note</button>
-            <button id="save">save</button>
-            <button>clear</button>
-            <button>settings</button>
-            <button>download</button>
-        </div>
+        
     </div>
 </div>
 {% endblock content %}
 
 {% block extra_js %}
-    <script src="{% static 'js/notes.js' %}"></script>
+    <script src="{% static 'js/notes-script.js' %}"></script>
+    <script src="{% static 'js/history.js' %}"></script>
+    <script src="{% static 'js/load-notes.js' %}"></script>
+    <script src="{% static 'js/save-notes.js' %}"></script>
 {% endblock extra_js %}

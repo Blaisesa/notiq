@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
 
+/* Root Variables */
 :root {
     /* Notiq Website Root Styles */
     --primary-color: #5f5ed1; /* Notiq Primary Blue */
@@ -28,12 +29,77 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/* Drawer Styles */
+/* Base style for the drawer */
+.history-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Adjust width as needed */
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0); /* Default visible position */
+    z-index: 1000;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+/* Class to hide the drawer off-screen */
+.history-drawer.closed {
+    transform: translateX(100%);
+}
+
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.note-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.1s;
+}
+
+.history-item:hover {
+    background-color: #e0e0e0;
+}
+
+.history-title {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-date {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* --- Main Notes App Layout --- */
+
 .notes-app {
     background-color: var(--app-background-color);
     display: flex;
     height: 100%;
     width: 100%;
     overflow-y: hidden;
+    margin-top: 40px;
 }
 
 /* --- Sidebar --- */
@@ -139,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     display: flex;
     gap: 1rem;
-    padding: 0 0 3rem 0;
+    padding: 3rem 0;
     box-sizing: border-box;
     overflow-y: auto;
     background-color: var(--app-secondary-background-color);
@@ -147,7 +213,8 @@ h1, h2, h3, h4, h5, h6 {
     max-height: 100vh;
 }
 .toolbar {
-    position: relative;
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
@@ -155,7 +222,8 @@ h1, h2, h3, h4, h5, h6 {
     width: calc(100% - 8px); /* Adjust for border and padding */
     padding: 2px;
     border: 2px solid var(--app-border-color);
-    background-color: var(--app-background-color);
+    background-color: var(--app-secondary-background-color);
+    height: 40px;
 }
 .toolbar button {
     background: none;
