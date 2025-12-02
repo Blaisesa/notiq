@@ -1,3 +1,142 @@
-.notes {
-    min-height: 80vh;
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
+
+:root {
+    /* Notiq Website Root Styles */
+    --primary-color: #5f5ed1; /* Notiq Primary Blue */
+    --secondary-color: #2d9cdc; /* Notiq Secondary Blue */
+    --link-color: #9747ff; /* Notiq Purple */
+    --link-hover-color: #dfacec; /* Notiq Light Purple */
+    --background-color: #0e0218; /* Notiq Dark Background */
+    --secondary-background-color: #1e0b2c; /* Notiq Secondary Dark Background */
+    --primary-font-family: "manrope", sans-serif;
+    --secondary-font-family: "IBM Plex Sans", sans-serif;
+    --primary-font-color: #e0e0e0; /* Light Gray */
+    --secondary-font-color: #a0a0a0; /* Medium Gray */
+    /* Notiq app Colors */
+    --app-background-color: #121212; /* App Dark Background */
+    --app-secondary-background-color: #1e1e1e; /* App Secondary Dark Background */
+    --app-border-color: #333333; /* App Border Gray */
+}
+body {
+    font-family: var(--secondary-font-family);
+    background-color: var(--background-color);
+    color: var(--primary-font-color);
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--primary-font-family);
+    color: var(--primary-font-color);
+    margin: 0;
+}
+
+.notes-app {
+    background-color: var(--app-background-color);
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    background-color: var(--app-secondary-background-color);
+    border-right: 1px solid var(--app-border-color);
+    padding: 1.5rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    width: 280px;
+    display: inline-block;
+}
+.sidebar h2 {
+    font-size: 1.5rem;
+    color: var(--primary-font-color);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--secondary-font-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.tab.active {
+    border-bottom: 2px solid var(--primary-color);
+    color: var(--primary-font-color);
+    scale: 1.05;
+}
+.tab:hover {
+    color: var(--primary-font-color);
+    border-bottom: 2px solid var(--primary-color);
+    scale: 1.05;
+}
+
+/* Note Elements list */
+.heading {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 1rem 0;
+}
+.heading-divider{
+    width: 100%;
+    height: 1px;
+    background-color: var(--primary-font-color);
+}
+.element {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    cursor: grabbing;
+    transition: background-color 0.3s ease;
+    color: var(--primary-font-color);
+    border: 1px solid var(--app-border-color);
+    transition: all 0.3s ease;
+}
+.element:hover {
+    background-color: var(--app-background-color);
+    scale: 1.05;
+    border: 1px solid var(--primary-color);
+    transform: translate(5px, -5px);
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.divider {
+    height: 1px;
+    background-color: var(--app-border-color);
+    margin: 1rem 0;
+}
+.buttons button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    color: var(--primary-font-color);
+    background-color: var(--primary-color);
+}
+.buttons button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* --- Canvas for Notes --- */
+.canvas {
+    flex: 1;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: var(--app-secondary-background-color);
+    margin: 0 4rem;
 }
