@@ -40,10 +40,12 @@ window.renderNoteHistory = function renderNoteHistory(notes) {
         const listItem = document.createElement("li");
         listItem.className = "history-item";
         listItem.dataset.noteId = note.id;
+        const categoryName = note.category_name || 'Uncategorized';
 
         listItem.innerHTML = `
             <span class="history-title">${note.title || "Untitled Note"}</span>
             <span class="history-date">${formattedDate}</span>
+            <span class="history-category">${categoryName}</span>
         `;
 
         // Attach the click event handler
