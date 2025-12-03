@@ -68,15 +68,23 @@ function serializeCanvas() {
 window.saveNote = async function saveNote(noteID = window.currentNoteId) {
     const titleInput = document.getElementById("note-title");
     const title = titleInput ? titleInput.value : "Untitled Note";
-    const elementsData = serializeCanvas();
+    const categorySelector = document.getElementById("note-category-select");
+    const categoryID = categorySelector.value || 1; // Default to 1 if not selected
+    const selectedCategoryValue = categorySelector ? categorySelector.value : null;
 
-    const categoryID = 1;
+    const elementsData = serializeCanvas();
 
     const payload = {
         title: title,
-        category_id: categoryID, 
         data: { elements: elementsData }, 
     };
+
+    if (selectedCategoryValue !== "" && selectedCategoryValue !== null) {
+        payload.category_id = selectedCategoryValue;
+    } else {
+        console.log("No category selected; not including category_id in payload.");
+    }
+    console.log("Payload to be sent:", payload);
 
     const method = noteID ? "PATCH" : "POST";
     const url = noteID ? `${API_BASE_URL}${noteID}/` : API_BASE_URL;
