@@ -243,7 +243,6 @@ h1, h2, h3, h4, h5, h6 {
     flex: 1;
     flex-direction: column;
     display: flex;
-    gap: 1rem;
     padding: 3rem 0;
     box-sizing: border-box;
     overflow-y: auto;
@@ -291,7 +290,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #note-category-select{
     background-color: var(--app-secondary-background-color);
-    border: 1px solid var(--primary-font-color);
+    border: 1px solid var(--app-border-color);
     color: var(--primary-font-color);
     font-size: 1rem;
     padding: 0.25rem 0.5rem;
@@ -302,7 +301,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #note-category-select:focus {
     outline: none;
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--app-border-color);
 }
 #note-category-select name{
     background-color: var(--app-secondary-background-color);
@@ -322,7 +321,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 /*  Note Elements Styles  */
 .note-element {
-  background: #333;
   padding: 1rem;
   margin: 0 2rem;
   border-radius: 8px;
@@ -334,14 +332,19 @@ h1, h2, h3, h4, h5, h6 {
   transition: box-shadow 0.2s;
   position: relative;
   padding-left: 35px; /* Ensure space for handle */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .note-element:hover {
+  opacity: 1;
   border-color: #555;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+
 .drag-handle {
+  opacity: 0;
   position: absolute;
   left: 5px;
   top: 15px;
@@ -364,6 +367,12 @@ h1, h2, h3, h4, h5, h6 {
 .element-content {
   flex: 1; /* Takes up all space not used by Remove button */
   margin-right: 1rem;
+}
+
+.note-element [contenteditable] {
+    white-space: pre-wrap;      /* Preserve line breaks and wrap text */
+    word-wrap: break-word;      /* Break long words if necessary */
+    overflow-wrap: break-word;  /* Extra support for older browsers */
 }
 
 /*  Element Specific Styles  */
@@ -405,6 +414,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .add-checklist-item-btn {
+  opacity: 0;
   background: #2a2a2a;
   color: #4caf50;
   border: 1px solid #4caf50;
@@ -473,6 +483,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*  UI Utilities  */
 .remove-btn {
+  opacity: 0;
   background: transparent;
   border: 1px solid #ff4d4f;
   color: #ff4d4f;
@@ -483,10 +494,23 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  filter: grayscale(0.5);
   transition: opacity 0.2s;
 }
-.remove-btn:hover { opacity: 1; background: #ff4d4f; color: white; }
+.remove-btn:hover { opacity: 1; background: #ff4d4f; color: white; filter: none; }
+
+.note-element:hover .remove-btn, .note-element:hover .drag-handle, .note-element:hover .add-checklist-item-btn {
+  opacity: 1;
+}
+
+[contenteditable="true"] {
+    outline: none;
+    cursor: text;
+}
+[contenteditable="true"]:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+    border-radius: 4px;
+}
 
 /* Footer Override */
 footer {
