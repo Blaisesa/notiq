@@ -3,6 +3,45 @@ window.draggedEl = null; // Holds the element being reordered (set by dragStartE
 window.currentNoteId = null; // Holds the ID of the current note (set by loadNote/saveNote)
 window.API_BASE_URL = "/api/notes/"; // Base URL for API endpoints
 
+// Category Variables
+window.categories = []; // Will hold categories fetched from the server 
+window.CATEGORY_API_URL = "/api/categories/"; // Base URL for category API endpoints
+
+// --- FETCH AND INITIALIZE CATEGORIES ---
+async function fetchCategories() {
+    try {
+        const response = await fetch(window.CATEGORY_API_URL);
+        if (!response.ok) {
+            throw new Error("Failed to fetch categories");
+        }
+        const fetchedCategories = await response.json(); // Expecting an array of categories
+        window.categories = fetchedCategories; // Store globally
+        populateCategoryDropdown(window.categories); // Populate the dropdown
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+        window.categories = []; // Fallback to empty array on error
+    }
+}
+
+function populateCategoryDropdown(categories) {
+    const selector = document.getElementById("note-category-select");
+    selector.innerHTML = ''; // Clear existing options
+
+    if (categories.length === 0) {
+        selector.innerHTML = '<option value="" disabled>No categories available</option>';
+        return;
+    }
+
+    // Add default option
+    selector.innerHTML += '<option value="" disabled selected>Select Category</option>';
+
+    categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.id;
+        option.textContent = category.name;
+        selector.appendChild(option);
+    });
+}
 
 // --- 1. SIDEBAR DRAG (Creating new items) ---
 document.querySelectorAll(".sidebar .element").forEach((el) => {
@@ -287,3 +326,7 @@ window.dragEndElement = function dragEndElement(e) {
     e.target.closest(".note-element").classList.remove("dragging");
     window.draggedEl = null;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetchCategories(); // Initial fetch of categories on load
+});

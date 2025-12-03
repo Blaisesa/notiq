@@ -273,13 +273,43 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     padding: 0.25rem 0.5rem;
     width: 300px;
-    margin: 0 4rem 0 auto;
+    margin: 0 1rem 0 auto;
 }
 .note-title-input:focus {
     outline: none;
     border-bottom: 1px solid var(--primary-color);
 }
+#note-category-select{
+    background-color: var(--app-secondary-background-color);
+    border: 1px solid var(--primary-font-color);
+    color: var(--primary-font-color);
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+    width: 150px;
+    margin-right: 4rem;
+}
+#note-category-select:focus {
+    outline: none;
+    border: 1px solid var(--primary-color);
+}
+#note-category-select name{
+    background-color: var(--app-secondary-background-color);
+    color: var(--primary-font-color);
+}
 
+#note-category-select option{
+    background-color: var(--app-secondary-background-color);
+    color: var(--primary-font-color);
+    border: none;
+}
+#note-category-select option:hover{
+    background-color: var(--app-background-color);
+}
+#note-category-select option:checked{
+    color: var(--secondary-font-color);
+}
 /*  Note Elements Styles  */
 .note-element {
   background: #333;
