@@ -34,7 +34,9 @@ class Note(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
         )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, null=True, blank=True
+        )
     title = models.CharField(max_length=200)
     data = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

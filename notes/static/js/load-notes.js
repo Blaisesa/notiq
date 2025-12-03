@@ -165,7 +165,7 @@ window.loadNote = async function loadNote(noteId) {
             "note-category-select"
         );
         if (categorySelector) {
-            if (window.fetchCategories.length === 0) {
+            if (window.categories.length === 0) {
                 await window.fetchCategories();
             }
 
