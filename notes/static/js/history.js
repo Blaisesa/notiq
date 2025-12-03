@@ -88,8 +88,6 @@ window.handleNoteClick = function handleNoteClick(noteId) {
 
 // --- EVENT LISTENERS FOR HISTORY DRAWER ---
 document.addEventListener("DOMContentLoaded", () => {
-    // We assume the save button listener is handled in save-notes.js,
-    // but the history drawer logic is here:
 
     const drawer = document.getElementById("history-drawer");
     const toggleBtn = document.getElementById("toggle-history-btn");
@@ -103,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Only fetch and render if opening the drawer
             if (!drawer.classList.contains("closed")) {
                 const history = await window.fetchNoteHistory();
+                searchInput.value = ""; // Clear search input
                 window.renderNoteHistory(history);
             }
         });
