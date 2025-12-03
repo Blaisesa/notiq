@@ -1,40 +1,38 @@
 window.canvas = document.getElementById("canvas");
-window.draggedEl = null; // Holds the element being reordered (set by dragStartElement)
-window.currentNoteId = null; // Holds the ID of the current note (set by loadNote/saveNote)
-window.API_BASE_URL = "/api/notes/"; // Base URL for API endpoints
+window.draggedEl = null; // Holds element being reordered
+window.currentNoteId = null;
+window.API_BASE_URL = "/api/notes/";
 
-// Category Variables
-window.categories = []; // Will hold categories fetched from the server 
-window.CATEGORY_API_URL = "/api/categories/"; // Base URL for category API endpoints
+// Category variables
+window.categories = [];
+window.CATEGORY_API_URL = "/api/categories/";
 
-// --- FETCH AND INITIALIZE CATEGORIES ---
+// --- FETCH & INITIALIZE CATEGORIES ---
 async function fetchCategories() {
     try {
         const response = await fetch(window.CATEGORY_API_URL);
-        if (!response.ok) {
-            throw new Error("Failed to fetch categories");
-        }
-        const fetchedCategories = await response.json(); // Expecting an array of categories
-        window.categories = fetchedCategories; // Store globally
-        populateCategoryDropdown(window.categories); // Populate the dropdown
+        if (!response.ok) throw new Error("Failed to fetch categories");
+        const fetchedCategories = await response.json();
+        window.categories = fetchedCategories;
+        populateCategoryDropdown(fetchedCategories);
     } catch (error) {
         console.error("Error fetching categories:", error);
-        window.categories = []; // Fallback to empty array on error
+        window.categories = [];
     }
 }
 
 function populateCategoryDropdown(categories) {
     const selector = document.getElementById("note-category-select");
-    selector.innerHTML = ''; // Clear existing options
+    selector.innerHTML = "";
 
-    if (categories.length === 0) {
-        selector.innerHTML = '<option value="" disabled>No categories available</option>';
+    if (!categories.length) {
+        selector.innerHTML =
+            '<option value="" disabled>No categories available</option>';
         return;
     }
 
-    // Add default option
-    selector.innerHTML += '<option value="" disabled selected>Select Category</option>';
-
+    selector.innerHTML +=
+        '<option value="" disabled selected>Select Category</option>';
     categories.forEach((category) => {
         const option = document.createElement("option");
         option.value = category.id;
@@ -43,290 +41,313 @@ function populateCategoryDropdown(categories) {
     });
 }
 
-// --- 1. SIDEBAR DRAG (Creating new items) ---
+// --- SIDEBAR DRAG ---
 document.querySelectorAll(".sidebar .element").forEach((el) => {
     el.addEventListener("dragstart", (e) => {
-        // We are dragging a NEW item
-        window.draggedEl = null; // Ensure this is null so reorder logic doesn't fire
+        window.draggedEl = null; // sidebar new item
         e.dataTransfer.setData("type", e.target.dataset.type);
         e.dataTransfer.effectAllowed = "copy";
     });
 });
 
-// --- 2. CANVAS DROP (Adding new items only) ---
+// --- CANVAS DROP ---
 canvas.addEventListener("dragover", (e) => {
     e.preventDefault();
-    // If we are dragging a sidebar item, it's a copy. If reordering, it's a move.
-    e.dataTransfer.dropEffect = draggedEl ? "move" : "copy";
+    e.dataTransfer.dropEffect = window.draggedEl ? "move" : "copy";
 });
 
 canvas.addEventListener("drop", (e) => {
     e.preventDefault();
+    if (window.draggedEl) return; // handled by element-level drop
 
-    // If 'draggedEl' exists, this is a reorder event that bubbled up.
-    // We ignore it here because the element-level handler takes care of reordering.
-    if (window.draggedEl) return;
-
-    // If we get here, it means it's a Sidebar Drop
     const type = e.dataTransfer.getData("type");
-    if (type) {
-        window.addElementToCanvas(type);
-    }
+    if (type) window.addElementToCanvas(type);
 });
 
-
-// --- 3. ELEMENT CREATION & LOGIC ---
-// REUSABLE FUNCTION FOR ATTACHING ACTION BUTTON LISTENERS (MUST BE GLOBAL)
-window.attachElementLogic = function attachElementLogic(contentContainer, type) {
-    // Helper function used by both element creation and deserialization
-    const createNewChecklistItem = (text = "New item", checked = false) => {
+// --- ELEMENT LOGIC ---
+window.attachElementLogic = function attachElementLogic(
+    contentContainer,
+    type
+) {
+    // Checklist helper
+    const createNewChecklistItem = (
+        text = "",
+        checked = false,
+        placeholder = "New item"
+    ) => {
         const newItem = document.createElement("div");
         newItem.className = "checklist-item";
         newItem.innerHTML = `
-            <input type="checkbox" ${checked ? 'checked' : ''}>
-            <div contenteditable="true" class="editable-text">${text}</div>
-            <button class="remove-item-btn">&times;</button>
-        `;
+        <input type="checkbox" ${checked ? "checked" : ""}>
+        <div contenteditable="true">${text || placeholder}</div>
+        <button class="remove-item-btn">&times;</button>
+    `;
 
-        // Attach the remove listener immediately
+        const editable = newItem.querySelector("[contenteditable]");
+        const parentEl =
+            newItem.closest(".note-element") ||
+            contentContainer.closest(".note-element");
+
+        // Remove button
         newItem
             .querySelector(".remove-item-btn")
-            .addEventListener("click", (e) => {
-                e.currentTarget.closest(".checklist-item").remove();
+            .addEventListener("click", () => {
+                newItem.remove();
             });
+
+        // Stop parent drag while editing
+        editable.addEventListener("focusin", () => {
+            if (parentEl) parentEl.draggable = false;
+        });
+        editable.addEventListener("focusout", () => {
+            if (parentEl) parentEl.draggable = true;
+        });
+
+        // Prevent drag interference
+        editable.addEventListener("mousedown", (e) => e.stopPropagation());
+        editable.addEventListener("dragstart", (e) => e.preventDefault());
+
+        // Only clear placeholder if content matches placeholder
+        editable.addEventListener("focus", (e) => {
+            if (text === "" && e.target.textContent.trim() === placeholder)
+                e.target.textContent = "";
+            setTimeout(() => window.setEndOfContenteditable(e.target), 0);
+        });
+        editable.addEventListener("blur", (e) => {
+            if (text === "" && e.target.textContent.trim() === "")
+                e.target.textContent = placeholder;
+        });
 
         return newItem;
     };
-    
-    // EXPOSE the helper function for deserialization (load-notes.js) to use
+
     contentContainer.createNewChecklistItem = createNewChecklistItem;
 
-    // --- LOGIC TO MAKE TABLE BUTTONS WORK ---
+    // Table buttons
     if (type === "table") {
         const tableEl = contentContainer.querySelector(".simple-table");
         const getColCount = () => tableEl.querySelector("tr").cells.length;
 
-        // Add Column Logic
-        contentContainer.querySelector(".add-col-btn").addEventListener("click", () => {
-            const newHeader = document.createElement("th");
-            newHeader.contentEditable = "true";
-            const currentHeaders = tableEl.querySelector("thead tr");
-            newHeader.textContent = currentHeaders ? `Header ${getColCount() + 1}` : "";
-            currentHeaders.appendChild(newHeader);
-            tableEl.querySelectorAll("tbody tr").forEach((row) => {
-                const newCell = document.createElement("td");
-                newCell.contentEditable = "true";
-                newCell.textContent = "";
-                row.appendChild(newCell);
-            });
-        });
-
-        // Remove Column Logic
-        contentContainer.querySelector(".remove-col-btn").addEventListener("click", () => {
-            const colCount = getColCount();
-            if (colCount > 1) {
-                tableEl.querySelector("thead tr").lastElementChild.remove();
+        contentContainer
+            .querySelector(".add-col-btn")
+            ?.addEventListener("click", () => {
+                const newHeader = document.createElement("th");
+                newHeader.contentEditable = "true";
+                newHeader.textContent = `Header ${getColCount() + 1}`;
+                tableEl.querySelector("thead tr").appendChild(newHeader);
                 tableEl.querySelectorAll("tbody tr").forEach((row) => {
-                    row.lastElementChild.remove();
+                    const newCell = document.createElement("td");
+                    newCell.contentEditable = "true";
+                    row.appendChild(newCell);
                 });
-            }
-        });
+            });
 
-        // Add Row Logic
-        contentContainer.querySelector(".add-row-btn").addEventListener("click", () => {
-            const newRow = document.createElement("tr");
-            const colCount = getColCount();
-            for (let i = 0; i < colCount; i++) {
-                const newCell = document.createElement("td");
-                newCell.contentEditable = "true";
-                newCell.textContent = "";
-                newRow.appendChild(newCell);
-            }
-            tableEl.querySelector("tbody").appendChild(newRow);
-        });
+        contentContainer
+            .querySelector(".remove-col-btn")
+            ?.addEventListener("click", () => {
+                if (getColCount() > 1) {
+                    tableEl.querySelector("thead tr").lastElementChild.remove();
+                    tableEl
+                        .querySelectorAll("tbody tr")
+                        .forEach((row) => row.lastElementChild.remove());
+                }
+            });
 
-        // Remove Row Logic
-        contentContainer.querySelector(".remove-row-btn").addEventListener("click", () => {
-            const tbody = tableEl.querySelector("tbody");
-            if (tbody.children.length > 1) {
-                tbody.lastElementChild.remove();
-            }
-        });
+        contentContainer
+            .querySelector(".add-row-btn")
+            ?.addEventListener("click", () => {
+                const newRow = document.createElement("tr");
+                for (let i = 0; i < getColCount(); i++) {
+                    const newCell = document.createElement("td");
+                    newCell.contentEditable = "true";
+                    newRow.appendChild(newCell);
+                }
+                tableEl.querySelector("tbody").appendChild(newRow);
+            });
+
+        contentContainer
+            .querySelector(".remove-row-btn")
+            ?.addEventListener("click", () => {
+                const tbody = tableEl.querySelector("tbody");
+                if (tbody.children.length > 1) tbody.lastElementChild.remove();
+            });
     }
 
-    // --- LOGIC TO MAKE CHECKLIST BUTTONS WORK ---
+    // Checklist buttons
     if (type === "checklist") {
         const wrapper = contentContainer.querySelector(".checklist-wrapper");
-
-        // 1. Add Item functionality (if the button exists)
-        const addBtn = contentContainer.querySelector(".add-checklist-item-btn");
-        if (addBtn) {
+        const addBtn = contentContainer.querySelector(
+            ".add-checklist-item-btn"
+        );
+        if (addBtn && !addBtn.dataset.listenerAttached) {
             addBtn.addEventListener("click", () => {
-                const newItem = createNewChecklistItem();
+                const newItem = contentContainer.createNewChecklistItem();
                 wrapper.appendChild(newItem);
             });
+            addBtn.dataset.listenerAttached = "true"; // prevents double-attach
         }
 
-        // 2. Initial Remove listeners for items already created
-        contentContainer
-            .querySelectorAll(".remove-item-btn")
-            .forEach((button) => {
-                button.addEventListener("click", (e) => {
-                    e.currentTarget.closest(".checklist-item").remove();
-                });
+        // Attach remove listeners to existing items
+        contentContainer.querySelectorAll(".remove-item-btn").forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                e.currentTarget.closest(".checklist-item").remove();
             });
+        });
     }
-}
 
-// FUNCTION TO ADD A NEW ELEMENT TO CANVAS (MUST BE GLOBAL)
+    // Prevent drag interference on existing contenteditable fields
+    contentContainer.querySelectorAll("[contenteditable]").forEach((ed) => {
+        ed.addEventListener("mousedown", (e) => e.stopPropagation());
+        ed.addEventListener("dragstart", (e) => e.preventDefault());
+    });
+};
+
+// --- ADD ELEMENT TO CANVAS ---
 window.addElementToCanvas = function addElementToCanvas(type) {
-    const newEl = document.createElement("div");
-    newEl.className = "note-element";
-    newEl.setAttribute("draggable", true);
-    newEl.dataset.type = type;
+    const { newEl, contentContainer } = window.createElementStructure(type);
 
-    // Drag Handle
-    const dragHandle = document.createElement("span");
-    dragHandle.className = "drag-handle";
-    dragHandle.innerHTML = "&#8942;&#8942;";
-    newEl.appendChild(dragHandle);
+    let defaultContent = "";
+    let editableContent = null;
 
-    // Content Generation
-    const contentContainer = document.createElement("div");
-    contentContainer.className = "element-content";
-
-    // Switch statement to generate content based on type
     switch (type) {
         case "heading":
-            contentContainer.innerHTML = `<h2 contenteditable="true" class="editable-header">Heading</h2>`;
+            defaultContent = "Heading";
+            contentContainer.innerHTML = `<h2 contenteditable="true">${defaultContent}</h2>`;
             break;
         case "text":
-            contentContainer.innerHTML = `<div contenteditable="true" class="editable-text">Text...</div>`;
+            defaultContent = "Text...";
+            contentContainer.innerHTML = `<div contenteditable="true">${defaultContent}</div>`;
+            break;
+        case "code":
+            defaultContent = "// Code";
+            contentContainer.innerHTML = `<div contenteditable="true">${defaultContent}</div>`;
             break;
         case "checklist":
+            defaultContent = "First item";
             contentContainer.innerHTML = `
-        <div class="checklist-wrapper">
-            <div class="checklist-item">
-                <input type="checkbox">
-                <div contenteditable="true" class="editable-text">First item</div>
-                <button class="remove-item-btn">&times;</button>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox">
-                <div contenteditable="true" class="editable-text">Second item</div>
-                <button class="remove-item-btn">&times;</button>
-            </div>
-        </div>
-        <button class="add-checklist-item-btn" title="Add New Item">Add Item</button>
-      `;
+                <div class="checklist-wrapper">
+                    <div class="checklist-item">
+                        <input type="checkbox">
+                        <div contenteditable="true">${defaultContent}</div>
+                        <button class="remove-item-btn">&times;</button>
+                    </div>
+                </div>
+                <button class="add-checklist-item-btn">Add Item</button>
+            `;
             break;
         case "divider":
             contentContainer.innerHTML = `<hr class="fancy-divider">`;
             break;
         case "image":
-            contentContainer.innerHTML = `<div class="upload-placeholder"><p>📷 Upload</p></div>`;
+            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
             break;
         case "voice":
             contentContainer.innerHTML = `<div class="audio-placeholder"><button>🔴 Record</button><span>00:00</span></div>`;
             break;
-        case "code":
-            contentContainer.innerHTML = `<div contenteditable="true" class="code-block">// Code</div>`;
-            break;
         case "table":
             contentContainer.innerHTML = `
-        <div class="table-actions">
-          <button class="add-col-btn" title="Add Column">Column +</button>
-          <button class="add-row-btn" title="Add Row">Row +</button>
-          <button class="remove-col-btn" title="Remove Last Column">Column -</button>
-          <button class="remove-row-btn" title="Remove Last Row">Row -</button>
-        </div>
-        <table class="simple-table">
-          <thead>
-            <tr>
-              <th contenteditable="true">Header 1</th>
-              <th contenteditable="true">Header 2</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td contenteditable="true">Data 1</td>
-              <td contenteditable="true">Data 2</td>
-            </tr>
-            <tr>
-              <td contenteditable="true">Data 3</td>
-              <td contenteditable="true">Data 4</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
+                <div class="table-actions">
+                    <button class="add-col-btn">Col +</button>
+                    <button class="add-row-btn">Row +</button>
+                    <button class="remove-col-btn">Col -</button>
+                    <button class="remove-row-btn">Row -</button>
+                </div>
+                <table class="simple-table">
+                    <thead><tr><th contenteditable="true">Header 1</th></tr></thead>
+                    <tbody><tr><td contenteditable="true">Data 1</td></tr></tbody>
+                </table>
+            `;
             break;
         case "img-text":
-            contentContainer.innerHTML = `<div class="row-layout"><div class="row-image">Img</div><div class="row-text"><h3 contenteditable="true">Title</h3><p contenteditable="true">Description...</p></div></div>`;
+            contentContainer.innerHTML = `
+                <div class="row-layout">
+                    <div class="row-image">Img</div>
+                    <div class="row-text">
+                        <h3 contenteditable="true">Title</h3>
+                        <p contenteditable="true">Description...</p>
+                    </div>
+                </div>
+            `;
             break;
     }
 
-    // Attach specific logic based on type
+    editableContent = contentContainer.querySelector("[contenteditable]");
+    if (editableContent) {
+        editableContent.addEventListener("mousedown", (e) =>
+            e.stopPropagation()
+        );
+        editableContent.addEventListener("dragstart", (e) =>
+            e.preventDefault()
+        );
+
+        const parentEl = newEl.closest(".note-element");
+        parentEl.draggable = true;
+        editableContent.addEventListener(
+            "focusin",
+            () => (parentEl.draggable = false)
+        );
+        editableContent.addEventListener(
+            "focusout",
+            () => (parentEl.draggable = true)
+        );
+
+        editableContent.addEventListener("focus", (e) => {
+            if (e.target.textContent.trim() === defaultContent)
+                e.target.textContent = "";
+            setTimeout(() => window.setEndOfContenteditable(e.target), 0);
+        });
+        editableContent.addEventListener("blur", (e) => {
+            if (e.target.textContent.trim() === "")
+                e.target.textContent = defaultContent;
+        });
+
+        setTimeout(() => {
+            editableContent.focus();
+            newEl.scrollIntoView({ behavior: "smooth", block: "end" });
+        }, 0);
+    }
+
     window.attachElementLogic(contentContainer, type);
-
-    // Remove Button
-    const removeBtn = document.createElement("button");
-    removeBtn.className = "remove-btn";
-    removeBtn.innerHTML = "&times;";
-    removeBtn.onclick = () => newEl.remove();
-
-    newEl.appendChild(contentContainer);
-    newEl.appendChild(removeBtn);
-
-    // --- ATTACH DRAG/DROP EVENTS TO THE NEW ELEMENT ---
-    newEl.addEventListener("dragstart", window.dragStartElement);
-    newEl.addEventListener("dragover", window.dragOverElement);
-    newEl.addEventListener("drop", window.dropElement);
-    newEl.addEventListener("dragend", window.dragEndElement);
-
     canvas.appendChild(newEl);
-}
+};
 
-// --- 4. REORDERING LOGIC (MUST BE GLOBAL) ---
-window.dragStartElement = function dragStartElement(e) {
+// --- REORDERING LOGIC ---
+window.dragStartElement = function (e) {
     const noteEl = e.target.closest(".note-element");
     window.draggedEl = noteEl;
     e.dataTransfer.setData("text/plain", noteEl.id);
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setDragImage(noteEl, 20, 20);
     noteEl.classList.add("dragging");
-}
+};
 
-window.dragOverElement = function dragOverElement(e) {
+window.dragOverElement = function (e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = window.draggedEl ? "move" : "copy";
-}
+};
 
-window.dropElement = function dropElement(e) {
+window.dropElement = function (e) {
     e.preventDefault();
-    if (!window.draggedEl) {
-        return; // Sidebar drop, ignore here
-    }
+    if (!window.draggedEl) return;
     e.stopPropagation();
 
     const target = e.currentTarget;
-
     if (window.draggedEl !== target) {
-        const draggedIndex = Array.from(canvas.children).indexOf(window.draggedEl);
+        const draggedIndex = Array.from(canvas.children).indexOf(
+            window.draggedEl
+        );
         const targetIndex = Array.from(canvas.children).indexOf(target);
-
-        if (draggedIndex < targetIndex) {
-            target.after(window.draggedEl);
-        } else {
-            target.before(window.draggedEl);
-        }
+        if (draggedIndex < targetIndex) target.after(window.draggedEl);
+        else target.before(window.draggedEl);
     }
-}
+};
 
-window.dragEndElement = function dragEndElement(e) {
+window.dragEndElement = function (e) {
     e.target.closest(".note-element").classList.remove("dragging");
     window.draggedEl = null;
-}
+};
 
+// --- INITIALIZE ---
 document.addEventListener("DOMContentLoaded", () => {
-    fetchCategories(); // Initial fetch of categories on load
+    fetchCategories();
 });
