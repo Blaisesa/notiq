@@ -36,7 +36,27 @@ class NoteListCreate(UserDataMixin, generics.ListCreateAPIView):
     serializer_class = NoteSerializer
     permission_classes = permission_classes
 
-    queryset = Note.objects.all()
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Note.objects.filter(user=user).order_by('-updated_at')
+
+        category_id = self.request.query_params.get('category_id')
+        if category_id:
+            if category_id.lower() in ['0', 'null', 'none', '']:
+                queryset = queryset.filter(category__isnull=True)
+            else:
+                queryset = queryset.filter(category__id=category_id)
+
+        search_term = self.request.query_params.get('search')
+        if search_term:
+            # Search in title and category name
+            search_query = models.Q(title__icontains=search_term)
+            # Search in category name if category is not null
+            search_query |= models.Q(category__name__icontains=search_term)
+            # Filter the queryset based on the search query
+            queryset = queryset.filter(search_query)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

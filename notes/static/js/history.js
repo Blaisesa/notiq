@@ -1,20 +1,40 @@
 let fullNoteHistory = []; // Store full history for searching
+window.currentCategoryFilterId = null; // Global variable for category filter
 
 window.fetchNoteHistory = async function fetchNoteHistory() {
-    try {
-        // Uses the global API_BASE_URL
-        const response = await fetch(API_BASE_URL);
+    let url = API_BASE_URL;
+    const params = new URLSearchParams();
 
+    if (window.currentCategoryFilterId) {
+        params.append('category_id', window.currentCategoryFilterId);
+    }
+
+    const searchTerm = document.getElementById('history-search-input').value.trim();
+    
+    if (searchTerm) {
+        params.append('search', searchTerm);
+    }
+
+    if (params.toString()) {
+        url += '?' + params.toString();
+    }
+
+    try {
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Failed to fetch history: ${response.status}`);
         }
 
         const history = await response.json();
-        fullNoteHistory = history; // Store the full history for searching
+        
+        // CRITICAL: Render the notes immediately after a successful fetch
+        window.renderNoteHistory(history); 
+        
         return history;
     } catch (error) {
         console.error("Error fetching note history:", error);
-        fullNoteHistory = []; // Clear the full history on error
+        // Display an error message to the user
+        window.renderNoteHistory([]); // Render empty list or an error message
         return [];
     }
 };
@@ -75,6 +95,44 @@ function searchNoteHistory(query) {
     window.renderNoteHistory(filteredNotes);
 }
 
+window.renderCategoryList = function renderCategoryList(categories) {
+    // ... (logic to populate the category list element, e.g., category-list)
+    const categoryListElement = document.getElementById("category-list");
+    if (!categoryListElement) return;
+
+    // Clear and add all/default category option
+    categoryListElement.innerHTML = `<li data-id="all" onclick="window.setCategoryFilter(null)" class="active">All Notes</li>`;
+
+    categories.forEach(category => {
+        const listItem = document.createElement("li");
+        listItem.textContent = category.name;
+        listItem.dataset.id = category.id;
+        listItem.style.borderLeft = `3px solid ${category.color || '#ccc'}`;
+        
+        // --- NEW CLICK HANDLER ---
+        listItem.onclick = () => window.setCategoryFilter(category.id);
+        
+        categoryListElement.appendChild(listItem);
+    });
+    window.categories = categories;
+};
+
+window.setCategoryFilter = function setCategoryFilter(categoryId) {
+    // 1. Update global state and UI active class
+    window.currentCategoryFilterId = categoryId;
+    
+    const activeList = document.querySelectorAll('#category-list li.active');
+    activeList.forEach(el => el.classList.remove('active'));
+    
+    const targetElement = document.querySelector(`#category-list li[data-id="${categoryId || 'all'}"]`);
+    if (targetElement) {
+        targetElement.classList.add('active');
+    }
+
+    // 2. Re-fetch the note history with the new filter
+    window.fetchNoteHistory(); 
+}
+
 // --- HANDLE NOTE CLICK FROM HISTORY (MUST BE GLOBAL) ---
 window.handleNoteClick = function handleNoteClick(noteId) {
     if (
@@ -111,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (searchInput) {
         searchInput.addEventListener("input", (e) => {
-            searchNoteHistory(e.target.value);
+            window.fetchNoteHistory();
         });
     }
 
