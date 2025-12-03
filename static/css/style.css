@@ -527,7 +527,7 @@ a.profile-link i:hover {
     top: 0;
     left: 50%;
     translate: -50%;
-    width: 120vw;
+    width: 100vw;
     height: 95vh;
     object-fit: cover;
     object-position: top;
@@ -744,9 +744,9 @@ a.profile-link i:hover {
 .about-hero-img {
     position: absolute;
     top: 0;
-    left: 0;
-    translate: -13%;
-    width: 110vw;
+    left: 50%;
+    translate: -50%;
+    width: 100vw;
     height: 100%;
     object-fit: cover;
     object-position: bottom;
