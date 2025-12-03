@@ -1,3 +1,5 @@
+let fullNoteHistory = []; // Store full history for searching
+
 window.fetchNoteHistory = async function fetchNoteHistory() {
     try {
         // Uses the global API_BASE_URL
@@ -8,14 +10,16 @@ window.fetchNoteHistory = async function fetchNoteHistory() {
         }
 
         const history = await response.json();
+        fullNoteHistory = history; // Store the full history for searching
         return history;
     } catch (error) {
         console.error("Error fetching note history:", error);
+        fullNoteHistory = []; // Clear the full history on error
         return [];
     }
 };
 
-// --- RENDER NOTE HISTORY (MUST BE GLOBAL) ---
+// --- RENDER NOTE HISTORY ---
 window.renderNoteHistory = function renderNoteHistory(notes) {
     const listContainer = document.getElementById("note-history-list");
     listContainer.innerHTML = "";
@@ -51,6 +55,24 @@ window.renderNoteHistory = function renderNoteHistory(notes) {
     });
 };
 
+// --- SEARCH FUNCTIONALITY FOR HISTORY ---
+function searchNoteHistory(query) {
+    const lowerCaseQuery = query.toLowerCase().trim(); // Trim whitespace for accurate matching
+
+    if (lowerCaseQuery.length === 0) {
+        // If query is empty, show full history
+        window.renderNoteHistory(fullNoteHistory);
+        return;
+    }
+
+    const filteredNotes = fullNoteHistory.filter((note) => {
+        const title = note.title || "Untitled Note";
+        return title.toLowerCase().includes(lowerCaseQuery);
+    });
+
+    window.renderNoteHistory(filteredNotes);
+}
+
 // --- HANDLE NOTE CLICK FROM HISTORY (MUST BE GLOBAL) ---
 window.handleNoteClick = function handleNoteClick(noteId) {
     if (
@@ -73,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggleBtn = document.getElementById("toggle-history-btn");
     const closeBtn = document.getElementById("close-drawer-btn");
     const clearButton = document.querySelector(".toolbar #clear-note-btn");
+    const searchInput = document.getElementById("history-search-input");
 
     if (toggleBtn) {
         toggleBtn.addEventListener("click", async () => {
@@ -85,6 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            searchNoteHistory(e.target.value);
+        });
+    }
+
     if (closeBtn) {
         closeBtn.addEventListener("click", () => {
             drawer.classList.add("closed");
@@ -94,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (clearButton) {
         clearButton.addEventListener("click", () => window.clearNote());
     }
-    
+
 });
 
 // --- CLEAR NOTE BUTTON FUNCTIONALITY ---
