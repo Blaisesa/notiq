@@ -5,7 +5,7 @@
     <section id="home-content" class="spa-page container active">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
-            <video class="hero-video" autoplay muted loop playsinline>
+            <video class="hero-video" id="hero-background-video" autoplay muted loop playsinline>
                 <source
                     src="{% static 'videos/hero-background.mp4' %}"
                     type="video/mp4"
@@ -200,7 +200,7 @@
     <section id="about-content" class="spa-page container hidden">
         <div class="about-hero">
             <img src="{% static "images/about-hero.png" %}" alt="About Notiq
-            hero image" class="about-hero-img" loading="lazy">
+            hero image" class="about-hero-img" id="about-hero-img" loading="lazy">
             <div class="glass-container">
                 <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
                 <p class="hero-subtitle">
