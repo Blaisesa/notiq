@@ -133,9 +133,68 @@ window.getCookie = function getCookie(name) {
     return cookieValue;
 }
 
-// --- EVENT LISTENERS FOR SAVE BUTTON ---
+// --- EVENT LISTENERS FOR SAVE/DELETE BUTTONS ---
 document.addEventListener("DOMContentLoaded", () => {
     // Hook up the save button from the toolbar
     const saveButton = document.querySelector(".toolbar #save");
     saveButton.addEventListener("click", () => window.saveNote());
+
+    // Hook up the delete button from the toolbar
+    const deleteButton = document.querySelector(".toolbar #delete");
+    if (deleteButton) {
+        deleteButton.addEventListener("click", () => window.deleteNote());
+    }
 });
+
+// --- DELETE NOTE FUNCTIONALITY ---
+window.deleteNote = async function deleteNote() {
+    // Check if we have an ID to delete and confirm the action
+    if (!window.currentNoteId) {
+        alert("Cannot delete: No note is currently loaded.");
+        return;
+    }
+
+    if (!confirm(`Are you sure you want to permanently delete note ID ${window.currentNoteId}? This action cannot be undone.`)) {
+        return;
+    }
+    
+    // Construct the DELETE URL
+    const url = `${window.API_BASE_URL}${window.currentNoteId}/`;
+    const csrftoken = window.getCookie("csrftoken");
+
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "X-CSRFToken": csrftoken, // Include CSRF token
+            },
+        });
+
+        if (!response.ok) {
+             // For a successful DELETE (204 No Content), response.text() often fails, 
+             // but if it fails for another reason, we should handle it.
+             if (response.status === 404) {
+                 throw new Error("Note not found on the server.");
+             }
+            throw new Error(`API Error: Failed to delete note: ${response.status}`);
+        }
+
+        // 1. Success Message
+        alert(`Note ID ${window.currentNoteId} deleted successfully.`);
+        
+        // 2. Clear the UI and state after successful deletion
+        // Call the clearNote function to reset the canvas, title, and currentNoteId
+        window.clearNote(); 
+
+        // 3. Optional: Refresh the history drawer if it's open (from history.js)
+        const drawer = document.getElementById("history-drawer");
+        if (drawer && !drawer.classList.contains('closed') && window.fetchNoteHistory) {
+            const history = await window.fetchNoteHistory();
+            window.renderNoteHistory(history);
+        }
+
+    } catch (error) {
+        console.error("Error deleting note:", error);
+        alert(`Failed to delete note. Error: ${error.message}`);
+    }
+}
