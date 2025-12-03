@@ -43,9 +43,9 @@ window.renderNoteHistory = function renderNoteHistory(notes) {
         const categoryName = note.category_name || 'Uncategorized';
 
         listItem.innerHTML = `
+            <span class="history-category">${categoryName}</span>
             <span class="history-title">${note.title || "Untitled Note"}</span>
             <span class="history-date">${formattedDate}</span>
-            <span class="history-category">${categoryName}</span>
         `;
 
         // Attach the click event handler

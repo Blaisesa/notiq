@@ -100,11 +100,11 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.1s;
+    transition: transform 0.1s;
 }
 
 .history-item:hover {
-    background-color: var(--app-background-color);
+    transform: translateX(-15px) scale(1.02);
 }
 
 .history-title {
@@ -118,6 +118,16 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.8em;
     color: #666;
     margin-top: 4px;
+}
+
+.history-category {
+    font-size: 0.8em;
+    color: var(--secondary-font-color);
+    align-self: flex-end;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--app-border-color);
 }
 
 /*  Main Notes App Layout  */
