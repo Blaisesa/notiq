@@ -25,7 +25,7 @@ async function fetchCategories() {
 // --- IMAGE HELPERS ---
 
 function attachImagePlaceholderHandler(contentContainer) {
-    const placeholder = contentContainer.querySelector(".upload-placeholder");
+    const placeholder = contentContainer.querySelector(".placeholder, .upload-placeholder");
     if (placeholder) {
         placeholder.onclick = () => window.handleImageUpload(contentContainer);
     }
@@ -34,7 +34,7 @@ function attachImagePlaceholderHandler(contentContainer) {
 // Accept and use elementId
 function renderImgContent(contentContainer, imgUrl, elementId) {
     contentContainer.innerHTML = `
-        <div class="img-wrapper" data-element-id="${elementId}">
+        <div class="image-wrapper" data-element-id="${elementId}">
             <img src="${imgUrl}" alt="image content">
             <button class="remove-image-btn">&times;</button>
         </div>
@@ -245,7 +245,7 @@ window.attachElementLogic = function attachElementLogic(
         // 1. Re-attach image handler if needed (primarily for loading)
         const rowImageContainer = contentContainer.querySelector(".row-image");
         const placeholder = rowImageContainer?.querySelector(
-            ".upload-placeholder"
+            ".placeholder"
         );
 
         // Check if the placeholder is visible and needs its click handler attached
@@ -338,7 +338,7 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             contentContainer.innerHTML = `<hr class="fancy-divider">`;
             break;
         case "image":
-            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+            contentContainer.innerHTML = `<div class="placeholder">Click here to upload an image</div>`;
             // Attach handler immediately
             setTimeout(() => {
                 // This relies on the global attachImagePlaceholderHandler
@@ -366,7 +366,7 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             contentContainer.innerHTML = `
         <div class="row-layout">
             <div class="row-image">
-                <div class="upload-placeholder">📷 Upload</div>
+                <div class="placeholder">Click here to upload an image</div>
             </div>
             <div class="row-text">
                 <h3 contenteditable="true">Title</h3>

@@ -471,13 +471,16 @@ h1, h2, h3, h4, h5, h6 {
 .row-layout { display: flex; gap: 20px; align-items: center; }
 .row-image {
   flex: 1;
-  background: #444;
-  height: 100px;
+  min-height: 100px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #aaa;
+}
+.row-image:has(img) {
+  padding: 0;
+  background: none;
 }
 .row-text { flex: 2; }
 
@@ -499,10 +502,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .remove-btn:hover { opacity: 1; background: #ff4d4f; color: white; filter: none; }
 
-.note-element:hover .remove-btn, .note-element:hover .drag-handle, .note-element:hover .add-checklist-item-btn {
-  opacity: 1;
-}
-
 [contenteditable="true"] {
     outline: none;
     cursor: text;
@@ -510,6 +509,38 @@ h1, h2, h3, h4, h5, h6 {
 [contenteditable="true"]:focus {
     box-shadow: 0 0 5px var(--primary-color);
     border-radius: 4px;
+}
+.image-wrapper {
+    overflow: hidden;
+}
+.image-wrapper img {
+    width: 100%;
+    height: 300px;
+    display: block;
+    image-rendering: optimizeQuality;
+    object-fit: contain;
+}
+.remove-image-btn {
+    opacity: 0;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: opacity 0.2s;
+}
+
+.note-element:hover .remove-btn, .note-element:hover .drag-handle, .note-element:hover .add-checklist-item-btn, .note-element:hover .remove-image-btn {
+  opacity: 1;
 }
 
 /* Footer Override */

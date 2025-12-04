@@ -56,7 +56,7 @@ window.serializeCanvas = function () {
 
                 // 2. Get the current URL from the rendered image
                 const imgWrapper =
-                    contentContainer.querySelector(".img-wrapper");
+                    contentContainer.querySelector(".image-wrapper");
                 const img = contentContainer.querySelector("img");
 
                 data.url = img ? img.src : null;
