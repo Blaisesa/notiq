@@ -1,4 +1,3 @@
-import os
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
@@ -148,7 +147,7 @@ def upload_image_view(request):
         upload_result = cloudinary.uploader.upload(
             uploaded_file,
             folder=cloudinary_folder,
-            resource_type="image"  # Explicitly set resource type
+            resource_type="auto"  # Explicitly set resource type
         )
 
         # 2. Get the permanent URL from the result

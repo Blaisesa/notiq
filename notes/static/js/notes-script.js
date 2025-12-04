@@ -22,14 +22,116 @@ async function fetchCategories() {
     }
 }
 
-// --- IMAGE HELPERS ---
+// --- IMAGE HELPER ---
 
 function attachImagePlaceholderHandler(contentContainer) {
-    const placeholder = contentContainer.querySelector(".placeholder, .upload-placeholder");
+    const placeholder = contentContainer.querySelector(
+        ".placeholder, .upload-placeholder"
+    );
     if (placeholder) {
         placeholder.onclick = () => window.handleImageUpload(contentContainer);
     }
 }
+
+// --- Voice Helper ---
+window.setupVoiceRecording = function (contentContainer) {
+    const parentEl = contentContainer.closest(".note-element");
+    const recordBtn = contentContainer.querySelector(".record-btn");
+    const durationEl = contentContainer.querySelector(".audio-duration");
+    const audioPlayer = contentContainer.querySelector(".audio-player");
+    let recorder;
+    let chunks = [];
+    let startTime;
+    let timerInterval;
+
+    if (!recordBtn) {
+        return; 
+    }
+    
+    const startRecording = () => {
+        chunks = [];
+        startTime = Date.now();
+        durationEl.textContent = "00:00";
+        recordBtn.textContent = "⏹ Stop";
+        recordBtn.classList.add("recording");
+
+        timerInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const totalSeconds = Math.floor(elapsed / 1000);
+            const minutes = String(Math.floor(totalSeconds / 60)).padStart(
+                2,
+                "0"
+            );
+            const seconds = String(totalSeconds % 60).padStart(2, "0");
+            durationEl.textContent = `${minutes}:${seconds}`;
+        }, 1000);
+
+        // MediaRecorder setup
+        navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+                recorder = new MediaRecorder(stream);
+                recorder.ondataavailable = (e) => chunks.push(e.data);
+                recorder.onstop = stopRecording;
+                recorder.start();
+            })
+            .catch((err) => {
+                console.error("Recording failed:", err);
+                alert("Recording permission denied or microphone error.");
+                stopAndReset();
+            });
+    };
+
+    const stopAndReset = () => {
+        clearInterval(timerInterval);
+        recordBtn.textContent = "🔴 Record";
+        recordBtn.classList.remove("recording");
+    };
+
+    const stopRecording = () => {
+        stopAndReset();
+
+        const blob = new Blob(chunks, { type: "audio/mp3" });
+        const audioUrl = URL.createObjectURL(blob);
+
+        let elementId = parentEl.id;
+        if (!elementId || !elementId.startsWith("temp-")) {
+            elementId = "temp-" + Date.now();
+            parentEl.id = elementId;
+        }
+
+        // 1. Store the actual Blob/File object using the element's ID for saving
+        window.newFilesToUpload.set(elementId, blob);
+
+        // 2. Update the UI to show the player
+        audioPlayer.src = audioUrl;
+        audioPlayer.style.display = "block";
+
+        // Replace the record button with a play button/player for saved file
+        recordBtn.style.display = "none";
+
+        // Re-enable drag
+        parentEl.draggable = true;
+
+        // Cleanup stream tracks
+        if (recorder.stream) {
+            recorder.stream.getTracks().forEach((track) => track.stop());
+        }
+    };
+
+    // Toggle handler
+    recordBtn.onclick = () => {
+        if (recordBtn.classList.contains("recording")) {
+            recorder?.stop();
+        } else {
+            // Hide player before starting new recording
+            audioPlayer.style.display = "none";
+            // Disable drag while recording
+            parentEl.draggable = false;
+            startRecording();
+        }
+    };
+};
 
 // Accept and use elementId
 function renderImgContent(contentContainer, imgUrl, elementId) {
@@ -191,6 +293,11 @@ window.attachElementLogic = function attachElementLogic(
 
     contentContainer.createNewChecklistItem = createNewChecklistItem;
 
+    // Voice element
+    if (type === "voice") {
+        window.setupVoiceRecording(contentContainer);
+    }
+
     // Table buttons
     if (type === "table") {
         const tableEl = contentContainer.querySelector(".simple-table");
@@ -244,9 +351,7 @@ window.attachElementLogic = function attachElementLogic(
     if (type === "img-text") {
         // 1. Re-attach image handler if needed (primarily for loading)
         const rowImageContainer = contentContainer.querySelector(".row-image");
-        const placeholder = rowImageContainer?.querySelector(
-            ".placeholder"
-        );
+        const placeholder = rowImageContainer?.querySelector(".placeholder");
 
         // Check if the placeholder is visible and needs its click handler attached
         if (placeholder) {
@@ -346,7 +451,17 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             }, 0);
             break;
         case "voice":
-            contentContainer.innerHTML = `<div class="audio-placeholder"><button>🔴 Record</button><span>00:00</span></div>`;
+            // Initial state: Show a recording button and placeholder duration
+            contentContainer.innerHTML = `
+                <div class="voice-wrapper">
+                    <div class="audio-controls">
+                        <button class="record-btn">🔴 Record</button>
+                        <span class="audio-duration">00:00</span>
+                    </div>
+                    <audio controls class="audio-player" style="display:none;"></audio> 
+                </div>
+            `;
+            // We'll attach the media recorder logic below in attachElementLogic
             break;
         case "table":
             contentContainer.innerHTML = `

@@ -120,7 +120,29 @@ window.deserializeElement = function deserializeElement(elementData) {
             }
             break;
         case "voice":
-            contentContainer.innerHTML = `<div class="placeholder">${type} content</div>`;
+            const audioUrl = data.url;
+            const duration = data.duration || "00:00";
+            
+            if (audioUrl) {
+                // If a URL exists, show the audio player for playback
+                contentContainer.innerHTML = `
+                    <div class="voice-wrapper">
+                        <audio controls class="audio-player" src="${audioUrl}"></audio>
+                        <span class="audio-duration">${duration}</span>
+                    </div>
+                `;
+            } else {
+                // If no URL, show the record button (this is what the setupVoiceRecording expects)
+                contentContainer.innerHTML = `
+                    <div class="voice-wrapper">
+                        <div class="audio-controls">
+                            <button class="record-btn">🔴 Record</button>
+                            <span class="audio-duration">00:00</span>
+                        </div>
+                        <audio controls class="audio-player" style="display:none;"></audio>
+                    </div>
+                `;
+            }
             break;
         case "img-text":
             // --- 1. Recreate the base structure (copied from addElementToCanvas) ---

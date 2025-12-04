@@ -5,6 +5,7 @@ window.serializeCanvas = function () {
         const type = el.dataset.type;
         let content = "";
         let data = {};
+        let elementId = el.id;
 
         if (!contentContainer) return { type, content, data };
 
@@ -49,22 +50,44 @@ window.serializeCanvas = function () {
                 break;
 
             case "voice":
+                // Get permanent URL from the hidden audio player
+                const audioPlayer =
+                    contentContainer.querySelector(".audio-player");
+                // Get duration from the display element
+                const durationEl =
+                    contentContainer.querySelector(".audio-duration");
+
+                data.url = audioPlayer ? audioPlayer.src : null;
+                data.duration = durationEl ? durationEl.textContent : "00:00";
+
+                // Check for new, unsaved file (uses the main element ID)
+                if (
+                    elementId && // elementId is already declared
+                    data.url &&
+                    data.url.startsWith("blob:") && // Voice recordings start as Blob URLs
+                    window.newFilesToUpload.has(elementId)
+                ) {
+                    // Pass the elementId through to the server for tracking
+                    data.temp_id = elementId;
+                } else {
+                    delete data.temp_id;
+                }
+                break;
+
             case "image":
             case "img-text":
-                // 1. Get the element ID from the main wrapper
-                const elementId = el.id;
+                // 1. elementId is already declared
 
                 // 2. Get the current URL from the rendered image
-                const imgWrapper =
-                    contentContainer.querySelector(".image-wrapper");
                 const img = contentContainer.querySelector("img");
 
                 data.url = img ? img.src : null;
 
                 // 3. Check if this is a newly uploaded file (has a temporary ID AND a Data URL)
                 if (
-                    elementId &&
+                    elementId && // elementId is already declared
                     data.url &&
+                    // NOTE: Use Data URL check for images
                     data.url.startsWith("data:") &&
                     window.newFilesToUpload.has(elementId)
                 ) {
@@ -106,7 +129,9 @@ window.saveNote = async function (noteID = window.currentNoteId) {
     const title = titleInput ? titleInput.value : "Untitled Note";
 
     const categorySelector = document.getElementById("note-category-select");
-    const selectedCategoryValue = categorySelector ? categorySelector.value : null;
+    const selectedCategoryValue = categorySelector
+        ? categorySelector.value
+        : null;
 
     // 1. Serialize canvas data (now includes 'temp_id' for new images)
     const elementsData = window.serializeCanvas();
@@ -114,47 +139,60 @@ window.saveNote = async function (noteID = window.currentNoteId) {
 
     // --- UPLOAD TEMPORARY FILES BEFORE SAVING NOTE STRUCTURE ---
     const uploadPromises = [];
-    
+
     // 2. Identify files that need uploading
     const filesToUpload = elementsData.filter(el => 
-        el.type === 'image' && el.data.temp_id && window.newFilesToUpload.has(el.data.temp_id)
+        (el.type === "image" || el.type === "voice") &&
+            el.data.temp_id &&
+            window.newFilesToUpload.has(el.data.temp_id)
     );
 
     // 3. Execute Uploads
     for (const element of filesToUpload) {
         const fileObject = window.newFilesToUpload.get(element.data.temp_id);
         const formData = new FormData();
-        formData.append('image', fileObject);
+        formData.append("image", fileObject);
         // Ensure the server knows which note this belongs to (for organization)
-        if (noteID) formData.append('note_id', noteID); 
+        if (noteID) formData.append("note_id", noteID);
 
         // Define a separate API endpoint for file uploads
         uploadPromises.push(
-            fetch('/api/upload-image/', { 
-                method: 'POST',
-                headers: { 'X-CSRFToken': csrftoken },
-                body: formData
+            fetch("/api/upload-image/", {
+                method: "POST",
+                headers: { "X-CSRFToken": csrftoken },
+                body: formData,
             })
-            .then(response => {
-                if (!response.ok) throw new Error(`Image Upload failed: ${response.status}`);
-                return response.json();
-            })
-            .then(uploadResult => {
-                // On success, update the element's data with the permanent URL
-                element.data.url = uploadResult.permanent_url; 
-                
-                // Remove temporary markers and file from cache
-                delete element.data.temp_id; 
-                window.newFilesToUpload.delete(element.data.temp_id);
-            })
-            .catch(error => {
-                console.error(`Error uploading image (ID: ${element.data.temp_id}):`, error);
-                // On failure, clear the URL so the element shows a placeholder on load
-                element.data.url = null; 
-            })
+                .then((response) => {
+                    if (!response.ok)
+                        throw new Error(
+                            `Image Upload failed: ${response.status}`
+                        );
+                    return response.json();
+                })
+                .then((uploadResult) => {
+                    // Get the ID BEFORE you delete the temp_id property on the element object
+                    const tempIdToDelete = element.data.temp_id;
+
+                    // On success, update the element's data with the permanent URL
+                    element.data.url = uploadResult.permanent_url;
+
+                    // Remove temporary marker from data object
+                    delete element.data.temp_id;
+
+                    // Use the captured ID to remove the file from the cache Map
+                    window.newFilesToUpload.delete(tempIdToDelete);
+                })
+                .catch((error) => {
+                    console.error(
+                        `Error uploading image (ID: ${element.data.temp_id}):`,
+                        error
+                    );
+                    // On failure, clear the URL so the element shows a placeholder on load
+                    element.data.url = null;
+                })
         );
     }
-    
+
     // Wait for all uploads to complete before proceeding to save the note's structure
     await Promise.all(uploadPromises);
     // -----------------------------------------------------------------
@@ -162,12 +200,14 @@ window.saveNote = async function (noteID = window.currentNoteId) {
     // 4. Prepare final payload (elementsData now contains permanent URLs)
     const payload = {
         title,
-        data: { elements: elementsData }
+        data: { elements: elementsData },
     };
     if (selectedCategoryValue) payload.category_id = selectedCategoryValue;
 
     const method = noteID ? "PATCH" : "POST";
-    const url = noteID ? `${window.API_BASE_URL}${noteID}/` : window.API_BASE_URL;
+    const url = noteID
+        ? `${window.API_BASE_URL}${noteID}/`
+        : window.API_BASE_URL;
 
     try {
         // 5. Save the note structure
@@ -175,9 +215,9 @@ window.saveNote = async function (noteID = window.currentNoteId) {
             method,
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": csrftoken
+                "X-CSRFToken": csrftoken,
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         });
 
         if (!response.ok) {
