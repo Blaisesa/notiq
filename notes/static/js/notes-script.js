@@ -1,6 +1,7 @@
 window.canvas = document.getElementById("canvas");
 window.draggedEl = null; // Holds element being reordered
 window.currentNoteId = null;
+window.newFilesToUpload = new Map(); // Map to store File objects by element ID
 window.API_BASE_URL = "/api/notes/";
 
 // Category variables
@@ -20,6 +21,175 @@ async function fetchCategories() {
         window.categories = [];
     }
 }
+
+// --- IMAGE HELPER ---
+
+function attachImagePlaceholderHandler(contentContainer) {
+    const placeholder = contentContainer.querySelector(
+        ".placeholder, .upload-placeholder"
+    );
+    if (placeholder) {
+        placeholder.onclick = () => window.handleImageUpload(contentContainer);
+    }
+}
+
+// --- Voice Helper ---
+window.setupVoiceRecording = function (contentContainer) {
+    const parentEl = contentContainer.closest(".note-element");
+    const recordBtn = contentContainer.querySelector(".record-btn");
+    const durationEl = contentContainer.querySelector(".audio-duration");
+    const audioPlayer = contentContainer.querySelector(".audio-player");
+    let recorder;
+    let chunks = [];
+    let startTime;
+    let timerInterval;
+
+    if (!recordBtn) {
+        return; 
+    }
+    
+    const startRecording = () => {
+        chunks = [];
+        startTime = Date.now();
+        durationEl.textContent = "00:00";
+        recordBtn.textContent = "⏹ Stop";
+        recordBtn.classList.add("recording");
+
+        timerInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const totalSeconds = Math.floor(elapsed / 1000);
+            const minutes = String(Math.floor(totalSeconds / 60)).padStart(
+                2,
+                "0"
+            );
+            const seconds = String(totalSeconds % 60).padStart(2, "0");
+            durationEl.textContent = `${minutes}:${seconds}`;
+        }, 1000);
+
+        // MediaRecorder setup
+        navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+                recorder = new MediaRecorder(stream);
+                recorder.ondataavailable = (e) => chunks.push(e.data);
+                recorder.onstop = stopRecording;
+                recorder.start();
+            })
+            .catch((err) => {
+                console.error("Recording failed:", err);
+                alert("Recording permission denied or microphone error.");
+                stopAndReset();
+            });
+    };
+
+    const stopAndReset = () => {
+        clearInterval(timerInterval);
+        recordBtn.textContent = "🔴 Record";
+        recordBtn.classList.remove("recording");
+    };
+
+    const stopRecording = () => {
+        stopAndReset();
+
+        const blob = new Blob(chunks, { type: "audio/mp3" });
+        const audioUrl = URL.createObjectURL(blob);
+
+        let elementId = parentEl.id;
+        if (!elementId || !elementId.startsWith("temp-")) {
+            elementId = "temp-" + Date.now();
+            parentEl.id = elementId;
+        }
+
+        // 1. Store the actual Blob/File object using the element's ID for saving
+        window.newFilesToUpload.set(elementId, blob);
+
+        // 2. Update the UI to show the player
+        audioPlayer.src = audioUrl;
+        audioPlayer.style.display = "block";
+
+        // Replace the record button with a play button/player for saved file
+        recordBtn.style.display = "none";
+
+        // Re-enable drag
+        parentEl.draggable = true;
+
+        // Cleanup stream tracks
+        if (recorder.stream) {
+            recorder.stream.getTracks().forEach((track) => track.stop());
+        }
+    };
+
+    // Toggle handler
+    recordBtn.onclick = () => {
+        if (recordBtn.classList.contains("recording")) {
+            recorder?.stop();
+        } else {
+            // Hide player before starting new recording
+            audioPlayer.style.display = "none";
+            // Disable drag while recording
+            parentEl.draggable = false;
+            startRecording();
+        }
+    };
+};
+
+// Accept and use elementId
+function renderImgContent(contentContainer, imgUrl, elementId) {
+    contentContainer.innerHTML = `
+        <div class="image-wrapper" data-element-id="${elementId}">
+            <img src="${imgUrl}" alt="image content">
+            <button class="remove-image-btn">&times;</button>
+        </div>
+    `;
+
+    // Remove button logic
+    contentContainer
+        .querySelector(".remove-image-btn")
+        .addEventListener("click", () => {
+            // Clear the file from the Map when removed from the canvas
+            if (elementId) {
+                window.newFilesToUpload.delete(elementId);
+            }
+            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+            attachImagePlaceholderHandler(contentContainer);
+        });
+}
+
+window.handleImageUpload = function handleImageUpload(elementContentContainer) {
+    const parentEl = elementContentContainer.closest(".note-element");
+    let elementId = parentEl.id;
+
+    // Ensure the element has a temporary ID for tracking if not already saved
+    if (!elementId || !elementId.startsWith("temp-")) {
+        elementId = "temp-" + Date.now();
+        parentEl.id = elementId;
+    }
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.style.display = "none";
+
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // 1. Store the actual File object using the element's ID
+        window.newFilesToUpload.set(elementId, file);
+
+        // 2. Read file to generate temporary Data URL for instant display
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const tempImageUrl = event.target.result;
+
+            // 3. Render the image with the temporary URL and elementId
+            renderImgContent(elementContentContainer, tempImageUrl, elementId);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    fileInput.click();
+};
 
 function populateCategoryDropdown(categories) {
     const selector = document.getElementById("note-category-select");
@@ -123,6 +293,11 @@ window.attachElementLogic = function attachElementLogic(
 
     contentContainer.createNewChecklistItem = createNewChecklistItem;
 
+    // Voice element
+    if (type === "voice") {
+        window.setupVoiceRecording(contentContainer);
+    }
+
     // Table buttons
     if (type === "table") {
         const tableEl = contentContainer.querySelector(".simple-table");
@@ -170,6 +345,35 @@ window.attachElementLogic = function attachElementLogic(
             ?.addEventListener("click", () => {
                 const tbody = tableEl.querySelector("tbody");
                 if (tbody.children.length > 1) tbody.lastElementChild.remove();
+            });
+    }
+    // Image-text image upload
+    if (type === "img-text") {
+        // 1. Re-attach image handler if needed (primarily for loading)
+        const rowImageContainer = contentContainer.querySelector(".row-image");
+        const placeholder = rowImageContainer?.querySelector(".placeholder");
+
+        // Check if the placeholder is visible and needs its click handler attached
+        if (placeholder) {
+            attachImagePlaceholderHandler(rowImageContainer);
+        }
+
+        // 2. Ensure contenteditable fields inside img-text stop drag
+        contentContainer
+            .querySelectorAll(".row-text [contenteditable]")
+            .forEach((ed) => {
+                ed.addEventListener("mousedown", (e) => e.stopPropagation());
+                ed.addEventListener("dragstart", (e) => e.preventDefault());
+
+                const parentEl = contentContainer.closest(".note-element");
+
+                // Stop parent drag while editing text
+                ed.addEventListener("focusin", () => {
+                    if (parentEl) parentEl.draggable = false;
+                });
+                ed.addEventListener("focusout", () => {
+                    if (parentEl) parentEl.draggable = true;
+                });
             });
     }
 
@@ -239,10 +443,25 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             contentContainer.innerHTML = `<hr class="fancy-divider">`;
             break;
         case "image":
-            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+            contentContainer.innerHTML = `<div class="placeholder">Click here to upload an image</div>`;
+            // Attach handler immediately
+            setTimeout(() => {
+                // This relies on the global attachImagePlaceholderHandler
+                attachImagePlaceholderHandler(contentContainer);
+            }, 0);
             break;
         case "voice":
-            contentContainer.innerHTML = `<div class="audio-placeholder"><button>🔴 Record</button><span>00:00</span></div>`;
+            // Initial state: Show a recording button and placeholder duration
+            contentContainer.innerHTML = `
+                <div class="voice-wrapper">
+                    <div class="audio-controls">
+                        <button class="record-btn">🔴 Record</button>
+                        <span class="audio-duration">00:00</span>
+                    </div>
+                    <audio controls class="audio-player" style="display:none;"></audio> 
+                </div>
+            `;
+            // We'll attach the media recorder logic below in attachElementLogic
             break;
         case "table":
             contentContainer.innerHTML = `
@@ -260,14 +479,26 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             break;
         case "img-text":
             contentContainer.innerHTML = `
-                <div class="row-layout">
-                    <div class="row-image">Img</div>
-                    <div class="row-text">
-                        <h3 contenteditable="true">Title</h3>
-                        <p contenteditable="true">Description...</p>
-                    </div>
-                </div>
-            `;
+        <div class="row-layout">
+            <div class="row-image">
+                <div class="placeholder">Click here to upload an image</div>
+            </div>
+            <div class="row-text">
+                <h3 contenteditable="true">Title</h3>
+                <p contenteditable="true">Description...</p>
+            </div>
+        </div>
+    `;
+            // Attach the image upload handler to the specific row-image container
+            // We wrap this in a setTimeout to ensure the HTML is fully rendered first.
+            setTimeout(() => {
+                const rowImageContainer =
+                    contentContainer.querySelector(".row-image");
+                if (rowImageContainer) {
+                    // Pass the specific container for the image, not the main contentContainer
+                    attachImagePlaceholderHandler(rowImageContainer);
+                }
+            }, 0);
             break;
     }
 

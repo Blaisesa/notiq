@@ -92,12 +92,93 @@ window.deserializeElement = function deserializeElement(elementData) {
             `;
             break;
         case "image":
-        case "voice":
-        case "img-text":
+            // If URL exists, render the full image wrapper with the remove button
             if (data.url) {
-                contentContainer.innerHTML = `<img src="${data.url}" alt="${type} content">`;
+                contentContainer.innerHTML = `
+            <div class="image-wrapper">
+                <img src="${data.url}" alt="Note Image">
+                <button class="remove-image-btn">&times;</button>
+            </div>
+        `;
+                // We need to attach the remove listener using a similar structure as renderImageContent
+                setTimeout(() => {
+                    const removeBtn =
+                        contentContainer.querySelector(".remove-image-btn");
+                    if (removeBtn) {
+                        removeBtn.addEventListener("click", (e) => {
+                            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                            attachImagePlaceholderHandler(contentContainer);
+                        });
+                    }
+                }, 0);
             } else {
-                contentContainer.innerHTML = `<div class="placeholder">${type} content</div>`;
+                // Otherwise, show the clickable placeholder
+                contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                setTimeout(() => {
+                    attachImagePlaceholderHandler(contentContainer);
+                }, 0);
+            }
+            break;
+        case "voice":
+            const audioUrl = data.url;
+            const duration = data.duration || "00:00";
+            
+            if (audioUrl) {
+                // If a URL exists, show the audio player for playback
+                contentContainer.innerHTML = `
+                    <div class="voice-wrapper">
+                        <audio controls class="audio-player" src="${audioUrl}"></audio>
+                        <span class="audio-duration">${duration}</span>
+                    </div>
+                `;
+            } else {
+                // If no URL, show the record button (this is what the setupVoiceRecording expects)
+                contentContainer.innerHTML = `
+                    <div class="voice-wrapper">
+                        <div class="audio-controls">
+                            <button class="record-btn">🔴 Record</button>
+                            <span class="audio-duration">00:00</span>
+                        </div>
+                        <audio controls class="audio-player" style="display:none;"></audio>
+                    </div>
+                `;
+            }
+            break;
+        case "img-text":
+            // --- 1. Recreate the base structure (copied from addElementToCanvas) ---
+            contentContainer.innerHTML = `
+                <div class="row-layout">
+                    <div class="row-image">
+                        </div>
+                    <div class="row-text">
+                        <h3 contenteditable="true">${data.title || "Title"}</h3>
+                        <p contenteditable="true">${
+                            data.description || "Description..."
+                        }</p>
+                    </div>
+                </div>
+            `;
+
+            // --- 2. Handle Image Loading ---
+            const rowImageContainer =
+                contentContainer.querySelector(".row-image");
+
+            // NOTE: newEl.id might be empty if this is the first time loading an old note
+            // We set a temporary ID if one isn't on the note-element already.
+            let elementId = newEl.id || "saved-" + Date.now();
+            newEl.id = elementId;
+
+            if (data.url) {
+                // If URL exists, render the permanent image into the nested image container
+                // We pass the specific nested container to renderImgContent
+                window.renderImgContent(rowImageContainer, data.url, elementId);
+            } else {
+                // If no URL, show the clickable placeholder
+                rowImageContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                setTimeout(() => {
+                    // Attach the upload handler to the specific nested container
+                    window.attachImagePlaceholderHandler(rowImageContainer);
+                }, 0);
             }
             break;
     }
