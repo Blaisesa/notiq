@@ -1,6 +1,7 @@
 window.canvas = document.getElementById("canvas");
 window.draggedEl = null; // Holds element being reordered
 window.currentNoteId = null;
+window.newFilesToUpload = new Map(); // Map to store File objects by element ID
 window.API_BASE_URL = "/api/notes/";
 
 // Category variables
@@ -192,6 +193,42 @@ window.attachElementLogic = function attachElementLogic(
             btn.addEventListener("click", (e) => {
                 e.currentTarget.closest(".checklist-item").remove();
             });
+        });
+    }
+
+    // Image Helpers
+    window.handleImageUpload = function handleImageUpload(elementContentContainer) {
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.style.display = "none";
+
+        fileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (file) return;
+            
+            elementContentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const imgUrl = event.target.result;
+
+                renderImgContent(elementContentContainer, imgUrl);
+            };
+            reader.readAsDataURL(file);
+        };
+
+        fileInput.click();
+    }
+
+    function renderImgContent(contentContainer, imgUrl) {
+        contentContainer.innerHTML = `<div class="img-wrapper"><img src="${imgUrl}" alt="image content"><button class="remove-image-btn">&times;</button></div>`;
+
+        // Remove button logic
+        contentContainer.querySelector(".remove-image-btn").addEventListener("click", () => {
+            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+
+            attachImagePlaceholderHandler(contentContainer);
         });
     }
 
