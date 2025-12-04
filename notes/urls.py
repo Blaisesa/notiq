@@ -22,4 +22,8 @@ urlpatterns = [
         'templates/',
         views.TemplateListCreate.as_view(), name='template-list-create'
         ),
+    path(
+        'upload-image/',
+        views.upload_image_view, name='upload-image'
+        ),
 ]

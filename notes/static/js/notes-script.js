@@ -22,6 +22,73 @@ async function fetchCategories() {
     }
 }
 
+// --- IMAGE HELPERS ---
+
+function attachImagePlaceholderHandler(contentContainer) {
+    const placeholder = contentContainer.querySelector(".upload-placeholder");
+    if (placeholder) {
+        placeholder.onclick = () => window.handleImageUpload(contentContainer);
+    }
+}
+
+// Accept and use elementId
+function renderImgContent(contentContainer, imgUrl, elementId) {
+    contentContainer.innerHTML = `
+        <div class="img-wrapper" data-element-id="${elementId}">
+            <img src="${imgUrl}" alt="image content">
+            <button class="remove-image-btn">&times;</button>
+        </div>
+    `;
+
+    // Remove button logic
+    contentContainer
+        .querySelector(".remove-image-btn")
+        .addEventListener("click", () => {
+            // Clear the file from the Map when removed from the canvas
+            if (elementId) {
+                window.newFilesToUpload.delete(elementId);
+            }
+            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+            attachImagePlaceholderHandler(contentContainer);
+        });
+}
+
+window.handleImageUpload = function handleImageUpload(elementContentContainer) {
+    const parentEl = elementContentContainer.closest(".note-element");
+    let elementId = parentEl.id;
+
+    // Ensure the element has a temporary ID for tracking if not already saved
+    if (!elementId || !elementId.startsWith("temp-")) {
+        elementId = "temp-" + Date.now();
+        parentEl.id = elementId;
+    }
+
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.style.display = "none";
+
+    fileInput.onchange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // 1. Store the actual File object using the element's ID
+        window.newFilesToUpload.set(elementId, file);
+
+        // 2. Read file to generate temporary Data URL for instant display
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const tempImageUrl = event.target.result;
+
+            // 3. Render the image with the temporary URL and elementId
+            renderImgContent(elementContentContainer, tempImageUrl, elementId);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    fileInput.click();
+};
+
 function populateCategoryDropdown(categories) {
     const selector = document.getElementById("note-category-select");
     selector.innerHTML = "";
@@ -196,42 +263,6 @@ window.attachElementLogic = function attachElementLogic(
         });
     }
 
-    // Image Helpers
-    window.handleImageUpload = function handleImageUpload(elementContentContainer) {
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.accept = "image/*";
-        fileInput.style.display = "none";
-
-        fileInput.onchange = async (e) => {
-            const file = e.target.files[0];
-            if (file) return;
-            
-            elementContentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`
-            
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const imgUrl = event.target.result;
-
-                renderImgContent(elementContentContainer, imgUrl);
-            };
-            reader.readAsDataURL(file);
-        };
-
-        fileInput.click();
-    }
-
-    function renderImgContent(contentContainer, imgUrl) {
-        contentContainer.innerHTML = `<div class="img-wrapper"><img src="${imgUrl}" alt="image content"><button class="remove-image-btn">&times;</button></div>`;
-
-        // Remove button logic
-        contentContainer.querySelector(".remove-image-btn").addEventListener("click", () => {
-            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
-
-            attachImagePlaceholderHandler(contentContainer);
-        });
-    }
-
     // Prevent drag interference on existing contenteditable fields
     contentContainer.querySelectorAll("[contenteditable]").forEach((ed) => {
         ed.addEventListener("mousedown", (e) => e.stopPropagation());
@@ -277,6 +308,11 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             break;
         case "image":
             contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+            // Attach handler immediately
+            setTimeout(() => {
+                // This relies on the global attachImagePlaceholderHandler
+                attachImagePlaceholderHandler(contentContainer);
+            }, 0);
             break;
         case "voice":
             contentContainer.innerHTML = `<div class="audio-placeholder"><button>🔴 Record</button><span>00:00</span></div>`;

@@ -92,6 +92,33 @@ window.deserializeElement = function deserializeElement(elementData) {
             `;
             break;
         case "image":
+            // If URL exists, render the full image wrapper with the remove button
+            if (data.url) {
+                contentContainer.innerHTML = `
+            <div class="image-wrapper">
+                <img src="${data.url}" alt="Note Image">
+                <button class="remove-image-btn">&times;</button>
+            </div>
+        `;
+                // We need to attach the remove listener using a similar structure as renderImageContent
+                setTimeout(() => {
+                    const removeBtn =
+                        contentContainer.querySelector(".remove-image-btn");
+                    if (removeBtn) {
+                        removeBtn.addEventListener("click", (e) => {
+                            contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                            attachImagePlaceholderHandler(contentContainer);
+                        });
+                    }
+                }, 0);
+            } else {
+                // Otherwise, show the clickable placeholder
+                contentContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                setTimeout(() => {
+                    attachImagePlaceholderHandler(contentContainer);
+                }, 0);
+            }
+            break;
         case "voice":
         case "img-text":
             if (data.url) {
