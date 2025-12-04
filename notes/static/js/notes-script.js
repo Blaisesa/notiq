@@ -240,6 +240,37 @@ window.attachElementLogic = function attachElementLogic(
                 if (tbody.children.length > 1) tbody.lastElementChild.remove();
             });
     }
+    // Image-text image upload
+    if (type === "img-text") {
+        // 1. Re-attach image handler if needed (primarily for loading)
+        const rowImageContainer = contentContainer.querySelector(".row-image");
+        const placeholder = rowImageContainer?.querySelector(
+            ".upload-placeholder"
+        );
+
+        // Check if the placeholder is visible and needs its click handler attached
+        if (placeholder) {
+            attachImagePlaceholderHandler(rowImageContainer);
+        }
+
+        // 2. Ensure contenteditable fields inside img-text stop drag
+        contentContainer
+            .querySelectorAll(".row-text [contenteditable]")
+            .forEach((ed) => {
+                ed.addEventListener("mousedown", (e) => e.stopPropagation());
+                ed.addEventListener("dragstart", (e) => e.preventDefault());
+
+                const parentEl = contentContainer.closest(".note-element");
+
+                // Stop parent drag while editing text
+                ed.addEventListener("focusin", () => {
+                    if (parentEl) parentEl.draggable = false;
+                });
+                ed.addEventListener("focusout", () => {
+                    if (parentEl) parentEl.draggable = true;
+                });
+            });
+    }
 
     // Checklist buttons
     if (type === "checklist") {
@@ -333,14 +364,26 @@ window.addElementToCanvas = function addElementToCanvas(type) {
             break;
         case "img-text":
             contentContainer.innerHTML = `
-                <div class="row-layout">
-                    <div class="row-image">Img</div>
-                    <div class="row-text">
-                        <h3 contenteditable="true">Title</h3>
-                        <p contenteditable="true">Description...</p>
-                    </div>
-                </div>
-            `;
+        <div class="row-layout">
+            <div class="row-image">
+                <div class="upload-placeholder">📷 Upload</div>
+            </div>
+            <div class="row-text">
+                <h3 contenteditable="true">Title</h3>
+                <p contenteditable="true">Description...</p>
+            </div>
+        </div>
+    `;
+            // Attach the image upload handler to the specific row-image container
+            // We wrap this in a setTimeout to ensure the HTML is fully rendered first.
+            setTimeout(() => {
+                const rowImageContainer =
+                    contentContainer.querySelector(".row-image");
+                if (rowImageContainer) {
+                    // Pass the specific container for the image, not the main contentContainer
+                    attachImagePlaceholderHandler(rowImageContainer);
+                }
+            }, 0);
             break;
     }
 

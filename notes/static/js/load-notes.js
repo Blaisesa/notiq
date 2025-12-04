@@ -120,11 +120,43 @@ window.deserializeElement = function deserializeElement(elementData) {
             }
             break;
         case "voice":
+            contentContainer.innerHTML = `<div class="placeholder">${type} content</div>`;
+            break;
         case "img-text":
+            // --- 1. Recreate the base structure (copied from addElementToCanvas) ---
+            contentContainer.innerHTML = `
+                <div class="row-layout">
+                    <div class="row-image">
+                        </div>
+                    <div class="row-text">
+                        <h3 contenteditable="true">${data.title || "Title"}</h3>
+                        <p contenteditable="true">${
+                            data.description || "Description..."
+                        }</p>
+                    </div>
+                </div>
+            `;
+
+            // --- 2. Handle Image Loading ---
+            const rowImageContainer =
+                contentContainer.querySelector(".row-image");
+
+            // NOTE: newEl.id might be empty if this is the first time loading an old note
+            // We set a temporary ID if one isn't on the note-element already.
+            let elementId = newEl.id || "saved-" + Date.now();
+            newEl.id = elementId;
+
             if (data.url) {
-                contentContainer.innerHTML = `<img src="${data.url}" alt="${type} content">`;
+                // If URL exists, render the permanent image into the nested image container
+                // We pass the specific nested container to renderImgContent
+                window.renderImgContent(rowImageContainer, data.url, elementId);
             } else {
-                contentContainer.innerHTML = `<div class="placeholder">${type} content</div>`;
+                // If no URL, show the clickable placeholder
+                rowImageContainer.innerHTML = `<div class="upload-placeholder">📷 Upload</div>`;
+                setTimeout(() => {
+                    // Attach the upload handler to the specific nested container
+                    window.attachImagePlaceholderHandler(rowImageContainer);
+                }, 0);
             }
             break;
     }
