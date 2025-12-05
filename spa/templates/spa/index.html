@@ -2,7 +2,7 @@
 
 <my-router style="view-transition-name: router-area">
     <!-- HOME SECTION -->
-    <section id="home-content" class="spa-page container active">
+    <section id="home-content" class="spa-page container active" aria-label="Home Section">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
             <video
@@ -196,6 +196,7 @@
                     class="newsletter-form"
                     method="post"
                     action="{% url 'newsletter_signup' %}"
+                    aria-label="Newsletter Signup Form"
                 >
                     {% csrf_token %}
                     <input
@@ -218,7 +219,7 @@
         </div>
     </section>
     <!-- ABOUT SECTION -->
-    <section id="about-content" class="spa-page container hidden">
+    <section id="about-content" class="spa-page container hidden" aria-label="About Section">
         <div class="about-hero">
             <img src="{% static "images/about-hero.png" %}" alt="About Notiq
             hero image" class="about-hero-img" id="about-hero-img"
@@ -442,7 +443,7 @@
             </div>
         </div>
     </section>
-    <section id="features-content" class="spa-page container hidden">
+    <section id="features-content" class="spa-page container hidden" aria-label="Features Section">
         <div class="features-hero row">
             <div class="col">
                 <h1 class="hero-title">Explore Notiq's Powerful Features</h1>
@@ -522,6 +523,7 @@
                     class="newsletter-form"
                     method="post"
                     action="{% url 'newsletter_signup' %}"
+                    aria-label="Newsletter Signup Form"
                 >
                     {% csrf_token %}
                     <input
@@ -543,7 +545,7 @@
             </div>
         </div>
     </section>
-    <section id="contact-content" class="spa-page container hidden">
+    <section id="contact-content" class="spa-page container hidden" aria-label="Contact Section">
         <div class="row contact-form">
             <div class="contact-hero">
                 <h1 class="hero-title">Get in Touch with Notiq</h1>
@@ -602,6 +604,7 @@
                     class="newsletter-form"
                     method="post"
                     action="{% url 'newsletter_signup' %}"
+                    aria-label="Newsletter Signup Form"
                 >
                     {% csrf_token %}
                     <input
