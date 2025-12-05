@@ -1,7 +1,4 @@
-{% load static %}
-{% url 'account_login' as login_url %}
-{% url 'account_signup' as signup_url %}
-{% url 'account_logout' as logout_url %}
+{% load static %} {% url 'account_login' as login_url %} {% url 'account_signup' as signup_url %} {% url 'account_logout' as logout_url %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,6 +30,9 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <link rel="preconnect" href="https://kit.fontawesome.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <!-- Link External CSS - Now handles all styling -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
@@ -115,8 +115,18 @@
                     </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
-                    <li><a href="{{ login_url }}" class="auth-placeholder login">Login</a></li>
-                    <li><a href="{{ signup_url }}" class="auth-placeholder signup">Sign Up</a></li>
+                    <li>
+                        <a href="{{ login_url }}" class="auth-placeholder login"
+                            >Login</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="{{ signup_url }}"
+                            class="auth-placeholder signup"
+                            >Sign Up</a
+                        >
+                    </li>
                     {% endif %}
                 </ul>
             </nav>
@@ -147,7 +157,7 @@
         ></script>
         <!-- JavaScript block for additional scripts -->
         <script src="{% static 'js/spa.js' %}"></script>
-        <script src="{% static 'js/page-transition.js' %}"></script> 
+        <script src="{% static 'js/page-transition.js' %}"></script>
         {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>

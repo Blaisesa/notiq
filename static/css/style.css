@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
 :root {
-    --primary-color: #5f5ed1;
+    --primary-color: #3275f1;
     --secondary-color: #2d9cdc;
     --link-color: #9747ff;
-    --link-hover-color: #dfacec;
+    --link-hover-color: whitesmoke;
     --background-color: #0e0218;
     --secondary-background-color: #1e0b2c;
     --primary-font-family: "manrope", sans-serif;
