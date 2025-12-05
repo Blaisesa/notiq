@@ -1526,7 +1526,24 @@ nav.danger-zone-nav {
     display: block;
     height: 80px; /* height of footer */
 }
-/* --- Responsive Adjustments (Mobile first) --- */
+/* --- Responsive Adjustments --- */
+@media (max-width: 1000px) {
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tab-buttons {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .tab-link.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary-color);
+        margin-left: 0;
+        padding-bottom: 0.25rem;
+    }
+}
 @media (max-width: 900px) {
     /* Header layout changes for smaller screens */
     .header-nav {
@@ -1563,9 +1580,8 @@ nav.danger-zone-nav {
     li .signup {
         display: none;
     }
-    img.hero-features {
-        display: none;
-    }
+
+    /* Home */
     .home-hero {
         min-height: 80vh;
     }
@@ -1573,8 +1589,28 @@ nav.danger-zone-nav {
         padding: 1rem;
         margin: 1rem 0;
     }
+    .overview-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .overview-buttons a {
+        width: 150px;
+        text-align: center;
+    }
+    .overview .col {
+        min-width: 300px;
+        align-items: flex-start;
+    }
     .creditted-by {
         padding: 0;
+    }
+    .feature-content {
+        flex-direction: column;
+        align-items: center;
+        margin: 0 1rem;
+    }
+    .feature-preview ~ .container.row {
+        flex-direction: column;
     }
     .newsletter-cta {
         width: 90%;
@@ -1586,6 +1622,56 @@ nav.danger-zone-nav {
     .newsletter-input {
         width: 185px;
     }
+    /* About */
+    .about-hero {
+        margin: 0 1rem 4rem 1rem;
+    }
+    .about-info.row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .about-inspo-img {
+        width: 100%;
+        margin-top: 2rem;
+        max-height: none;
+    }
+    .about-info .col {
+        align-items: center;
+        text-align: center;
+        border-left: none;
+        padding: 0 1rem;
+        max-height: none;
+    }
+    .mission-section {
+        margin: 4rem 1rem;
+        padding: 2rem 1rem;
+    }
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tab-buttons {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .tab-link.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary-color);
+        margin-left: 0;
+        padding-bottom: 0.25rem;
+    }
+    .tab-content-wrapper {
+        width: 100%;
+        padding: 1rem;
+    }
+    .why-image {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+    .faqs.row {
+        padding: 1rem;
+    }
     /* Footer layout changes for mobile */
     .footer-content {
         text-align: center;
@@ -1594,5 +1680,15 @@ nav.danger-zone-nav {
         margin-top: 1rem;
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    img.hero-features {
+        display: none;
+    }
+    .faqs.row {
+        flex-direction: column;
+        padding: 1rem;
     }
 }
