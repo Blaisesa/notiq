@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
 :root {
-    --primary-color: #3275f1;
-    --secondary-color: #2d9cdc;
-    --link-color: #9747ff;
-    --link-hover-color: whitesmoke;
-    --background-color: #0e0218;
-    --secondary-background-color: #1e0b2c;
+    --primary-color: #52A8FF;
+    --secondary-color: #47FF9B;
+    --link-color: #FF7AF4;
+    --link-hover-color: #FFFFFF;
+    --background-color: #0D0216;
+    --secondary-background-color: #2A183D;
     --primary-font-family: "manrope", sans-serif;
     --secondary-font-family: "IBM Plex Sans", sans-serif;
     --primary-font-color: #e0e0e0;
@@ -440,7 +440,8 @@ a.profile-link i:hover {
 }
 .primary {
     background-color: var(--primary-color);
-    color: white;
+    color: black;
+    font-weight: 600;
 }
 .primary:hover,
 .primary-btn:hover {
