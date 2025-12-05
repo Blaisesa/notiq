@@ -184,39 +184,6 @@
                 </div>
             </div>
         </div>
-        {% comment %} Newsletter Sign up form {% endcomment %}
-        <div class="newsletter-cta">
-            <h3>Stay Updated with Notiq</h3>
-            <p>
-                Subscribe to our newsletter to receive the latest updates, tips,
-                and exclusive offers directly in your inbox.
-            </p>
-            <div id="newsletter-wrapper">
-                <form
-                    class="newsletter-form"
-                    method="post"
-                    action="{% url 'newsletter_signup' %}"
-                    aria-label="Newsletter Signup Form"
-                >
-                    {% csrf_token %}
-                    <input
-                        id="id_email"
-                        name="email"
-                        class="newsletter-input"
-                        type="email"
-                        placeholder="Enter your email address"
-                        required
-                    />
-                    <button
-                        type="submit"
-                        id="signup-button"
-                        class="newsletter-button"
-                    >
-                        Subscribe
-                    </button>
-                </form>
-            </div>
-        </div>
     </section>
     <!-- ABOUT SECTION -->
     <section id="about-content" class="spa-page container hidden" aria-label="About Section">
@@ -443,6 +410,7 @@
             </div>
         </div>
     </section>
+    <!-- FEATURES SECTION -->
     <section id="features-content" class="spa-page container hidden" aria-label="Features Section">
         <div class="features-hero row">
             <div class="col">
@@ -511,40 +479,8 @@
             </div>
             {% endfor %}
         </div>
-        {% comment %} Newsletter Sign up form {% endcomment %}
-        <div class="newsletter-cta">
-            <h3>Stay Updated with Notiq</h3>
-            <p>
-                Subscribe to our newsletter to receive the latest updates, tips,
-                and exclusive offers directly in your inbox.
-            </p>
-            <div id="newsletter-wrapper">
-                <form
-                    class="newsletter-form"
-                    method="post"
-                    action="{% url 'newsletter_signup' %}"
-                    aria-label="Newsletter Signup Form"
-                >
-                    {% csrf_token %}
-                    <input
-                        id="id_email"
-                        name="email"
-                        class="newsletter-input"
-                        type="email"
-                        placeholder="Enter your email address"
-                        required
-                    />
-                    <button
-                        type="submit"
-                        id="signup-button"
-                        class="newsletter-button"
-                    >
-                        Subscribe
-                    </button>
-                </form>
-            </div>
-        </div>
     </section>
+    <!-- CONTACT SECTION -->
     <section id="contact-content" class="spa-page container hidden" aria-label="Contact Section">
         <div class="row contact-form">
             <div class="contact-hero">
