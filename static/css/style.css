@@ -248,9 +248,8 @@ a:hover {
 }
 .newsletter-form {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
 }
 .newsletter-input {
     padding: 0.75rem 1rem;
@@ -403,15 +402,15 @@ img.logo {
     color: #ef4444;
 } /* Red */
 .auth-placeholder {
-    background-color: #4f46e5;
+    background-color: var(--primary-color);
     color: white;
     padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: background-color 0.2s;
     font-weight: 600;
 }
 .auth-placeholder:hover {
-    background-color: #6366f1;
+    background-color: var(--secondary-color);
 }
 
 a.profile-link i {
@@ -477,12 +476,12 @@ a.profile-link i:hover {
 }
 /* Hero Font Styles */
 .hero-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     color: var(--primary-color);
     margin-bottom: 1rem;
 }
 .hero-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--secondary-font-color);
 }
 /* Hero Buttons Styles */
@@ -566,6 +565,19 @@ a.profile-link i:hover {
     justify-content: center;
     max-width: 600px;
     margin-bottom: 1.5rem;
+}
+.overview ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+}
+.overview li {
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+strong {
+    color: var(--primary-color);
 }
 .overview-buttons {
     display: flex;
@@ -1514,7 +1526,33 @@ nav.danger-zone-nav {
     display: block;
     height: 80px; /* height of footer */
 }
-/* --- Responsive Adjustments (Mobile first) --- */
+/* --- Responsive Adjustments --- */
+@media (max-width: 1200px) {
+    .features-subhero.row {
+        margin: 4rem 1rem;
+    }
+    .features.row {
+        gap: 2rem;
+        margin: 2rem 1rem;
+    }
+}
+@media (max-width: 1000px) {
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tab-buttons {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .tab-link.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary-color);
+        margin-left: 0;
+        padding-bottom: 0.25rem;
+    }
+}
 @media (max-width: 900px) {
     /* Header layout changes for smaller screens */
     .header-nav {
@@ -1535,7 +1573,154 @@ nav.danger-zone-nav {
     .nav-menu li {
         margin: 0 0.5rem;
     }
+    li.profile {
+        position: absolute;
+        top: 1.5rem;
+        right: 0;
+    }
+    li .auth-placeholder {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        width: fit-content;
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+    li .signup {
+        display: none;
+    }
 
+    /* Home */
+    .home-hero {
+        min-height: 80vh;
+    }
+    #overview {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    .overview-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .overview-buttons a {
+        width: 150px;
+        text-align: center;
+    }
+    .overview .col {
+        min-width: 300px;
+        align-items: flex-start;
+    }
+    .creditted-by {
+        padding: 0;
+    }
+    .feature-content {
+        flex-direction: column;
+        align-items: center;
+        margin: 0 1rem;
+    }
+    .feature-preview ~ .container.row {
+        flex-direction: column;
+    }
+    .newsletter-cta {
+        width: 90%;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 1rem 0;
+    }
+    .newsletter-input {
+        width: 185px;
+    }
+    /* About */
+    .about-hero {
+        margin: 0 1rem 4rem 1rem;
+    }
+    .about-info.row {
+        flex-direction: column;
+        align-items: center;
+    }
+    .about-inspo-img {
+        width: 100%;
+        margin-top: 2rem;
+        max-height: none;
+    }
+    .about-info .col {
+        align-items: center;
+        text-align: center;
+        border-left: none;
+        padding: 0 1rem;
+        max-height: none;
+    }
+    .mission-section {
+        margin: 4rem 1rem;
+        padding: 2rem 1rem;
+    }
+    .tab-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .tab-buttons {
+        flex-direction: row;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .tab-link.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary-color);
+        margin-left: 0;
+        padding-bottom: 0.25rem;
+    }
+    .tab-content-wrapper {
+        width: 100%;
+        padding: 1rem;
+    }
+    .why-image {
+        max-width: 100%;
+        margin-top: 2rem;
+    }
+    .faqs.row {
+        padding: 1rem;
+    }
+    /* Features */
+    .features-hero {
+        margin: 0 1rem;
+    }
+    .feat-hero {
+        width: 100%;
+        position: absolute;
+        opacity: 0.4;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+    .features-hero .col {
+        margin-top: 0;
+    }
+    .main.feature-box {
+        width: 100%;
+        max-width: 350px;
+    }
+    /* Contact */
+    .contact-hero {
+        padding: 0 1rem 0 1rem;
+    }
+    .login.form-wrapper {
+        margin: 2rem 1rem;
+    }
+    .glowing-card {
+        margin: 0 1rem;
+    }
+    #contact-content .newsletter-cta {
+        width: 90%;
+        position: static;
+        transform: none;
+        margin: 1rem 0;
+    }
+    .row.contact-form {
+        flex-direction: column;
+        max-width: 100%;
+        align-items: flex-start;
+    }
     /* Footer layout changes for mobile */
     .footer-content {
         text-align: center;
@@ -1544,5 +1729,29 @@ nav.danger-zone-nav {
         margin-top: 1rem;
         flex-wrap: wrap;
         justify-content: center;
+    }
+}
+@media (max-width: 500px) {
+    img.hero-features {
+        display: none;
+    }
+    .faqs.row {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .login.form-wrapper {
+        max-width: 780px;
+    }
+}
+@media (max-width: 600px) {
+    img.hero-features {
+        display: none;
+    }
+    .faqs.row {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .login.form-wrapper {
+        max-width: 260px;
     }
 }

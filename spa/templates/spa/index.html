@@ -5,7 +5,14 @@
     <section id="home-content" class="spa-page container active">
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
-            <video class="hero-video" id="hero-background-video" autoplay muted loop playsinline>
+            <video
+                class="hero-video"
+                id="hero-background-video"
+                autoplay
+                muted
+                loop
+                playsinline
+            >
                 <source
                     src="{% static 'videos/hero-background.mp4' %}"
                     type="video/mp4"
@@ -13,9 +20,11 @@
                 Your browser does not support the video tag.
             </video>
             <h1 class="hero-title">Welcome to Notiq</h1>
-            <p class="hero-subtitle">Your ultimate note-taking application.</p>
+            <p class="hero-subtitle">The Note Editor That Thinks With You.</p>
             <div class="hero-buttons">
-                <button class="primary">Get Started</button>
+                <a href="{% url 'notes_editor' %}" class="primary"
+                    >Get Started</a
+                >
                 <a href="#overview" class="secondary">Learn More</a>
             </div>
             <!-- prettier-ignore -->
@@ -26,15 +35,31 @@
             <div class="col">
                 <h2 class="overview-title">Why Choose Notiq?</h2>
                 <p class="overview-content">
-                    Notiq offers a seamless and intuitive note-taking
-                    experience, designed to help you stay organized and
-                    productive. With features like real-time collaboration, rich
-                    text formatting, and cloud synchronization, Notiq is the
-                    perfect tool for students, professionals, and anyone who
-                    values effective note management.
+                    Your ideas don't fit into a single text box, so your editor
+                    shouldn't either. Notiq is built around a dynamic,
+                    element-based canvas that adapts to your creative process.
                 </p>
+                <ul>
+                    <li>
+                        <strong>Integrated Voice Notes:</strong> Record audio
+                        directly into your canvas and play it back instantly.
+                        Capture meeting notes, field observations, or sudden
+                        thoughts without typing.
+                    </li>
+                    <li>
+                        <strong>Mix Media, Seamlessly:</strong> Combine text
+                        blocks, custom lists, images, and audio all within the
+                        same document—all structured and saved perfectly.
+                    </li>
+                    <li>
+                        <strong>Intuitive Workflow:</strong> Navigate your notes
+                        with ease using our user-friendly interface designed to
+                        enhance productivity and creativity.
+                    </li>
+                </ul>
                 <span class="overview-buttons">
-                    <button class="primary">Get Started</button
+                    <a href="{% url 'notes_editor' %}" class="primary"
+                        >Get Started</a
                     ><a
                         href="#about-content"
                         data-page="about"
@@ -115,21 +140,19 @@
         <div class="container row">
             <div id="left" class="col">
                 <div class="feature-box">
-                    <i class="fa-solid fa-pen-fancy"></i>
-                    <h4>Rich Text Editing</h4>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h4>Dynamic, Element-Based Editor</h4>
                     <p>
-                        Format your notes with ease using our rich text editor.
-                        Customize fonts, colors, and styles to make your notes
-                        visually appealing.
+                        Mix and match media—combine text, images, and lists
+                        seamlessly on a single, flexible canvas.
                     </p>
                 </div>
                 <div class="feature-box">
-                    <i class="fa-solid fa-pen-fancy"></i>
-                    <h4>Rich Text Editing</h4>
+                    <i class="fa-solid fa-microphone"></i>
+                    <h4>Capture Thoughts with Voice</h4>
                     <p>
-                        Format your notes with ease using our rich text editor.
-                        Customize fonts, colors, and styles to make your notes
-                        visually appealing.
+                        Instantly record and embed audio memos directly into
+                        your notes. Perfect for meetings and quick capture.
                     </p>
                 </div>
             </div>
@@ -144,21 +167,19 @@
             </div>
             <div id="right" class="col">
                 <div class="feature-box">
-                    <i class="fa-solid fa-pen-fancy"></i>
-                    <h4>Rich Text Editing</h4>
+                    <i class="fa-solid fa-bolt"></i>
+                    <h4>Seamless Persistence & Speed</h4>
                     <p>
-                        Format your notes with ease using our rich text editor.
-                        Customize fonts, colors, and styles to make your notes
-                        visually appealing.
+                        Enjoy an instant-loading, SPA-style experience where
+                        your work is saved automatically in the background.
                     </p>
                 </div>
                 <div class="feature-box">
-                    <i class="fa-solid fa-pen-fancy"></i>
-                    <h4>Rich Text Editing</h4>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h4>Secure Architecture</h4>
                     <p>
-                        Format your notes with ease using our rich text editor.
-                        Customize fonts, colors, and styles to make your notes
-                        visually appealing.
+                        Built on secure Python/Django and Cloudinary for
+                        reliable data integrity and enterprise-grade protection.
                     </p>
                 </div>
             </div>
@@ -200,7 +221,8 @@
     <section id="about-content" class="spa-page container hidden">
         <div class="about-hero">
             <img src="{% static "images/about-hero.png" %}" alt="About Notiq
-            hero image" class="about-hero-img" id="about-hero-img" loading="lazy">
+            hero image" class="about-hero-img" id="about-hero-img"
+            loading="lazy">
             <div class="glass-container">
                 <h1 class="hero-title">Capture. Organize. Brainstorm.</h1>
                 <p class="hero-subtitle">
@@ -220,38 +242,45 @@
             <div class="col">
                 <h2>About Notiq</h2>
                 <p>
-                    Notiq was founded with the mission to revolutionize the way
-                    people take notes and manage information. Our team is
-                    dedicated to creating a user-friendly platform that combines
-                    powerful features with a sleek design, making note-taking an
-                    enjoyable experience.
+                    Notiq was conceived as the final capstone project for a
+                    16-week Full-Stack Development Bootcamp. The mission was to
+                    move beyond the limitations of standard text editors and
+                    build a note-taking application that could handle multiple
+                    data types—text, images, and audio—while maintaining a fast,
+                    intuitive user experience. It represents the culmination of
+                    learned skills in full-stack architecture, API integration,
+                    and complex client-side state management.
                 </p>
                 <p>
-                    We believe that effective note-taking is essential for
-                    productivity and creativity. That's why we've built Notiq to
-                    cater to the needs of students, professionals, and anyone
-                    who values organized information.
+                    A robust application built on industry-standard
+                    technologies, designed for reliability and performance. The
+                    backend is powered by Python and Django, ensuring a secure
+                    and scalable foundation. For media management, Notiq
+                    leverages Cloudinary, providing efficient handling of images
+                    and audio files. The frontend is crafted with modern
+                    JavaScript frameworks, delivering a seamless single-page
+                    application (SPA) experience that keeps users engaged and
+                    productive.
                 </p>
             </div>
         </div>
         {% comment %} Mission section {% endcomment %}
         <div class="mission-section">
-            <h3>Our Mission</h3>
+            <h3>The Innovation: Element-Based Editing</h3>
             <p>
-                Our mission is simple: make note-taking smarter and more
-                enjoyable. We combine traditional note management with
-                AI-assisted brainstorming, giving you insights and suggestions
-                to refine your ideas.
+                The core of Notiq lies in its custom editor, which moves away
+                from monolithic text fields. We built a sophisticated system for
+                serializing and deserializing dynamic elements. This ensures
+                that every component—from a heading to an embedded voice note—is
+                saved, managed, and rendered perfectly, providing a seamless and
+                flexible editing experience unmatched by simpler apps.
             </p>
         </div>
         {% comment %} About Page Tabs {% endcomment %}
         <div class="tab-container">
             <div class="tab-buttons">
-                <button class="tab-link active" data-tab="founder-content">
-                    Founder
-                </button>
-                <button class="tab-link" data-tab="why-content">
-                    Why Notiq?
+                <button class="tab-link active" data-tab="why-content">
+                    What's Next?
                 </button>
                 <button class="tab-link" data-tab="features-section">
                     Key Features
@@ -259,29 +288,7 @@
             </div>
 
             <div class="tab-content-wrapper">
-                <div id="founder-content" class="tab-content active">
-                    <div class="row founder-section">
-                        <span class="placeholder"></span>
-                        <div class="col founder-info">
-                            <h4>Meet the Founder</h4>
-                            <p>
-                                Jane Doe, the visionary behind Notiq, has a
-                                background in software development and a passion
-                                for productivity tools. With years of experience
-                                in the tech industry, Jane recognized the need
-                                for a more intuitive and powerful note-taking
-                                application.
-                            </p>
-                            <p>
-                                Jane's dedication to user-centric design and
-                                innovative features has driven Notiq's
-                                development, ensuring it meets the needs of
-                                modern users.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div id="why-content" class="tab-content">
+                <div id="why-content" class="tab-content active">
                     <div class="row why-section">
                         <img
                             class="why-image"
@@ -290,33 +297,35 @@
                             loading="lazy"
                         />
                         <div class="col why-info">
-                            <h4>Why Notiq?</h4>
+                            <h4>What's next for Notiq?</h4>
                             <p>
-                                Notiq stands out in the crowded note-taking
-                                market due to its unique combination of features
-                                and user experience. Here are a few reasons why
-                                users choose Notiq:
+                                The foundation is built for growth. Future
+                                development is focused on integrating
+                                cutting-edge functionality, including secure,
+                                performance-optimized AI services to provide
+                                instant summarization and contextual
+                                analysis—turning your repository of notes into
+                                an active knowledge base.
                             </p>
                             <ul>
                                 <li>
-                                    <strong>AI Assistance:</strong> Our AI
-                                    features help you brainstorm and refine your
-                                    ideas, making note-taking more productive.
+                                    <strong>Intelligence, On Demand:</strong>
+                                    A powerful, secure AI integration that turns
+                                    passive notes into active insights.
                                 </li>
                                 <li>
-                                    <strong>Intuitive Design:</strong> Notiq's
-                                    sleek and user-friendly interface ensures a
-                                    seamless experience across all devices.
+                                    <strong>Real-Time Contextual Chat:</strong>
+                                    Open a sidebar chat that analyzes your note
+                                    content and provides instant summarization,
+                                    action item extraction, and guided
+                                    brainstorming.
                                 </li>
                                 <li>
-                                    <strong>Collaboration:</strong> Share notes
-                                    and collaborate in real-time with colleagues
-                                    or classmates.
-                                </li>
-                                <li>
-                                    <strong>Cloud Sync:</strong> Access your
-                                    notes from anywhere with secure cloud
-                                    synchronization.
+                                    <strong>Zero-Lag Performance:</strong>
+                                    Experience a responsive chat feature with
+                                    real-time streaming—no waiting, just
+                                    instant, accurate results delivered right
+                                    into your workspace.
                                 </li>
                             </ul>
                         </div>
@@ -325,39 +334,43 @@
                 <div id="features-section" class="tab-content features-section">
                     <div class="grid-wrapper">
                         <div class="feature-item">
-                            <i class="fa-solid fa-pen-fancy"></i>
-                            <h4>Rich Text Editing</h4>
+                            <i class="fa-solid fa-code-fork"></i>
+                            <h4>Full-Stack Decoupling</h4>
                             <p>
-                                Format your notes with ease using our rich text
-                                editor. Customize fonts, colors, and styles to
-                                make your notes visually appealing.
+                                A clean separation of concerns between the
+                                Python/Django backend and the dynamic, SPA-style
+                                frontend built with custom Vanilla JavaScript.
                             </p>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-users"></i>
-                            <h4>Real-time Collaboration</h4>
+                            <i class="fa-solid fa-boxes-packing"></i>
+                            <h4>Custom Data Serialization</h4>
                             <p>
-                                Work together with others on shared notes and
-                                projects. See changes in real-time and
-                                communicate seamlessly.
+                                Implementation of a complex system to serialize
+                                and deserialize dynamic note elements (text,
+                                voice, lists) into a single, cohesive data
+                                structure (JSON).
                             </p>
                         </div>
                         <div class="feature-item">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <h4>Cloud Synchronization</h4>
+                            <h4>Cloud-Based Asset Management</h4>
                             <p>
-                                Access your notes from any device with secure
-                                cloud synchronization. Never lose your important
-                                information again.
+                                Integration with Cloudinary to handle all media
+                                files, such as voice recordings and images. This
+                                offloads storage for secure, scalable asset
+                                delivery.
                             </p>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-robot"></i>
-                            <h4>AI-Assisted Brainstorming</h4>
+                            <i class="fa-solid fa-lock"></i>
+                            <h4>Robust Security Implementation</h4>
                             <p>
-                                Leverage AI to generate ideas, organize
-                                thoughts, and enhance your note-taking
-                                experience.
+                                Leveraging Django's built-in features to ensure
+                                a high level of security, including user
+                                authentication, session management, and
+                                protection against common web vulnerabilities
+                                like CSRF.
                             </p>
                         </div>
                     </div>
@@ -376,29 +389,54 @@
             <div class="col">
                 <h2>Frequently Asked Questions</h2>
                 <p>Most common questions about Notiq.</p>
-                <a href="" class="primary-btn">Get in Touch</a>
+                <a
+                    href="/#contact-content"
+                    data-page="contact"
+                    data-url="/"
+                    class="primary-btn"
+                    >Get in Touch</a
+                >
             </div>
             <div class="col">
                 <details class="faq-item">
-                    <summary>What platforms does Notiq support?</summary>
+                    <summary>
+                        What makes Notiq different from standard note-taking
+                        apps like Notion or Evernote?
+                    </summary>
                     <p>
-                        Notiq is available on web, iOS, and Android platforms,
-                        ensuring you can access your notes from any device.
+                        Notiq is built around a dynamic, element-based editor
+                        that gives you total flexibility to combine text,
+                        embedded audio, and custom lists on a single canvas.
+                        Crucially, it's designed with an architecture that is
+                        fully prepared for the integration of real-time
+                        contextual AI—features that go beyond simple text
+                        formatting.
                     </p>
                 </details>
                 <details class="faq-item">
-                    <summary>Is there a free version of Notiq?</summary>
+                    <summary>
+                        What is the core technology stack for Notiq?
+                    </summary>
                     <p>
-                        Notiq is a freemium service, offering its services for
-                        free.
+                        Notiq is a full-stack application anchored by a
+                        Python/Django backend (providing security, routing, and
+                        the ORM) and a dynamic, SPA-style frontend built with
+                        custom Vanilla JavaScript. This structure showcases
+                        expertise in building decoupled, high-performance web
+                        applications.
                     </p>
                 </details>
                 <details class="faq-item">
-                    <summary>How secure is my data with Notiq?</summary>
+                    <summary>
+                        How does the voice recording feature work?
+                    </summary>
                     <p>
-                        We prioritize your data security and privacy. Notiq uses
-                        encryption and secure cloud storage to protect your
-                        notes.
+                        When you record, the audio data is captured as a blob on
+                        your browser and is then asynchronously uploaded to
+                        Cloudinary, our secure cloud storage provider. The note
+                        saves a permanent URL, allowing the audio to be played
+                        back instantly within the editor without large files
+                        taxing the server.
                     </p>
                 </details>
             </div>
@@ -413,7 +451,9 @@
                     with cutting-edge tools and functionalities.
                 </p>
                 <div class="hero-buttons">
-                    <a href="" class="primary">Start Now</a>
+                    <a href="{% url 'notes_editor' %}" class="primary"
+                        >Start Now</a
+                    >
                     <a href="#about-content" data-page="about" class="secondary"
                         >About Notiq</a
                     >
@@ -424,19 +464,23 @@
         </div>
         <div class="features-subhero row">
             <div class="col">
-                <h2>Feature Highlights</h2>
+                <h2>Element-Based Editing: The Power of Serialization</h2>
                 <p>
-                    Notiq is packed with features designed to make your
-                    note-taking efficient and enjoyable. Here are some of the
-                    standout features that set Notiq apart:
+                    Go beyond simple markdown. Notiq's editor is built on a
+                    sophisticated element-based architecture, allowing you to
+                    seamlessly mix text, lists, and media blocks within a single
+                    document.
                 </p>
             </div>
             <div class="col">
-                <h2>Feature Highlights</h2>
+                <h2>Instant Voice Capture & Secure Cloud Storage</h2>
                 <p>
-                    Notiq is packed with features designed to make your
-                    note-taking efficient and enjoyable. Here are some of the
-                    standout features that set Notiq apart:
+                    Capture ideas as fast as you think. The integrated voice
+                    recording feature allows you to capture audio directly on
+                    the canvas. This process involves handling asynchronous
+                    binary data (audio blobs) on the client, securely
+                    transmitting them to Cloudinary for scalable hosting, and
+                    embedding a custom player for instant playback.
                 </p>
             </div>
         </div>

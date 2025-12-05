@@ -49,8 +49,6 @@
                         class="logo"
                     />Notiq</a
                 >
-
-                <!-- SPA Navigation Links (These links are for the JS-driven SPA functionality) -->
                 <ul class="nav-menu" id="spa-nav">
                     <li>
                         <a
@@ -88,8 +86,6 @@
                             >Contact</a
                         >
                     </li>
-
-                    <!-- Authentication Links (Placeholders until allauth is installed) -->
                     {% if user.is_authenticated and user.is_staff %}
                     <li>
                         <a href="{% url 'notes_editor' %}" class="app-link">
@@ -119,8 +115,8 @@
                     </li>
                     {% else %}
                     <!-- These will link to allauth URLs later -->
-                    <li><a href="{{ login_url }}" class="auth-placeholder">Login</a></li>
-                    <li><a href="{{ signup_url }}" class="auth-placeholder">Sign Up</a></li>
+                    <li><a href="{{ login_url }}" class="auth-placeholder login">Login</a></li>
+                    <li><a href="{{ signup_url }}" class="auth-placeholder signup">Sign Up</a></li>
                     {% endif %}
                 </ul>
             </nav>
