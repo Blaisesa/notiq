@@ -566,6 +566,31 @@ h6 {
     transition: opacity 0.2s;
 }
 
+.audio-duration {
+    margin-left: 10px;
+    color: var(--secondary-font-color);
+}
+.audio-controls {
+    display: flex;
+    align-items: center;
+}
+.record-btn {
+    background: none;
+    border: none;
+    color: var(--primary-font-color);
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.audio-player {
+    display: flex;
+    align-items: center;
+}
+.voice-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .note-element:hover .remove-btn,
 .note-element:hover .drag-handle,
 .note-element:hover .add-checklist-item-btn,
