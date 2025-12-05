@@ -1527,6 +1527,15 @@ nav.danger-zone-nav {
     height: 80px; /* height of footer */
 }
 /* --- Responsive Adjustments --- */
+@media (max-width: 1200px) {
+    .features-subhero.row {
+        margin: 4rem 1rem;
+    }
+    .features.row {
+        gap: 2rem;
+        margin: 2rem 1rem;
+    }
+}
 @media (max-width: 1000px) {
     .tab-container {
         flex-direction: column;
@@ -1671,6 +1680,25 @@ nav.danger-zone-nav {
     }
     .faqs.row {
         padding: 1rem;
+    }
+    /* Features */
+    .features-hero {
+        margin: 0 1rem;
+    }
+    .feat-hero {
+        width: 100%;
+        position: absolute;
+        opacity: 0.4;
+        top: 0;
+        right: 0;
+        z-index: -1;
+    }
+    .features-hero .col {
+        margin-top: 0;
+    }
+    .main.feature-box {
+        width: 100%;
+        max-width: 350px;
     }
     /* Footer layout changes for mobile */
     .footer-content {

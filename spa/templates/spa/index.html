@@ -22,7 +22,9 @@
             <h1 class="hero-title">Welcome to Notiq</h1>
             <p class="hero-subtitle">The Note Editor That Thinks With You.</p>
             <div class="hero-buttons">
-                <a href="{% url 'notes_editor' %}" class="primary">Get Started</a>
+                <a href="{% url 'notes_editor' %}" class="primary"
+                    >Get Started</a
+                >
                 <a href="#overview" class="secondary">Learn More</a>
             </div>
             <!-- prettier-ignore -->
@@ -56,7 +58,9 @@
                     </li>
                 </ul>
                 <span class="overview-buttons">
-                    <a href="{% url 'notes_editor' %}" class="primary">Get Started</a><a
+                    <a href="{% url 'notes_editor' %}" class="primary"
+                        >Get Started</a
+                    ><a
                         href="#about-content"
                         data-page="about"
                         class="secondary"
@@ -385,7 +389,13 @@
             <div class="col">
                 <h2>Frequently Asked Questions</h2>
                 <p>Most common questions about Notiq.</p>
-                <a href="/#contact-content" data-page="contact" data-url="/" class="primary-btn">Get in Touch</a>
+                <a
+                    href="/#contact-content"
+                    data-page="contact"
+                    data-url="/"
+                    class="primary-btn"
+                    >Get in Touch</a
+                >
             </div>
             <div class="col">
                 <details class="faq-item">
@@ -441,7 +451,9 @@
                     with cutting-edge tools and functionalities.
                 </p>
                 <div class="hero-buttons">
-                    <a href="{% url 'notes_editor' %}" class="primary">Start Now</a>
+                    <a href="{% url 'notes_editor' %}" class="primary"
+                        >Start Now</a
+                    >
                     <a href="#about-content" data-page="about" class="secondary"
                         >About Notiq</a
                     >
@@ -452,19 +464,23 @@
         </div>
         <div class="features-subhero row">
             <div class="col">
-                <h2>Feature Highlights</h2>
+                <h2>Element-Based Editing: The Power of Serialization</h2>
                 <p>
-                    Notiq is packed with features designed to make your
-                    note-taking efficient and enjoyable. Here are some of the
-                    standout features that set Notiq apart:
+                    Go beyond simple markdown. Notiq's editor is built on a
+                    sophisticated element-based architecture, allowing you to
+                    seamlessly mix text, lists, and media blocks within a single
+                    document.
                 </p>
             </div>
             <div class="col">
-                <h2>Feature Highlights</h2>
+                <h2>Instant Voice Capture & Secure Cloud Storage</h2>
                 <p>
-                    Notiq is packed with features designed to make your
-                    note-taking efficient and enjoyable. Here are some of the
-                    standout features that set Notiq apart:
+                    Capture ideas as fast as you think. The integrated voice
+                    recording feature allows you to capture audio directly on
+                    the canvas. This process involves handling asynchronous
+                    binary data (audio blobs) on the client, securely
+                    transmitting them to Cloudinary for scalable hosting, and
+                    embedding a custom player for instant playback.
                 </p>
             </div>
         </div>
