@@ -5,6 +5,7 @@
     hx-post="{% url 'contact_submit' %}" 
     hx-target=".form-wrapper" 
     hx-swap="innerHTML"
+    aria-label="Contact Form"
 >
     {% csrf_token %}
 
