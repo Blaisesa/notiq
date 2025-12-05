@@ -2,23 +2,33 @@
 
 <my-router style="view-transition-name: router-area">
     <!-- HOME SECTION -->
-    <section id="home-content" class="spa-page container active" aria-label="Home Section">
+    <section
+        id="home-content"
+        class="spa-page container active"
+        aria-label="Home Section"
+    >
         {% comment %} Hero Section {% endcomment %}
         <div class="home-hero">
             <video
-                class="hero-video"
-                id="hero-background-video"
                 autoplay
                 muted
                 loop
                 playsinline
+                class="hero-video"
+                poster="{% static 'images/hero-fallback.jpg' %}"
+                aria-label="Background video showing Notiq in action"
             >
                 <source
-                    src="{% static 'videos/hero-background.webm' %}"
+                    src="{% static 'videos/hero-background-compressed.webm' %}"
                     type="video/webm"
+                />
+                <source
+                    src="{% static 'videos/hero-background-compressed.mp4' %}"
+                    type="video/mp4"
                 />
                 Your browser does not support the video tag.
             </video>
+
             <h1 class="hero-title">Welcome to Notiq</h1>
             <p class="hero-subtitle">The Note Editor That Thinks With You.</p>
             <div class="hero-buttons">
@@ -186,7 +196,11 @@
         </div>
     </section>
     <!-- ABOUT SECTION -->
-    <section id="about-content" class="spa-page container hidden" aria-label="About Section">
+    <section
+        id="about-content"
+        class="spa-page container hidden"
+        aria-label="About Section"
+    >
         <div class="about-hero">
             <img src="{% static "images/about-hero.png" %}" alt="About Notiq
             hero image" class="about-hero-img" id="about-hero-img"
@@ -411,7 +425,11 @@
         </div>
     </section>
     <!-- FEATURES SECTION -->
-    <section id="features-content" class="spa-page container hidden" aria-label="Features Section">
+    <section
+        id="features-content"
+        class="spa-page container hidden"
+        aria-label="Features Section"
+    >
         <div class="features-hero row">
             <div class="col">
                 <h1 class="hero-title">Explore Notiq's Powerful Features</h1>
@@ -481,7 +499,11 @@
         </div>
     </section>
     <!-- CONTACT SECTION -->
-    <section id="contact-content" class="spa-page container hidden" aria-label="Contact Section">
+    <section
+        id="contact-content"
+        class="spa-page container hidden"
+        aria-label="Contact Section"
+    >
         <div class="row contact-form">
             <div class="contact-hero">
                 <h1 class="hero-title">Get in Touch with Notiq</h1>
