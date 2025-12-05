@@ -1,21 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
-
-/* Global Styles */
-
 :root {
-    --primary-color: #5f5ed1; /* Notiq Primary Blue */
-    --secondary-color: #2d9cdc; /* Notiq Secondary Blue */
-    --link-color: #9747ff; /* Notiq Purple */
-    --link-hover-color: #dfacec; /* Notiq Light Purple */
-    --background-color: #0e0218; /* Notiq Dark Background */
-    --secondary-background-color: #1e0b2c; /* Notiq Secondary Dark Background */
+    --primary-color: #5f5ed1;
+    --secondary-color: #2d9cdc;
+    --link-color: #9747ff;
+    --link-hover-color: #dfacec;
+    --background-color: #0e0218;
+    --secondary-background-color: #1e0b2c;
     --primary-font-family: "manrope", sans-serif;
     --secondary-font-family: "IBM Plex Sans", sans-serif;
-    --primary-font-color: #e0e0e0; /* Light Gray */
-    --secondary-font-color: #a0a0a0; /* Medium Gray */
+    --primary-font-color: #e0e0e0;
+    --secondary-font-color: #a0a0a0;
 }
-
-/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
@@ -28,7 +23,6 @@ main {
     transition: height 0.55s ease-in-out;
     overflow: hidden;
 }
-
 body {
     display: flex;
     flex-direction: column;
@@ -40,29 +34,21 @@ body {
     opacity: 0;
     transition: opacity 0.2s ease;
 }
-
 body.fade-ready {
     transition: opacity 0.35s ease;
     opacity: 1;
 }
-
-/* Starting hidden state */
 .page-hidden {
     opacity: 0;
 }
-
-/* Fade transition is only active AFTER initial load */
 .page-fade-ready {
     transition: opacity 0.35s ease-in-out;
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
 }
-
-/* Terms Pages */
 .terms {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -72,18 +58,15 @@ body.fade-ready {
     background-color: var(--secondary-background-color);
 }
 
-/* Global Components */
 .row {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
 }
-
 .col {
     flex: 1;
     min-width: 250px;
 }
-
 a {
     color: var(--link-color);
     text-decoration: none;
@@ -93,7 +76,6 @@ a:hover {
     color: var(--link-hover-color);
 }
 
-/* Feature Boxes */
 .feature-box {
     background-color: var(--secondary-background-color);
     border-radius: 0.5rem;
@@ -132,14 +114,12 @@ a:hover {
     line-height: 1.5;
 }
 
-/* Glowing Card Effect */
 #glowing-cards {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
 }
-
 .glowing-card {
     min-width: 200px;
     height: 200px;
@@ -148,7 +128,6 @@ a:hover {
     border-radius: 12px;
     position: relative;
 }
-
 #glowing-cards:hover > .glowing-card {
     background: radial-gradient(
         400px circle at var(--mouse-x) var(--mouse-y),
@@ -163,7 +142,6 @@ a:hover {
     background-color: var(--secondary-background-color);
     border-radius: inherit;
 }
-
 .glowing-card:nth-child(1) {
     --color: 130 80% 60%;
 }
@@ -173,7 +151,6 @@ a:hover {
 .glowing-card:nth-child(3) {
     --color: 220 100% 35%;
 }
-
 .glowing-card::before {
     content: "";
     position: absolute;
@@ -194,21 +171,17 @@ a:hover {
 #glowing-cards:hover > .glowing-card::before {
     opacity: 1;
 }
-
 .glowing-card-content {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 18px;
-    align-items: center;
 }
-
 .glowing-card-content > i {
     font-size: 2rem;
     color: rgba(255, 255, 255, 0.5);
 }
-
 .glowing-card-content > a {
     width: 90%;
     padding-block: 0.8rem;
@@ -227,7 +200,6 @@ a:hover {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
-/* Newsletter Sign Up CTA */
 .newsletter-cta {
     background-color: var(--secondary-background-color);
     border-radius: 0.5rem;
@@ -281,7 +253,6 @@ a:hover {
     background-color: #4e4dd1;
 }
 
-/* Wrappers */
 .form-wrapper {
     background-color: var(--secondary-background-color);
     border-radius: 0.5rem;
@@ -290,7 +261,6 @@ a:hover {
     margin-bottom: 4rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .page-wrapper {
     display: flex;
     flex-direction: column;
@@ -298,8 +268,6 @@ a:hover {
     justify-content: center;
     min-height: 80vh;
 }
-
-/* Sidebar */
 .sidebar {
     background-color: var(--secondary-background-color);
     padding: 1.5rem;
@@ -312,8 +280,6 @@ a:hover {
     height: 80vh;
     max-height: 100%;
 }
-
-/* Placeholder for future content */
 .placeholder {
     background-color: var(--secondary-background-color);
     border: 2px dashed var(--primary-color);
@@ -327,7 +293,6 @@ a:hover {
     font-size: 1.25rem;
 }
 
-/* --- Navigation Styling --- */
 .main-header {
     background-color: var(--secondary-background-color);
     border-bottom: 1px solid var(--background-color);
@@ -337,14 +302,11 @@ a:hover {
     top: 0;
     z-index: 1000;
 }
-
 .header-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-/* Logo & Link Styling */
 a.logo-link {
     font-size: 1.75rem;
     font-weight: 700;
@@ -356,19 +318,15 @@ a.logo-link {
 img.logo {
     max-height: 40px;
 }
-
-/* Nav Menu (UL List) Styling */
 .nav-menu {
-    list-style: none; /* Remove bullet points */
+    list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
-    gap: 1.25rem; /* Space between links */
+    gap: 1.25rem;
 }
-
 .nav-menu li {
-    /* Ensures list items behave well in flex container */
     display: inline;
 }
 
@@ -383,24 +341,20 @@ img.logo {
     transition: color 0.2s ease, border-bottom 0.2s ease;
     white-space: nowrap;
 }
-
-/* Active Link Styling (used by spa.js) */
 .nav-menu a.active-link {
     font-weight: 600;
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
 }
-
 .nav-link:hover {
     color: var(--primary-color);
 }
-
 .admin-link {
     color: #10b981;
-} /* Green */
+}
 .logout-link {
     color: #ef4444;
-} /* Red */
+}
 .auth-placeholder {
     background-color: var(--primary-color);
     color: white;
@@ -423,17 +377,10 @@ a.profile-link i {
     border: 2px solid var(--primary-color);
     transition: color 0.2s ease, background-color 0.2s ease;
 }
-
 a.profile-link i:hover {
     background-color: var(--primary-color);
     color: var(--background-color);
 }
-
-/* --- Main Content Styling --- */
-/* ========================================= */
-/* 1. SPA Container and Page Positioning FIX */
-/* ========================================= */
-
 #router {
     overflow: hidden;
     position: relative;
@@ -445,36 +392,28 @@ a.profile-link i:hover {
     max-width: 1200px;
     width: 100%;
     background-color: var(--background-color);
-
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%); /* Default centered position */
-
+    transform: translateX(-50%);
     opacity: 0;
-    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease; /* slide + fade */
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.55s ease;
     will-change: transform, opacity;
 }
-
-/* Fully hidden pages */
 .hidden {
     opacity: 0;
     pointer-events: none;
     transform: translateX(-220%) !important;
 }
-
-/* Active page (centered) */
 .active {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Home Page Styling */
 .home-hero {
     text-align: center;
     padding: 5rem 1rem 0 1rem;
 }
-/* Hero Font Styles */
 .hero-title {
     font-size: 3.5rem;
     color: var(--primary-color);
@@ -484,7 +423,6 @@ a.profile-link i:hover {
     font-size: 1.5rem;
     color: var(--secondary-font-color);
 }
-/* Hero Buttons Styles */
 .hero-buttons {
     margin-top: 2rem;
     display: flex;
@@ -520,7 +458,6 @@ a.profile-link i:hover {
     color: whitesmoke;
 }
 
-/* Hero Video styles */
 .hero-video {
     position: absolute;
     top: 0;
@@ -531,10 +468,8 @@ a.profile-link i:hover {
     object-fit: cover;
     object-position: top;
     z-index: -1;
-    opacity: 0.4; /* Slightly transparent for overlay effect */
+    opacity: 0.4;
 }
-
-/* Hero Features Image */
 .hero-features {
     margin-top: 4rem;
     padding-top: 4rem;
@@ -584,84 +519,59 @@ strong {
     gap: 1rem;
     justify-content: flex-start;
 }
-/* Creditted by section */
-/* Container for the text and scroller */
 .creditted-by {
     text-align: center;
     padding: 30px 0;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
-
-/* SCROLLER CONTAINER (Viewport) */
 .logo-scroller {
-    /* Hides the logos that are off-screen */
     overflow: hidden;
-    /* Sets the width where logos will be visible */
     max-width: 100%;
     padding: 1rem 0;
     margin: 30px auto;
-    /* You can add padding here for spacing if needed */
 }
-
-/* LOGO TRACK (The element that moves) */
 .logo-track {
     display: flex;
-    /* Ensures all logos stay on one line */
     width: fit-content;
-    /* The animation definition */
-    animation: scroll 30s linear infinite; /* Adjust '30s' for speed */
+    animation: scroll 30s linear infinite;
 }
-
-/* INDIVIDUAL LOGO STYLES */
 .credits {
-    /* Define the width of each logo */
     min-width: 120px;
-    /* Centers the icon within its allocated space */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4.5rem; /* Adjust icon size */
+    font-size: 4.5rem;
     color: var(--primary-color);
     opacity: 0.5;
     transition: all 0.5s ease;
 }
-
 .credits:hover {
     filter: grayscale(0%);
     opacity: 1;
     transform: scale(1.1);
 }
-
-/* 4. THE KEYFRAMES ANIMATION */
 @keyframes scroll {
-    /* Starts at the original position (0px) */
     from {
         transform: translateX(0);
     }
-    /* Moves to exactly half the width of the track (Set 1 ends) */
     to {
         transform: translateX(-50%);
     }
 }
 
-/* 5. Fading Edges (Optional but highly recommended) */
 .logo-scroller {
-    /* Enables positioning for the pseudo-elements */
     position: relative;
 }
-
-/* FADE EFFECT: Creates a gradient over the left/right edges */
 .logo-scroller::before,
 .logo-scroller::after {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 50px; /* Width of the fade */
-    z-index: 2; /* Ensures it is on top of the logos */
+    width: 50px;
+    z-index: 2;
 }
-
 .logo-scroller::before {
     left: 0;
     background: linear-gradient(
@@ -670,7 +580,6 @@ strong {
         rgba(255, 255, 255, 0)
     );
 }
-
 .logo-scroller::after {
     right: 0;
     background: linear-gradient(
@@ -679,7 +588,6 @@ strong {
         rgba(255, 255, 255, 0)
     );
 }
-
 .creditted-by p {
     color: var(--secondary-font-color);
     font-size: 1.3rem;
@@ -687,7 +595,6 @@ strong {
     padding-top: 4rem;
 }
 
-/* Feature Preview Section */
 .feature-preview {
     margin-top: 4rem;
     margin-bottom: 4rem;
@@ -718,8 +625,6 @@ strong {
     justify-content: center;
     max-width: 650px;
 }
-
-/* Feature Preview Home section */
 #left .feature-box i {
     transform: scaleX(-1);
 }
@@ -742,7 +647,6 @@ strong {
     align-items: center;
 }
 
-/* About page Styling */
 .about-hero {
     text-align: center;
     display: flex;
@@ -764,7 +668,7 @@ strong {
     object-position: bottom;
     max-height: 55vh;
     z-index: -1;
-    opacity: 0.75; /* Slightly transparent for overlay effect */
+    opacity: 0.75;
 }
 .about-hero .hero-title {
     position: relative;
@@ -842,21 +746,18 @@ strong {
     line-height: 1.6;
 }
 
-/* Tab Navigation Styling */
 .tab-container {
     padding: 40px 0;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
 }
-
 .tab-buttons {
     display: flex;
     flex-direction: column;
     min-width: fit-content;
     margin-top: 15px;
 }
-
 .tab-link {
     background: none;
     border: none;
@@ -868,33 +769,22 @@ strong {
     transition: all 0.3s ease;
     outline: none;
 }
-
-/* Active Button Style */
 .tab-link.active {
     color: var(--primary-color);
     border-left: 3px solid var(--primary-color);
     scale: 1.05;
 }
-
-/* Hover effect */
 .tab-link:not(.active):hover {
     color: var(--secondary-font-color);
 }
-
-/* --- Tab Content Styles --- */
 .tab-content {
     padding: 20px;
-    /* By default, all tab content is hidden */
     display: none;
     animation: fadeIn 0.5s;
 }
-
-/* Only the active tab content is displayed */
 .tab-content.active {
     display: block;
 }
-
-/* Simple fade-in animation for smooth transition */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -906,7 +796,6 @@ strong {
     }
 }
 
-/* Founder Styling */
 .founder-section {
     margin-bottom: 4rem;
 }
@@ -928,8 +817,6 @@ strong {
     max-width: 600px;
     line-height: 1.6;
 }
-
-/* Why Notiq Section */
 .why-section {
     margin-bottom: 4rem;
     text-align: left;
@@ -968,7 +855,6 @@ strong {
     object-position: center;
 }
 
-/* Feature Section */
 .features-section {
     margin-bottom: 4rem;
 }
@@ -1004,7 +890,6 @@ strong {
     margin-bottom: 1rem;
 }
 
-/* FAQS Section */
 .primary-btn {
     background-color: var(--primary-color);
     color: white;
@@ -1067,7 +952,6 @@ details.faq-item[open] h2 {
     color: white;
 }
 
-/* --- Features Page Styling --- */
 .features-hero {
     text-align: left;
     margin-top: -40px;
@@ -1093,8 +977,8 @@ details.faq-item[open] h2 {
     margin-top: 2rem;
 }
 .features-subhero {
-    padding: 5rem 2rem 5rem 2rem;
-    margin: 4rem 0 4rem 0;
+    padding: 5rem 2rem;
+    margin: 4rem 0;
     background-color: var(--secondary-background-color);
     display: flex;
     justify-content: space-around;
@@ -1129,7 +1013,6 @@ details.faq-item[open] h2 {
     margin-top: 2rem;
     margin-bottom: 4rem;
 }
-/* --- Contact Section Styling --- */
 #contact-content {
     display: flex;
     flex-direction: column;
@@ -1165,10 +1048,8 @@ form textarea {
 form textarea:focus {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     border: 1px solid var(--primary-color);
-    border-color: var(--primary-color);
 }
 
-/* --- Login Form Styling --- */
 .login.form-wrapper {
     margin: 4rem auto;
     display: flex;
@@ -1176,13 +1057,11 @@ form textarea:focus {
     align-items: center;
     padding: 3rem;
 }
-
 .login.form-wrapper h1 {
     font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 1.5rem;
 }
-
 .login form {
     display: flex;
     flex-direction: column;
@@ -1191,13 +1070,11 @@ form textarea:focus {
     max-width: 400px;
     gap: 1.5rem;
 }
-
 .login label {
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: var(--secondary-font-color);
 }
-
 .login input {
     padding: 0.75rem 1rem;
     border: 1px solid #444;
@@ -1206,33 +1083,27 @@ form textarea:focus {
     outline: none;
     transition: border-color 0.2s ease;
 }
-
 .login input:focus {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     border: 1px solid var(--primary-color);
-    border-color: var(--primary-color);
 }
-
 .login form p {
     color: var(--secondary-font-color);
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
 }
-
 p:has(#id_remember) {
     margin-top: -0.5rem;
     margin-bottom: 1rem;
     flex-direction: row;
     justify-content: space-between;
 }
-
 .login form span.helptext {
     color: var(--secondary-font-color);
     font-size: 0.85rem;
     margin-top: 0.25rem;
 }
-
 .login button {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -1244,22 +1115,18 @@ p:has(#id_remember) {
     transition: background-color 0.2s ease;
     margin-bottom: 0.5rem;
 }
-
 .login button:hover {
     background-color: #4e4dd1;
 }
-
 .login a {
     color: var(--link-color);
     font-size: 0.9rem;
     text-align: center;
 }
-
 .login a:hover {
     color: var(--link-hover-color);
 }
 
-/* Signup Link Styling */
 p#signup-link {
     font-size: 0.95rem;
     flex-direction: row;
@@ -1270,20 +1137,14 @@ p#signup-link a {
     margin-left: 0.25rem;
     font-weight: 600;
 }
-/* Password Reset Styling */
 .password-reset a.primary {
     color: whitesmoke;
-}
-
-.password-reset a.primary {
     margin-top: 1rem;
 }
-
 .password-reset p {
     text-align: center;
 }
 
-/* Logout Form Styling */
 .logout.form-wrapper {
     margin: 4rem auto;
     display: flex;
@@ -1300,7 +1161,7 @@ p#signup-link a {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 4rem;
-    background-color: #ef4444; /* Red color for logout */
+    background-color: #ef4444;
     color: white;
     font-size: 1rem;
     cursor: pointer;
@@ -1311,7 +1172,6 @@ p#signup-link a {
     background-color: #7e0000;
 }
 
-/* --- Profile Page Styling --- */
 .profile-page {
     width: 100%;
 }
@@ -1358,9 +1218,8 @@ p.email {
     font-size: 1rem;
     color: var(--secondary-font-color);
     font-weight: 500;
-    transition: color 0.2s ease, border-bottom 0.2s ease;
-    white-space: nowrap;
     transition: color 0.2s ease, border-bottom 0.2s ease, margin-left 0.2s ease;
+    white-space: nowrap;
 }
 .profile-nav button.active-profile-link {
     font-weight: 600;
@@ -1380,7 +1239,6 @@ nav h3 {
     text-decoration: underline;
     text-underline-offset: 6px;
 }
-
 .account-links-nav ul,
 .danger-zone-nav ul {
     list-style: none;
@@ -1390,13 +1248,11 @@ nav h3 {
     padding: 0;
     gap: 1.5rem;
 }
-
 .account-links-nav li a:hover {
     color: var(--primary-color);
 }
-
 nav.danger-zone-nav {
-    border-top: 1px solid #ef4444; /* Subtle top border */
+    border-top: 1px solid #ef4444;
     padding-top: 1.5rem;
 }
 .danger-zone-nav li {
@@ -1404,26 +1260,23 @@ nav.danger-zone-nav {
 }
 .danger-zone-nav li a,
 .danger-zone-nav li i {
-    color: #ef4444; /* Red color for danger zone links */
+    color: #ef4444;
 }
 .danger-zone-nav li a {
     flex-grow: 1;
 }
 .danger-zone-nav li a:hover {
-    color: #910303; /* Darker red color for danger zone links */
+    color: #910303;
 }
 
-/* Email Management Form Styling */
 .email-management-form p:has(#email_radio_0) {
     margin-top: 1rem;
     flex-direction: row;
     justify-content: space-between;
 }
-
 .email-management-form p {
     max-width: 440px;
 }
-
 .email-management-form button {
     padding: 0.5rem 1rem;
     border: none;
@@ -1457,7 +1310,6 @@ nav.danger-zone-nav {
 .email-management-form input:focus {
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
     border: 1px solid var(--primary-color);
-    border-color: var(--primary-color);
 }
 .email-management-form h2 {
     font-size: 1rem;
@@ -1472,7 +1324,6 @@ nav.danger-zone-nav {
 .email-management-form input#email_radio_0:checked {
     accent-color: var(--primary-color);
 }
-/* Contact form positioning */
 .contact {
     margin: 4rem 0 4rem auto;
     max-width: 780px;
@@ -1482,49 +1333,40 @@ nav.danger-zone-nav {
     height: auto;
     display: flex;
 }
-
-/* --- Footer Styling --- */
 .main-footer {
     background-color: var(--secondary-background-color);
     color: var(--secondary-font-color);
     padding: 2rem 0;
     font-size: 0.85rem;
 }
-
 .footer-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #495057; /* Subtle top border */
+    border-top: 1px solid #495057;
     padding-top: 1.5rem;
 }
-
 .copyright {
     margin-bottom: 1rem;
     color: #adb5bd;
 }
-
 .footer-links {
     display: flex;
     gap: 1.5rem;
 }
-
 .footer-link {
     color: var(--link-color);
     text-decoration: none;
     transition: color 0.2s ease;
 }
-
 .footer-link:hover {
     color: var(--link-hover-color);
 }
-
-/* Spacer to prevent content overlap with footer */
 .spa-page::after {
     content: "";
     display: block;
-    height: 80px; /* height of footer */
+    height: 80px;
 }
 /* --- Responsive Adjustments --- */
 @media (max-width: 1200px) {
@@ -1554,7 +1396,6 @@ nav.danger-zone-nav {
     }
 }
 @media (max-width: 900px) {
-    /* Header layout changes for smaller screens */
     .header-nav {
         flex-direction: column;
         align-items: center;
@@ -1589,8 +1430,6 @@ nav.danger-zone-nav {
     li .signup {
         display: none;
     }
-
-    /* Home */
     .home-hero {
         min-height: 80vh;
     }
@@ -1631,7 +1470,6 @@ nav.danger-zone-nav {
     .newsletter-input {
         width: 185px;
     }
-    /* About */
     .about-hero {
         margin: 0 1rem 4rem 1rem;
     }
@@ -1681,7 +1519,6 @@ nav.danger-zone-nav {
     .faqs.row {
         padding: 1rem;
     }
-    /* Features */
     .features-hero {
         margin: 0 1rem;
     }
@@ -1700,9 +1537,8 @@ nav.danger-zone-nav {
         width: 100%;
         max-width: 350px;
     }
-    /* Contact */
     .contact-hero {
-        padding: 0 1rem 0 1rem;
+        padding: 0 1rem;
     }
     .login.form-wrapper {
         margin: 2rem 1rem;
@@ -1721,7 +1557,6 @@ nav.danger-zone-nav {
         max-width: 100%;
         align-items: flex-start;
     }
-    /* Footer layout changes for mobile */
     .footer-content {
         text-align: center;
     }
