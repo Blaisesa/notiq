@@ -1306,7 +1306,7 @@ nav.danger-zone-nav {
     font-size: 1rem;
     outline: none;
     transition: border-color 0.2s ease;
-    width: 100%;
+    width: calc(100% - 2rem);
     max-width: 400px;
 }
 .email-management-form input:focus {
@@ -1558,6 +1558,21 @@ nav.danger-zone-nav {
         flex-direction: column;
         max-width: 100%;
         align-items: flex-start;
+    }
+    .page-wrapper.profile-page .row {
+        flex-direction: column-reverse;
+    }
+    .sidebar {
+        width: calc(100% - 2rem);
+        max-width: none;
+        height: auto;
+        padding: 1rem;
+    }
+    .information.col {
+        min-height: 60vh;
+    }
+    .profile-info {
+        display: none;
     }
     .footer-content {
         text-align: center;
