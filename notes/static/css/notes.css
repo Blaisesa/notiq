@@ -631,5 +631,9 @@ footer {
     .canvas {
         margin: 1rem;
         min-height: 100vh;
+        padding: 0.5rem;
+    }
+    .note-element {
+        margin: 0;
     }
 }
