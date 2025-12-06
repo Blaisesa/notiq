@@ -601,8 +601,35 @@ h6 {
     display: flex;
     opacity: 1;
 }
-
 /* Footer Override */
 footer {
     display: none;
+}
+/* Responsive Design */
+@media (max-width: 900px) {
+    .notes-app {
+        flex-direction: column;
+    }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        height: 100%;
+        background-color: var(--app-secondary-background-color);
+        border-left: 1px solid var(--app-border-color);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease-in-out;
+        transform: translateX(-100%); /* Default not visible position */
+        z-index: 1000;
+        padding: 20px 0;
+        overflow-y: auto;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .canvas {
+        margin: 1rem;
+        min-height: 100vh;
+    }
 }
