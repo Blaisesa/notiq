@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Manrope:wght@200..800&display=swap");
 :root {
-    --primary-color: #52A8FF;
-    --secondary-color: #47FF9B;
-    --link-color: #FF7AF4;
-    --link-hover-color: #FFFFFF;
-    --background-color: #0D0216;
-    --secondary-background-color: #2A183D;
+    --primary-color: #52a8ff;
+    --secondary-color: #47ff9b;
+    --link-color: #ff7af4;
+    --link-hover-color: #ffffff;
+    --background-color: #0d0216;
+    --secondary-background-color: #2a183d;
     --primary-font-family: "manrope", sans-serif;
     --secondary-font-family: "IBM Plex Sans", sans-serif;
     --primary-font-color: #e0e0e0;
@@ -1369,6 +1369,81 @@ nav.danger-zone-nav {
     content: "";
     display: block;
     height: 80px;
+}
+/* Fab Styles */
+.fab-menu {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    --clr: #ff3c00;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(50%, 50%);
+}
+.fab-menu .toggle {
+    position: relative;
+    height: 60px;
+    width: 60px;
+    background: whitesmoke;
+    border-radius: 50%;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 1.25s;
+    z-index: 5;
+}
+.fab-menu.active .toggle {
+    transform: rotate(360deg);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px #333, 0 0 0 8px #fff;
+}
+.fab-menu li {
+    position: absolute;
+    left: 0;
+    list-style: none;
+    transition: 0.5s;
+    transform: rotate(calc(360deg / 8 * var(--i)));
+    transform-origin: 140px;
+    scale: 0;
+    transition-delay: calc(0.05s * var(--i));
+}
+.fab-logo {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+.fab-logo:hover {
+    transform: scale(1.3);
+}
+.fab-menu.active li {
+    scale: 1;
+}
+.fab-menu li a {
+    position: relative;
+    display: flex;
+    transform: rotate(calc(360deg / -8 * var(--i)));
+    width: 60px;
+    height: 60px;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.75rem;
+    color: var(--clr);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+    transition: 0.5s;
+    text-decoration: none;
+}
+.fab-menu li:hover a {
+    font-size: 2.5rem;
+    box-shadow: 0 0 0 2px var(--clr), 0 0 0 6px #fff;
 }
 /* --- Responsive Adjustments --- */
 @media (max-width: 1200px) {
