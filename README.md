@@ -254,6 +254,8 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **Integration Tests** | Frontend-backend data flow | Pass |
 | **Integration Tests** | End-to-end note creation and retrieval | Pass |
 | **User Acceptance Testing (UAT)** | Overall user experience and functionality | Pass |
+| **Validation Tests** | HTML validation | Pass |
+| **Validation Tests** | CSS validation | Pass |
 
 ---
 
