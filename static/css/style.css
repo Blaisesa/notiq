@@ -952,7 +952,7 @@ details.faq-item summary {
 }
 details.faq-item p {
     margin-top: 0.75rem;
-    color: var(--secondary-font-color);
+    color: black;
     line-height: 1.5;
 }
 details.faq-item[open] {
