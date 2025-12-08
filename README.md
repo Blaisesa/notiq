@@ -236,9 +236,6 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **Cross-Browser** | Firefox compatibility | Pass |
 | **Cross-Browser** | Safari compatibility | Pass |
 | **Cross-Browser** | Edge compatibility | Pass |
-| **Unit Tests** | JavaScript utility functions |  |
-| **Unit Tests** | Django model methods |  |
-| **Unit Tests** | API view functions |  |
 | **Admin Interface Tests** | Note management in Django admin | Pass |
 | **Admin Interface Tests** | User management in Django admin | Pass |
 | **Admin Interface Tests** | Media management in Django admin | Pass |
