@@ -11,7 +11,6 @@
                 loop
                 playsinline
                 class="hero-video"
-                poster="{% static 'images/hero-fallback.jpg' %}"
                 aria-label="Background video showing Notiq in action"
             >
                 <source
@@ -552,7 +551,7 @@
                 >
                     {% csrf_token %}
                     <input
-                        id="id_email"
+                        id="id_news_email"
                         name="email"
                         class="newsletter-input"
                         type="email"

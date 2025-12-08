@@ -8,7 +8,8 @@
 6.  [AI Integration & Future Roadmap](#-ai-integration--future-roadmap)
 7.  [Performance & Optimization](#-performance--optimization)
 8.  [Project Context & Developer](#-project-context--developer)
-9.  [License](#-license)
+9.  [Testing & Validation](#-testing--validation)
+10.  [License](#-license)
 
 ---
 
@@ -209,6 +210,59 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 
 * **GitHub:** [github.com/Blaisesa](https://github.com/Blaisesa)
 * **LinkedIn:** [linkedin.com/in/blaise-smyka](https://www.linkedin.com/in/blaise-smyka/)
+
+---
+
+## Testing & Validation
+| Test Category | Test Case | Status |
+| :--- | :--- | :--- |
+| **Frontend - Editor** | Element creation and deletion | Pass |
+| **Frontend - Editor** | Drag and drop reordering | Pass |
+| **Frontend - Editor** | Voice recording and playback | Pass |
+| **Frontend - Editor** | Text and list formatting | Pass |
+| **Frontend - SPA** | Navigation between marketing SPA pages | Pass |
+| **Frontend - SPA** | History API back/forward buttons | Pass |
+| **Frontend - SPA** | Page transition animations | Pass |
+| **Frontend - UI/UX** | Responsive design on mobile devices | Pass |
+| **Frontend - UI/UX** | Responsive design on tablets | Pass |
+| **Frontend - UI/UX** | Responsive design on desktop | Pass |
+| **Frontend - Accessibility** | WCAG AA contrast standards | Pass |
+| **Frontend - Accessibility** | Keyboard navigation | Pass |
+| **Backend - API** | Note creation endpoint | Pass |
+| **Backend - API** | Note retrieval endpoint | Pass |
+| **Backend - API** | Note update endpoint | Pass |
+| **Backend - API** | Note deletion endpoint | Pass |
+| **Backend - API** | JSON serialization/deserialization | Pass |
+| **Backend - Authentication** | User registration | Pass |
+| **Backend - Authentication** | User login | Pass |
+| **Backend - Authentication** | User logout | Pass |
+| **Backend - Security** | CSRF protection | Pass |
+| **Integration** | Cloudinary media upload | Pass |
+| **Integration** | Cloudinary media retrieval | Pass |
+| **Performance** | Page load time | Pass |
+| **Performance** | Editor responsiveness | Pass |
+| **Cross-Browser** | Chrome compatibility | Pass |
+| **Cross-Browser** | Firefox compatibility | Pass |
+| **Cross-Browser** | Safari compatibility | Pass |
+| **Cross-Browser** | Edge compatibility | Pass |
+| **Unit Tests** | JavaScript utility functions |  |
+| **Unit Tests** | Django model methods |  |
+| **Unit Tests** | API view functions |  |
+| **Admin Interface Tests** | Note management in Django admin | Pass |
+| **Admin Interface Tests** | User management in Django admin | Pass |
+| **Admin Interface Tests** | Media management in Django admin | Pass |
+| **Admin Interface Tests** | Permission enforcement in Django admin | Pass |
+| **Integration Tests** | Frontend-backend note retrieval | Pass |
+| **Integration Tests** | Frontend-backend note updating | Pass |
+| **Integration Tests** | Frontend-backend note deletion | Pass |
+| **Integration Tests** | Frontend-backend note creation | Pass |
+| **Integration Tests** | Frontend-backend note saving | Pass |
+| **Integration Tests** | Frontend-backend note loading | Pass |
+| **Integration Tests** | Frontend-backend API communication | Pass |
+| **Integration Tests** | Frontend-backend communication | Pass |
+| **Integration Tests** | Frontend-backend data flow | Pass |
+| **Integration Tests** | End-to-end note creation and retrieval | Pass |
+| **User Acceptance Testing (UAT)** | Overall user experience and functionality | Pass |
 
 ---
 

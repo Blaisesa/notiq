@@ -1382,7 +1382,7 @@ nav.danger-zone-nav {
 /* Fab Styles */
 .fab-menu {
     position: fixed;
-    bottom: 50px;
+    bottom: 80px;
     right: 50px;
     --clr: #ff3c00;
     width: 280px;

@@ -152,38 +152,52 @@
         </footer>
         <!-- Floating Action Button Menu -->
         {% if request.resolver_match.url_name != 'notes_editor' %}
-            <div class="fab-menu">
-                <div class="toggle">
-                    <ion-icon name="share-social"></ion-icon>
-                </div>
+        <div class="fab-menu">
+            <div class="toggle">
+                <ion-icon name="share-social"></ion-icon>
+            </div>
+            <ul>
                 <li style="--i: 0; --clr: #000000">
-                  <a href="https://github.com/Blaisesa/notiq" rel="noopener noreferrer" target="_blank"><i class="fab fa-github"></i></a>
+                    <a
+                        href="https://github.com/Blaisesa/notiq"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        aria-label="GitHub"
+                        ><i class="fab fa-github"></i
+                    ></a>
                 </li>
                 <li style="--i: 1; --clr: #0a66c2">
-                  <a href="https://www.linkedin.com/in/blaise-smyka/" rel="noopener noreferrer" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a
+                        href="https://www.linkedin.com/in/blaise-smyka/"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        aria-label="LinkedIn"
+                        ><i class="fab fa-linkedin-in"></i
+                    ></a>
                 </li>
                 <li style="--i: 2; --clr: #2a183d">
-                    <a href="{% url 'notes_editor' %}">
+                    <a href="{% url 'notes_editor' %}" aria-label="Open Notiq App">
                         <img
-                        src="{% static 'images/logo.png' %}"
-                        alt="Notiq Logo"
-                        class="fab-logo"/>
+                            src="{% static 'images/logo.png' %}"
+                            alt="Notiq Logo"
+                            class="fab-logo"
+                        />
                     </a>
                 </li>
-            </div>
+            </ul>
+        </div>
         {% endif %}
         <!-- Font Awesome for icons -->
         <script
             src="https://kit.fontawesome.com/1eb19e26b6.js"
             crossorigin="anonymous"
         ></script>
-        <script src='https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js'></script>
+        <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <!-- JavaScript block for additional scripts -->
         <script src="{% static 'js/spa.js' %}"></script>
         <script src="{% static 'js/page-transition.js' %}"></script>
         {% if request.resolver_match.url_name != 'notes_editor' %}
         <script src="{% static 'js/fab.js' %}"></script>
-        {% endif %}
-        {% block extra_js %}{% endblock extra_js %}
+        {% endif %} {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>
