@@ -21,3 +21,22 @@ window.setEndOfContenteditable = function setEndOfContenteditable(contentEditabl
         range.select();
     }
 };
+
+// Toolbar dropdown
+// Dropdown Toggle Logic
+const dropdown = document.querySelector('.toolbar-dropdown');
+const toggleBtn = document.getElementById('toolbar-options-btn');
+
+if (toggleBtn && dropdown) {
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+}

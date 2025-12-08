@@ -151,7 +151,7 @@
             </div>
         </footer>
         <!-- Floating Action Button Menu -->
-        {% if request.resolver_match.url_name == 'home' %}
+        {% if request.resolver_match.url_name != 'notes_editor' %}
             <div class="fab-menu">
                 <div class="toggle">
                     <ion-icon name="share-social"></ion-icon>
@@ -169,23 +169,6 @@
                         alt="Notiq Logo"
                         class="fab-logo"/>
                     </a>
-                </li>
-            </div>
-        {% endif %}
-        <!-- Floating Action Button for Notes Editor Controls -->
-        {% if request.resolver_match.url_name == 'notes_editor' %}
-            <div class="fab-menu">
-                <div class="toggle">
-                    <i class="fa-solid fa-note-sticky"></i>
-                </div>
-                <li style="--i: 0; --clr: #2a183d">
-                  <a href="#" id="note-history-btn" title="View History"><i class="fa-solid fa-clock-rotate-left"></i></a>
-                </li>
-                <li style="--i: 1; --clr: #2a183d">
-                  <a href="#" id="note-download-btn" title="Download Note"><i class="fa-solid fa-download"></i></a>
-                </li>
-                <li style="--i: 2; --clr: #2a183d">
-                    <a href="#" id="note-settings-btn" title="Note Settings"><i class="fa-solid fa-cogs"></i></a>
                 </li>
             </div>
         {% endif %}

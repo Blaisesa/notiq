@@ -255,19 +255,24 @@ h6 {
     margin: 1rem 4rem;
     max-height: 100vh;
 }
+/* --- Your Original Toolbar Styles --- */
 .toolbar {
     position: absolute;
     top: 0;
     display: flex;
     justify-content: flex-start;
+    align-items: center; /* Added for vertical centering */
     gap: 1rem;
     margin-bottom: 1rem;
-    width: calc(100% - 8px); /* Adjust for border and padding */
+    width: calc(100% - 8px);
     padding: 2px;
     border: 2px solid var(--app-border-color);
     background-color: var(--app-secondary-background-color);
     height: 40px;
+    z-index: 100; /* Ensure toolbar sits above note content */
 }
+
+/* Base button style (inherited by dropdown toggle) */
 .toolbar button {
     background: none;
     border: none;
@@ -277,6 +282,78 @@ h6 {
     padding: 0.5rem;
     border-radius: 4px;
     transition: background-color 0.2s;
+    margin-right: 1rem;
+}
+
+.toolbar button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- New Dropdown Specific Styles --- */
+
+/* Container to position the menu relative to the button */
+.toolbar-dropdown {
+    position: relative;
+    margin-left: auto; /* Pushes the menu to the far right */
+    height: 100%;      /* Matches toolbar height */
+    display: flex;
+    align-items: center;
+    padding-right: 5px;
+}
+
+/* The actual pop-up menu */
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%; /* Opens directly below the toolbar */
+    right: 0;  /* Aligns to the right edge */
+    width: 160px;
+    
+    /* Use your app variables for consistency */
+    background-color: var(--app-secondary-background-color);
+    border: 2px solid var(--app-border-color);
+    
+    border-radius: 0 0 4px 4px; /* Rounded corners on bottom only */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px 0;
+    z-index: 1000;
+}
+
+/* Show the menu when the container has the 'active' class */
+.toolbar-dropdown.active .dropdown-menu {
+    display: block;
+}
+
+/* Items inside the menu */
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 0.8rem; /* Slightly larger than toolbar buttons for readability */
+    color: var(--primary-font-color);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Divider lines */
+.dropdown-divider {
+    border: none;
+    border-top: 1px solid var(--app-border-color);
+    margin: 4px 0;
+}
+
+/* Special color for delete action */
+.dropdown-item.text-danger {
+    color: #ff6b6b;
+}
+
+.dropdown-item.text-danger:hover {
+    background-color: rgba(255, 107, 107, 0.1);
 }
 .note-title-input {
     background: none;
@@ -287,7 +364,7 @@ h6 {
     font-weight: bold;
     padding: 0.25rem 0.5rem;
     width: 300px;
-    margin: 0 1rem 0 auto;
+    margin-left: 1rem;
 }
 .note-title-input:focus {
     outline: none;
@@ -632,8 +709,47 @@ footer {
         margin: 1rem;
         min-height: 100vh;
         padding: 0.5rem;
+        max-height: none;
+        overflow-y: auto;
     }
     .note-element {
         margin: 0;
+    }
+    /* --- Responsive Toolbar --- */
+    .toolbar {
+        /* Allow items to wrap onto a second line if necessary, 
+           but keep them on one line unless absolutely necessary */
+        flex-wrap: nowrap; 
+        height: 40px; /* Keep height consistent */
+        padding: 2px 5px; /* Adjust padding slightly */
+        width: 100%; /* Ensure it occupies full screen width */
+        left: 0;
+        right: 0;
+    }
+
+    .note-title-input {
+        width: 70px; /* Significantly reduce title width */
+        min-width: 80px; /* Prevent collapse */
+        font-size: 1rem; /* Reduce font size */
+        flex-grow: 1; /* Allow it to consume remaining space */
+        margin-right: 5px; /* Minor margin adjustment */
+    }
+
+    #note-category-select {
+        /* Reduce category selector width and font size */
+        width: 100px;
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
+    
+    .toolbar-dropdown {
+        /* No change needed here, margin-left: auto already handles pushing it right */
+        /* Ensure the toggle button is the right size */
+        padding-right: 0; 
+    }
+
+    /* Optional: Shrink dropdown menu width if 160px is too large for tiny screens */
+    .toolbar-dropdown .dropdown-menu {
+        width: 140px; 
     }
 }
