@@ -28,6 +28,8 @@ On the frontend, the application incorporates advanced techniques like custom **
 | **Live Demo** | [Insert Live URL Here] |
 | **Backend** | Django 5.x |
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
 ## Key Features
@@ -54,6 +56,8 @@ These features detail the technical complexity and robustness of the backend arc
 | **Custom Data Serialization** | The editor state is reliably saved by serializing the complex JavaScript object structure into a single, cohesive **JSON string** for database storage. | **JSON Serialization** and **Deserialization** between the client-side editor and the Django model. |
 | **Full-Stack Decoupling** | The frontend and backend operate independently: Django provides the API/data, and Vanilla JS manages the UI/state. | **RESTful API Design** using Django Patterns, promoting **scalability and maintainability**. |
 | **Secure Cloud Asset Management** | All media (images and audio files) are offloaded from the Django server to ensure high availability and performance. | **Third-Party API Integration** with **Cloudinary** for scalable, secure file hosting. |
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -86,6 +90,8 @@ Notiq is built on a robust, industry-standard **full-stack architecture**. The t
 | :--- | :--- | :--- |
 | **Media Storage** | **Cloudinary** | Integrated for secure, scalable, and high-availability storage of all user-generated media (voice notes and images), offloading file hosting from the main application server. |
 | **Deployment** | **Heroku** | Used for flexible and rapid deployment, serving as the primary hosting environment for the final capstone project. |
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -141,6 +147,7 @@ The notes editor application features a highly modular internal structure, desig
 * **Font Optimization:** Techniques like **`font-display: swap;`** are implemented to eliminate render-blocking content, ensuring text remains visible immediately (using a fallback font) even if custom Google Fonts or Font Awesome assets are slow to load.
 * **Responsive Design:** The layout is fully responsive, utilizing **CSS Flexbox and Grid** to adapt seamlessly across various screen sizes and devices, ensuring a consistent user experience.
 
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -149,6 +156,8 @@ The notes editor application features a highly modular internal structure, desig
 ### Prerequisites
 
 ### Local Installation
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -182,6 +191,8 @@ The following features are prioritized for development immediately following the
 * **Real-time Collaboration:** Introduce **WebSockets** for basic, real-time shared editing functionality.
 * **Version History:** Fully implement the version history feature (using the existing `notes_history.js` framework) to allow users to roll back to previous saved states.
 
+[↑ Back to Top](#table-of-contents)
+
 ---
 
 ## Project Context & Developer
@@ -200,6 +211,8 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 
 * **GitHub:** [github.com/Blaisesa](https://github.com/Blaisesa)
 * **LinkedIn:** [linkedin.com/in/blaise-smyka](https://www.linkedin.com/in/blaise-smyka/)
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
@@ -252,6 +265,8 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **User Acceptance Testing (UAT)** | Overall user experience and functionality | Pass |
 | **Validation Tests** | HTML validation | Pass |
 | **Validation Tests** | CSS validation | Pass |
+
+[↑ Back to Top](#table-of-contents)
 
 ---
 
