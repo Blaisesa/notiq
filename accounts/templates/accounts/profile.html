@@ -83,8 +83,17 @@
                 style="display: none"
             >
                 <h2>Account Settings</h2>
-                <p>Update your account settings here.</p>
-                <!-- Add account settings form here -->
+                <p>Manage your account settings below.</p>
+                <ul>
+                    <li>
+                        <a href="{% url 'account_email' %}">Manage Emails</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_change_password' %}"
+                            >Change Password</a
+                        >
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
