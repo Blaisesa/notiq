@@ -1,0 +1,60 @@
+/* Ensure the page is clean white and text is readable black */
+@page {
+    size: A4;
+    margin: 1.5cm;
+}
+
+body {
+    font-family: 'Manrope', sans-serif; 
+    color: #000000;
+    background-color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Header and Meta Information */
+.pdf-header {
+    border-bottom: 2px solid #5f5ed1; 
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin: 0 0 5px 0;
+    color: #2d9cdc; 
+}
+
+.meta {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+}
+
+/* Content Flow and Page Break Management */
+.pdf-content {
+    column-count: 1; 
+}
+
+/* Base style for text blocks */
+p {
+    margin: 0 0 15px 0;
+    page-break-inside: avoid; /* Prevents text from being split across pages if possible */
+}
+
+/* Headings */
+h2 {
+    font-size: 1.4em;
+    margin-top: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 3px;
+    color: #333;
+    page-break-after: avoid; /* Keeps heading connected to the content below it */
+}
+
+/* Footer */
+.pdf-footer {
+    text-align: center;
+    position: running(footer); 
+    font-size: 0.8em;
+    color: #888;
+}
