@@ -485,6 +485,15 @@ a.profile-link i:hover {
     flex-direction: column;
     justify-content: center;
 }
+.overview .col:last-child {
+    flex: 1;
+}
+.col img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
 .overview {
     margin-top: 4rem;
     margin-bottom: 4rem;
