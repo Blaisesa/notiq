@@ -682,6 +682,37 @@ h6 {
 footer {
     display: none;
 }
+/* mobile fab for new elements */
+.mobile-fab-container {
+    display: none; /* Hidden by default on desktop */
+}
+
+/* The actual button */
+.add-element-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.add-element-fab:hover {
+    background-color: var(--secondary-color);
+}
+.add-element-fab:active {
+    transform: scale(0.95);
+}
 /* Responsive Design */
 @media (max-width: 900px) {
     .notes-app {
@@ -691,16 +722,18 @@ footer {
         position: fixed;
         top: 0;
         left: 0;
-        width: 300px;
+        /* Drawer properties */
+        width: 80%; /* Takes up most of the screen */
+        max-width: 300px;
         height: 100%;
-        background-color: var(--app-secondary-background-color);
-        border-left: 1px solid var(--app-border-color);
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+        min-height: auto; /* Override desktop min-height */
+        padding: 1rem;
+        transform: translateX(-100%);  /* Hidden by default */
         transition: transform 0.3s ease-in-out;
-        transform: translateX(-100%); /* Default not visible position */
         z-index: 1000;
-        padding: 20px 0;
-        overflow-y: auto;
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+        /* Ensure drag property is ignored for mobile touch */
+        touch-action: manipulation;
     }
     .sidebar.open {
         transform: translateX(0);
@@ -711,14 +744,20 @@ footer {
         padding: 0.5rem;
         max-height: none;
         overflow-y: auto;
+        width: 100%;
+        flex: 1;
     }
     .note-element {
         margin: 0;
     }
+    .mobile-fab-container {
+        display: block; 
+    }
+    .drag-handle {
+        display: none !important; 
+    }
     /* --- Responsive Toolbar --- */
     .toolbar {
-        /* Allow items to wrap onto a second line if necessary, 
-           but keep them on one line unless absolutely necessary */
         flex-wrap: nowrap; 
         height: 40px; /* Keep height consistent */
         padding: 2px 5px; /* Adjust padding slightly */
@@ -726,7 +765,6 @@ footer {
         left: 0;
         right: 0;
     }
-
     .note-title-input {
         width: 70px; /* Significantly reduce title width */
         min-width: 80px; /* Prevent collapse */
@@ -734,22 +772,20 @@ footer {
         flex-grow: 1; /* Allow it to consume remaining space */
         margin-right: 5px; /* Minor margin adjustment */
     }
-
     #note-category-select {
         /* Reduce category selector width and font size */
         width: 100px;
         font-size: 0.9rem;
         margin-right: 5px;
     }
-    
     .toolbar-dropdown {
-        /* No change needed here, margin-left: auto already handles pushing it right */
-        /* Ensure the toggle button is the right size */
         padding-right: 0; 
     }
-
-    /* Optional: Shrink dropdown menu width if 160px is too large for tiny screens */
     .toolbar-dropdown .dropdown-menu {
         width: 140px; 
+    }
+    .note-element {
+        padding: 1rem;
+        padding-left: 1rem;
     }
 }

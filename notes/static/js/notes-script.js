@@ -4,6 +4,67 @@ window.currentNoteId = null;
 window.newFilesToUpload = new Map(); // Map to store File objects by element ID
 window.API_BASE_URL = "/api/notes/";
 
+// Mobile drawer elements
+const elementDrawer = document.getElementById("mobile-element-drawer");
+const openDrawerBtn = document.getElementById("open-element-drawer-btn");
+const closeDrawerBtn = document.getElementById("close-element-drawer-btn");
+const sidebarElements = document.querySelectorAll(".sidebar .element");
+
+// Toggle the visibility of the element drawer
+function toggleElementDrawer(open) {
+    if (window.innerWidth <= 900) {
+        if (open) {
+            elementDrawer.classList.add("open");
+        } else {
+            elementDrawer.classList.remove("open");
+        }
+    }
+}
+// Attach listeners to the FAB and Close button
+if (openDrawerBtn) {
+    openDrawerBtn.addEventListener("click", () => toggleElementDrawer(true));
+}
+if (closeDrawerBtn) {
+    closeDrawerBtn.addEventListener("click", () => toggleElementDrawer(false));
+}
+
+
+// --- MOBILE ELEMENT INJECTION (TAP INSTEAD OF DRAG) ---
+
+sidebarElements.forEach((el) => {
+    // Keep dragstart for desktop, but add click for mobile touch input
+    el.addEventListener("click", (e) => {
+        // Only run the click logic if we are on a mobile size
+        if (window.innerWidth <= 900) {
+            const type = e.currentTarget.dataset.type;
+            if (type) {
+                // 1. Add the element to the canvas
+                window.addElementToCanvas(type); 
+
+                // 2. Automatically close the drawer after adding
+                toggleElementDrawer(false); 
+
+                // 3. Scroll to the new element
+                const newElement = canvas.lastElementChild;
+                if (newElement) {
+                    newElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }
+            }
+        }
+    });
+
+    // You may need to disable the default drag behavior on touch devices 
+    // to prevent conflicting with the new click/tap logic.
+    el.addEventListener("touchstart", (e) => {
+        if (window.innerWidth <= 900) {
+            // Prevent the default touch-and-hold drag behavior
+            e.preventDefault(); 
+            // Trigger the click logic immediately on touch
+            e.currentTarget.click();
+        }
+    }, { passive: false }); // Use passive: false to allow preventDefault
+});
+
 // Category variables
 window.categories = [];
 window.CATEGORY_API_URL = "/api/categories/";
@@ -214,9 +275,14 @@ function populateCategoryDropdown(categories) {
 // --- SIDEBAR DRAG ---
 document.querySelectorAll(".sidebar .element").forEach((el) => {
     el.addEventListener("dragstart", (e) => {
-        window.draggedEl = null; // sidebar new item
-        e.dataTransfer.setData("type", e.target.dataset.type);
-        e.dataTransfer.effectAllowed = "copy";
+        // Only allow drag-and-drop on large screens
+        if (window.innerWidth > 900) {
+            window.draggedEl = null; 
+            e.dataTransfer.setData("type", e.target.dataset.type);
+            e.dataTransfer.effectAllowed = "copy";
+        } else {
+            e.preventDefault(); // Prevent drag on mobile
+        }
     });
 });
 

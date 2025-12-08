@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'css/notes.css' %}" />
 {% endblock extra_head %} {% block content %}
 <div class="notes-app">
-    <div class="sidebar">
+    <div class="sidebar" id="mobile-element-drawer">
         <div class="tabs">
             <span class="tab active">Elements</span
             ><span class="tab">Templates</span>
@@ -111,6 +111,9 @@
         </div>
     </div>
     <div class="canvas" id="canvas"></div>
+    <div class="mobile-fab-container">
+        <button id="open-element-drawer-btn" class="add-element-fab">+</button>
+    </div>
 </div>
 {% endblock content %} {% block extra_js %}
 <script src="{% static 'js/notes-script.js' %}"></script>
