@@ -1,66 +1,124 @@
-{% extends "base.html" %}
-
-{% load static %}
-
-{% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
-{% endblock extra_head %}
-
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/notes.css' %}" />
+{% endblock extra_head %} {% block content %}
 <div class="notes-app">
-    <div class="sidebar">
-        <div class="tabs"><span class="tab active">Elements</span><span class="tab">Templates</span></div>
-        <div class="heading"><h2>Basic</h2><span class="heading-divider"></span></div>
+    <div class="sidebar" id="mobile-element-drawer">
+        <div class="tabs">
+            <span class="tab active">Elements</span
+            ><span class="tab">Templates</span>
+        </div>
+        <div class="heading">
+            <h2>Basic</h2>
+            <span class="heading-divider"></span>
+        </div>
         <div class="element" draggable="true" data-type="heading">Heading</div>
-        <div class="element" draggable="true" data-type="text">Text Paragraph</div>
-        <div class="element" draggable="true" data-type="checklist">To-Do List</div>
-        <div class="element" draggable="true" data-type="divider">--- Divider ---</div>
+        <div class="element" draggable="true" data-type="text">
+            Text Paragraph
+        </div>
+        <div class="element" draggable="true" data-type="checklist">
+            To-Do List
+        </div>
+        <div class="element" draggable="true" data-type="divider">
+            --- Divider ---
+        </div>
 
-        <div class="heading"><h2>Media</h2><span class="heading-divider"></span></div>
+        <div class="heading">
+            <h2>Media</h2>
+            <span class="heading-divider"></span>
+        </div>
         <div class="element" draggable="true" data-type="image">Image</div>
         <div class="element" draggable="true" data-type="voice">Voice Note</div>
-      
-        <div class="heading"><h2>Technical</h2><span class="heading-divider"></span></div>
+
+        <div class="heading">
+            <h2>Technical</h2>
+            <span class="heading-divider"></span>
+        </div>
         <div class="element" draggable="true" data-type="table">Table</div>
         <div class="element" draggable="true" data-type="code">Code Block</div>
 
-        <div class="heading"><h2>Layouts</h2><span class="heading-divider"></span></div>
-        <div class="element" draggable="true" data-type="img-text">Image Box</div>
+        <div class="heading">
+            <h2>Layouts</h2>
+            <span class="heading-divider"></span>
+        </div>
+        <div class="element" draggable="true" data-type="img-text">
+            Image Box
+        </div>
     </div>
     <div id="history-drawer" class="history-drawer closed">
-    <div class="drawer-header">
-        <h2>Note History</h2>
-        <button id="close-drawer-btn" class="close-btn">&times;</button>
-    </div>
-    <div class="search-container">
-        <input type="text" id="history-search-input" placeholder="Search notes by title or category..." autocomplete="off">
-    </div>
-        <ul id="note-history-list" class="note-list">
-        </ul>
+        <div class="drawer-header">
+            <h2>Note History</h2>
+            <button id="close-drawer-btn" class="close-btn">&times;</button>
+        </div>
+        <div class="search-container">
+            <input
+                type="text"
+                id="history-search-input"
+                placeholder="Search notes by title or category..."
+                autocomplete="off"
+            />
+        </div>
+        <ul id="note-history-list" class="note-list"></ul>
     </div>
     <div class="toolbar">
-        <button>new note</button>
-        <button id="save">save</button>
-        <button id="toggle-history-btn">history</button>
-        <button id="clear-note-btn">clear</button>
-        <button>settings</button>
-        <button id="download-btn">download</button>
-        <button id="delete">delete</button>
-        <input class="note-title-input" type="text" id="note-title" placeholder="Enter Note Title" autocomplete="off" maxlength="20">
+        <input
+            class="note-title-input"
+            type="text"
+            id="note-title"
+            placeholder="Title"
+            autocomplete="off"
+            maxlength="20"
+        />
+
         <select name="category-select" id="note-category-select">
-            <option value="1" disabled>Loading categories...</option>
+            <option value="1" disabled>Loading...</option>
         </select>
+
+        <div class="toolbar-dropdown">
+            <button
+                id="toolbar-options-btn"
+                class="dropdown-toggle"
+                aria-label="More Options"
+            >
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div class="dropdown-menu">
+                <button id="save" class="dropdown-item">
+                    <i class="fa-solid fa-floppy-disk"></i> Save
+                </button>
+                <button id="download-btn" class="dropdown-item">
+                    <i class="fa-solid fa-file-export"></i> Download
+                </button>
+
+                <hr class="dropdown-divider" />
+
+                <button id="toggle-history-btn" class="dropdown-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i> History
+                </button>
+                <button id="clear-note-btn" class="dropdown-item">
+                    <i class="fa-solid fa-eraser"></i> Clear
+                </button>
+                <button id="settings-btn" class="dropdown-item">
+                    <i class="fa-solid fa-sliders"></i> Settings
+                </button>
+
+                <hr class="dropdown-divider" />
+
+                <button id="delete" class="dropdown-item text-danger">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="canvas" id="canvas">
-        
+    <div class="canvas" id="canvas"></div>
+    <div class="mobile-fab-container">
+        <button id="open-element-drawer-btn" class="add-element-fab">+</button>
     </div>
 </div>
-{% endblock content %}
-
-{% block extra_js %}
-    <script src="{% static 'js/notes-script.js' %}"></script>
-    <script src="{% static 'js/history.js' %}"></script>
-    <script src="{% static 'js/load-notes.js' %}"></script>
-    <script src="{% static 'js/save-notes.js' %}"></script>
-    <script src="{% static 'js/utils.js' %}"></script>
+{% endblock content %} {% block extra_js %}
+<script src="{% static 'js/notes-script.js' %}"></script>
+<script src="{% static 'js/history.js' %}"></script>
+<script src="{% static 'js/load-notes.js' %}"></script>
+<script src="{% static 'js/save-notes.js' %}"></script>
+<script src="{% static 'js/utils.js' %}"></script>
 {% endblock extra_js %}

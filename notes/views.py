@@ -1,10 +1,12 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
-import cloudinary.uploader
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+from django.template.loader import get_template
 from django.db import models
+import cloudinary.uploader
 from rest_framework import generics, permissions
+from xhtml2pdf import pisa
 from .models import Note, Category, Template
 from .serializers import NoteSerializer, CategorySerializer, TemplateSerializer
 from .mixins import UserDataMixin
@@ -168,3 +170,34 @@ def upload_image_view(request):
             {"error": "Internal server error during Cloudinary upload."},
             status=500
             )
+
+
+def note_download_pdf(request, pk):
+    """Generates a PDF of the note content using xhtml2pdf."""
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+
+    # 1. Get the template and render it to a string
+    # Assumes your template is located at 'notes/note_pdf_template.html'
+    template = get_template('notes/note_pdf_template.html')
+
+    # Context should include the note object and any other required variables
+    html_string = template.render({'note': note, 'request': request})
+
+    # 2. Create the HTTP response object
+    response = HttpResponse(content_type='application/pdf')
+    # Set the filename for the download
+    response['Content-Disposition'] = f'attachment; filename="{
+        note.title.replace(" ", "_")
+        }.pdf"'
+
+    # 3. Generate the PDF using pisa (xhtml2pdf's core function)
+    pisa_status = pisa.CreatePDF(
+        html_string,      # The HTML content to convert
+        dest=response     # The file handle to write the PDF to
+    )
+
+    # 4. Handle errors if PDF generation fails
+    if pisa_status.err:
+        return HttpResponse(f'Error generating PDF: {pisa_status.err}')
+
+    return response

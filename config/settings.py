@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_summernote',
     'cloudinary',
+    'xhtml2pdf',
     'core',
     'spa',
     'accounts',
