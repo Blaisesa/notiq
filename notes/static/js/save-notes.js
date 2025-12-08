@@ -320,3 +320,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (deleteButton)
         deleteButton.addEventListener("click", () => window.deleteNote());
 });
+
+// --- Download PDF Note ---
+document.getElementById('download-btn').addEventListener('click', () => {
+    // Assume currentNoteId is the ID of the note currently open
+    const currentNoteId = getCurrentNoteIdFromURL(); 
+
+    if (currentNoteId) {
+        // Construct the URL to hit the new Django view
+        const downloadUrl = `/api/notes/${currentNoteId}/export-pdf/`;
+        
+        // This instantly triggers the download via the server response headers
+        window.location.href = downloadUrl; 
+    } else {
+        alert('Please save the note before downloading.');
+    }
+});

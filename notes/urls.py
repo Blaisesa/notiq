@@ -26,4 +26,8 @@ urlpatterns = [
         'upload-image/',
         views.upload_image_view, name='upload-image'
         ),
+    path(
+        'notes/<int:pk>/export-pdf/',
+        views.note_download_pdf, name='note-download-pdf'
+    ),
 ]

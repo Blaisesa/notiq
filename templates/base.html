@@ -181,7 +181,9 @@
         <!-- JavaScript block for additional scripts -->
         <script src="{% static 'js/spa.js' %}"></script>
         <script src="{% static 'js/page-transition.js' %}"></script>
+        {% if request.resolver_match.url_name != 'notes_editor' %}
         <script src="{% static 'js/fab.js' %}"></script>
+        {% endif %}
         {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>
