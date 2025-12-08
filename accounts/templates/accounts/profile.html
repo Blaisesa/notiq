@@ -14,12 +14,17 @@
                         <button
                             data-section="overview"
                             class="active-profile-link"
+                            aria-label="Profile Overview"
                         >
                             Profile Overview
                         </button>
                     </li>
                     <li>
-                        <button data-section="settings" class="profile-link">
+                        <button
+                            data-section="settings"
+                            class="profile-link"
+                            aria-label="Account Settings"
+                        >
                             Account Settings
                         </button>
                     </li>
@@ -31,10 +36,16 @@
                 <h3>Account Management Quick Links</h3>
                 <ul>
                     <li>
-                        <a href="{% url 'account_email' %}">Manage Emails</a>
+                        <a
+                            href="{% url 'account_email' %}"
+                            aria-label="Manage Emails"
+                            >Manage Emails</a
+                        >
                     </li>
                     <li>
-                        <a href="{% url 'account_change_password' %}"
+                        <a
+                            href="{% url 'account_change_password' %}"
+                            aria-label="Change Password"
                             >Change Password</a
                         >
                     </li>
@@ -44,18 +55,21 @@
             <!-- Danger Zone -->
             <h3>Danger Zone</h3>
             <nav class="danger-zone-nav">
-                
                 <ul>
                     <li>
-                        <a href="{% url 'account_logout' %}"
-                            >Logout
-                            </a><i class="fa-solid fa-arrow-right-from-bracket"></i
-                        >
+                        <a href="{% url 'account_logout' %}" aria-label="Logout"
+                            >Logout </a
+                        ><i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </li>
                     <li>
-                        <a href="{% url 'account_delete' %}"
-                            >Delete Account </a><i class="fa-solid fa-trash-can"></i
+                        <a
+                            data-href="{% url 'account_delete' %}"
+                            aria-label="Delete Account"
+                            class="text-danger delete-account-link"
+                            href="#"
                         >
+                            Delete Account </a>
+                            <i class="fa-solid fa-user-xmark text-danger"></i>
                     </li>
                 </ul>
             </nav>
@@ -86,10 +100,16 @@
                 <p>Manage your account settings below.</p>
                 <ul>
                     <li>
-                        <a href="{% url 'account_email' %}">Manage Emails</a>
+                        <a
+                            href="{% url 'account_email' %}"
+                            aria-label="Manage Emails"
+                            >Manage Emails</a
+                        >
                     </li>
                     <li>
-                        <a href="{% url 'account_change_password' %}"
+                        <a
+                            href="{% url 'account_change_password' %}"
+                            aria-label="Change Password"
                             >Change Password</a
                         >
                     </li>
@@ -99,33 +119,5 @@
     </div>
 </div>
 {% endblock content %} {% block extra_js %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const profileLinks = document.querySelectorAll(
-            ".profile-link, .active-profile-link"
-        );
-        const overviewSection = document.getElementById("overview");
-        const settingsSection = document.getElementById("settings");
-
-        profileLinks.forEach((link) => {
-            link.addEventListener("click", function () {
-                // Remove active class from all links
-                profileLinks.forEach((l) =>
-                    l.classList.remove("active-profile-link")
-                );
-                // Add active class to the clicked link
-                this.classList.add("active-profile-link");
-
-                const section = this.getAttribute("data-section");
-                if (section === "overview") {
-                    overviewSection.style.display = "block";
-                    settingsSection.style.display = "none";
-                } else if (section === "settings") {
-                    overviewSection.style.display = "none";
-                    settingsSection.style.display = "block";
-                }
-            });
-        });
-    });
-</script>
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock extra_js %}
