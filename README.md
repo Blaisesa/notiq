@@ -6,10 +6,9 @@
 4.  [Styles, Architecture & Techniques](#-styles-architecture--techniques)
 5.  [Installation and Setup](#-installation-and-setup)
 6.  [AI Integration & Future Roadmap](#-ai-integration--future-roadmap)
-7.  [Performance & Optimization](#-performance--optimization)
-8.  [Project Context & Developer](#-project-context--developer)
-9.  [Testing & Validation](#-testing--validation)
-10.  [License](#-license)
+7.  [Project Context & Developer](#-project-context--developer)
+8.  [Testing & Validation](#-testing--validation)
+9.  [License](#-license)
 
 ---
 
@@ -183,14 +182,6 @@ The following features are prioritized for development immediately following the
 * **Offline Support:** Implement **service workers** to allow users to view and edit notes while disconnected from the internet.
 * **Real-time Collaboration:** Introduce **WebSockets** for basic, real-time shared editing functionality.
 * **Version History:** Fully implement the version history feature (using the existing `notes_history.js` framework) to allow users to roll back to previous saved states.
-
----
-
-## Performance & Optimization
-
-### Optimization Targets
-
-### Completed Improvements
 
 ---
 
