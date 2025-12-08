@@ -1,15 +1,14 @@
 ## Table of Contents
 
-1.  [Overview](#-overview)
-2.  [Key Features](#-key-features)
-3.  [Technology Stack](#-technology-stack)
-4.  [Styles, Architecture & Techniques](#-styles-architecture--techniques)
-5.  [Installation and Setup](#-installation-and-setup)
-6.  [AI Integration & Future Roadmap](#-ai-integration--future-roadmap)
-7.  [Project Context & Developer](#-project-context--developer)
-8.  [Testing & Validation](#-testing--validation)
-9.  [License](#-license)
-
+1.  [Overview](#overview)
+2.  [Key Features](#key-features)
+3.  [Technology Stack](#technology-stack)
+4.  [Styles, Architecture & Techniques](#styles-architecture--techniques)
+5.  [Installation and Setup](#installation-and-setup)
+6.  [AI Integration & Future Roadmap](#ai-integration--future-roadmap)
+7.  [Project Context & Developer](#project-context--developer)
+8.  [Testing & Validation](#testing--validation)
+9.  [License](#license)
 ---
 
 ## Overview
