@@ -8,6 +8,10 @@ register = template.Library()
 def render_note_json(data_dict):
     """
     Renders only 'heading' and 'text' blocks from the note data dictionary.
+    Args:
+        data_dict (dict): The note data as a Python dictionary.
+    Returns:
+        str: The rendered HTML string containing only headings and text blocks.
     """
     if not data_dict:
         return ""

@@ -129,10 +129,11 @@ a:hover {
     position: relative;
 }
 #glowing-cards:hover > .glowing-card {
-    background: radial-gradient(
-        400px circle at var(--mouse-x) var(--mouse-y),
-        hsl(var(--color) / 1),
-        rgba(255, 255, 255, 0.12) 40%
+    background: -o-radial-gradient(
+        var(--mouse-x) var(--mouse-y),
+        500px circle,
+        hsl(var(--color) / 0.35),
+        transparent 40%
     );
 }
 

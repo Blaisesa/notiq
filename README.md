@@ -6,10 +6,9 @@
 4.  [Styles, Architecture & Techniques](#-styles-architecture--techniques)
 5.  [Installation and Setup](#-installation-and-setup)
 6.  [AI Integration & Future Roadmap](#-ai-integration--future-roadmap)
-7.  [Performance & Optimization](#-performance--optimization)
-8.  [Project Context & Developer](#-project-context--developer)
-9.  [Testing & Validation](#-testing--validation)
-10.  [License](#-license)
+7.  [Project Context & Developer](#-project-context--developer)
+8.  [Testing & Validation](#-testing--validation)
+9.  [License](#-license)
 
 ---
 
@@ -131,11 +130,11 @@ The notes editor application features a highly modular internal structure, desig
 
 | File Name | Primary Logic Encapsulated | Rationale |
 | :--- | :--- | :--- |
-| **`notes_main.js`** | The **main notes script** that initializes the editor, registers event listeners, and orchestrates the other notes-specific scripts. | Serves as the single entry point for the note editor application. |
-| **`notes_utilities.js`** | Helper functions for general use within the editor (e.g., DOM manipulation, element ID generation). | Provides a repository of pure functions for editor operations. |
-| **`notes_saving.js`** | Contains the functions responsible for **serializing the canvas data to JSON** and sending the payload to the Django API. | Isolates critical data saving and communication logic. |
-| **`notes_loading.js`** | Contains the functions responsible for **fetching the JSON payload** from the backend and **deserializing** it into active DOM elements upon load. | Separates retrieval and render logic from saving logic. |
-| **`notes_history.js`** | Logic for handling local undo/redo stacks or tracking version history within the editor. | Encapsulates non-persistence related state management. |
+| **`notes-script.js`** | The **main notes script** that initializes the editor, registers event listeners, and orchestrates the other notes-specific scripts. | Serves as the single entry point for the note editor application. |
+| **`utils.js`** | Helper functions for general use within the editor (e.g., DOM manipulation, element ID generation). | Provides a repository of pure functions for editor operations. |
+| **`save-notes.js`** | Contains the functions responsible for **serializing the canvas data to JSON** and sending the payload to the Django API. | Isolates critical data saving and communication logic. |
+| **`load-notes.js`** | Contains the functions responsible for **fetching the JSON payload** from the backend and **deserializing** it into active DOM elements upon load. | Separates retrieval and render logic from saving logic. |
+| **`history.js`** | Logic for handling local undo/redo stacks or tracking version history within the editor. | Encapsulates non-persistence related state management. |
 
 ### 4. Styles and Accessibility
 
@@ -183,14 +182,6 @@ The following features are prioritized for development immediately following the
 * **Offline Support:** Implement **service workers** to allow users to view and edit notes while disconnected from the internet.
 * **Real-time Collaboration:** Introduce **WebSockets** for basic, real-time shared editing functionality.
 * **Version History:** Fully implement the version history feature (using the existing `notes_history.js` framework) to allow users to roll back to previous saved states.
-
----
-
-## Performance & Optimization
-
-### Optimization Targets
-
-### Completed Improvements
 
 ---
 
@@ -263,6 +254,8 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **Integration Tests** | Frontend-backend data flow | Pass |
 | **Integration Tests** | End-to-end note creation and retrieval | Pass |
 | **User Acceptance Testing (UAT)** | Overall user experience and functionality | Pass |
+| **Validation Tests** | HTML validation | Pass |
+| **Validation Tests** | CSS validation | Pass |
 
 ---
 
