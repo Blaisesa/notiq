@@ -1,3 +1,12 @@
+// Utility function to get the current note ID from the URL or global variable
+function getCurrentNoteIdFromURL() {
+    if (window.currentNoteId && !isNaN(window.currentNoteId)) {
+        return window.currentNoteId;
+    }
+    return null;
+}
+
+// Utility function to set cursor at the end of a contenteditable element
 window.setEndOfContenteditable = function setEndOfContenteditable(contentEditableElement) {
     let range, selection;
     
@@ -22,8 +31,7 @@ window.setEndOfContenteditable = function setEndOfContenteditable(contentEditabl
     }
 };
 
-// Toolbar dropdown
-// Dropdown Toggle Logic
+// Toolbar dropdown menu toggle functionality
 const dropdown = document.querySelector('.toolbar-dropdown');
 const toggleBtn = document.getElementById('toolbar-options-btn');
 
