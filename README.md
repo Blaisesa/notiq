@@ -1,3 +1,6 @@
+![Final Design Screenshot](readme-images/notiq-preview.png)
+# Notiq - Full-Stack Element-Based Note Editor
+
 ## Table of Contents
 
 1.  [Overview](#overview)
@@ -45,7 +48,6 @@
 11. [Testing & Validation](#testing--validation)
 12. [License](#license)
 ---
-![Final Design Screenshot](readme-images/notiq-preview.png)
 ## Overview
 
 Notiq is a full-stack, element-based note editor that served as the capstone project documenting my 16-week learning journey with Code Institute. This project provided an amazing opportunity to synthesize all acquired skills, resulting in a scalable and future-orientated application.
