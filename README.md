@@ -415,6 +415,17 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **Validation Tests** | HTML validation | Pass |
 | **Validation Tests** | CSS validation | Pass |
 
+### Python Linter Reports
+| Section | Status | Proof |  |
+| :--- | :--- | :--- | :--- |
+| Models | Pass | Accounts, Core, Notes Screenshots |  |
+| ![Accounts Models](readme-images/accounts-models.png) | ![Core Models](readme-images/core-models.png) | ![Notes Models](readme-images/notes-models.png) |
+| Views | Pass | Accounts, Core, Notes, SPA Screenshots |  |
+| ![Accounts Views](readme-images/accounts-views.png) | ![Core Views](readme-images/core-views.png) | ![Notes Views](readme-images/notes-views.png) | ![SPA Views](readme-images/spa-views.png) |
+| Admin, Serializers & Mixins | Pass | Notes & Core Screenshot |
+| ![Notes Serializers](readme-images/notes-serializers.png) | ![Notes Mixins](readme-images/notes-mixins.png) | ![Notes Admin](readme-images/notes-admin.png) | ![Core Admin](readme-images/core-admin.png) |
+
+
 [↑ Back to Top](#table-of-contents)
 
 ---
