@@ -2,7 +2,7 @@
 
 1.  [Overview](#overview)
     - [Project Status](#project-status)
-2.  [User Expierience Design](#user-expierience-design)
+2.  [User Experience Design](#user-experience-design)
     - [User Interface (UI)](#user-interface-ui)
     - [Design Philosophy](#design-philosophy)
     - [Visual Consistency](#visual-consistency)
@@ -68,7 +68,7 @@ On the frontend, the application incorporates advanced techniques like custom **
 
 ---
 
-## User Expierience Design
+## User Experience Design
 
 ### User Interface (UI)
 Notiq's user interface was designed with a focus on simplicity, clarity, and ease of use. The dark theme provides a modern aesthetic while reducing eye strain during extended use. Key UI elements include a floating action button (FAB) for quick access to social links, intuitive drag-and-drop functionality for element reordering, and clear visual feedback for user interactions. Each component was carefully crafted to ensure a cohesive and engaging user experience.
