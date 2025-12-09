@@ -186,9 +186,8 @@ def note_download_pdf(request, pk):
     # 2. Create the HTTP response object
     response = HttpResponse(content_type='application/pdf')
     # Set the filename for the download
-    response['Content-Disposition'] = f'attachment; filename="{
-        note.title.replace(" ", "_")
-        }.pdf"'
+    filename = f'{note.title.replace(" ", "_")}.pdf'
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
 
     # 3. Generate the PDF using pisa (xhtml2pdf's core function)
     pisa_status = pisa.CreatePDF(

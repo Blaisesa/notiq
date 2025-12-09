@@ -45,7 +45,7 @@
 11. [Testing & Validation](#testing--validation)
 12. [License](#license)
 ---
-
+![Final Design Screenshot](readme-images/notiq-preview.png)
 ## Overview
 
 Notiq is a full-stack, element-based note editor that served as the capstone project documenting my 16-week learning journey with Code Institute. This project provided an amazing opportunity to synthesize all acquired skills, resulting in a scalable and future-orientated application.
@@ -62,7 +62,7 @@ On the frontend, the application incorporates advanced techniques like custom **
 | **Version** | v1.0.0 (Capstone Release) |
 | **Deployment** | Heroku |
 | **Live Demo** | [Visit Live Demo](https://notiq-b4efd6e13197.herokuapp.com/) |
-| **Backend** | Django 5.x |
+| **Backend** | Django 4.2.x |
 
 [↑ Back to Top](#table-of-contents)
 
@@ -73,10 +73,16 @@ On the frontend, the application incorporates advanced techniques like custom **
 ### User Interface (UI)
 Notiq's user interface was designed with a focus on simplicity, clarity, and ease of use. The dark theme provides a modern aesthetic while reducing eye strain during extended use. Key UI elements include a floating action button (FAB) for quick access to social links, intuitive drag-and-drop functionality for element reordering, and clear visual feedback for user interactions. Each component was carefully crafted to ensure a cohesive and engaging user experience.
 
+| Home Page | About Page | Features Page | Contact Page |
+| :--- | :--- | :--- | :--- |
+| ![Home Page Screenshot](readme-images/home.png) | ![About Page Screenshot](readme-images/about.png) | ![Features Page Screenshot](readme-images/features.png) | ![Contact Page Screenshot](readme-images/contact.png) |
+| Note Editor | Dropdown Menu | Drawer | Mobile View |
+| ![Note Editor Screenshot](readme-images/notes-editor.png) | ![Dropdown Menu Screenshot](readme-images/dropdown.png) | ![Drawer Screenshot](readme-images/drawer.png) | ![Mobile View Screenshot](readme-images/mobile-view.png) |
+| Fab Links Open | Tab Component | FAQs Accordions | |
+| ![Fab Links Open Screenshot](readme-images/fab-open.png) | ![Tab Component Screenshot](readme-images/tab-component.png) | ![FAQs Accordions Screenshot](readme-images/faqs-accordion.png) | |
+
 ### Design Philosophy
 The design philosophy behind Notiq centers on user empowerment and flexibility. The goal was to create an environment where users can effortlessly capture and organize their thoughts without being constrained by rigid structures. By allowing users to mix text, lists, images, and audio seamlessly, Notiq encourages creativity and adaptability. The design also emphasizes accessibility and responsiveness, ensuring that users can interact with the application across various devices and screen sizes.
-
-<!-- Screenshots of different screen sizes -->
 
 ### Visual Consistency
 Maintaining visual consistency was a priority throughout the design process. A unified color palette, typography, and iconography were employed to create a harmonious look and feel. Consistent spacing, alignment, and element sizing contribute to a polished appearance, enhancing usability and reducing cognitive load. The use of familiar UI patterns and conventions further aids in user navigation and interaction. The SPA (Single-Page Application) architecture also ensures that users experience smooth transitions and interactions without disruptive page reloads. I aimed to create a visually appealing and functionally robust application that users would find both enjoyable and efficient to use. When leaving the SPA environment, I implemented faded page transitions to maintain a cohesive user experience.
@@ -85,48 +91,44 @@ For smaller devices, I ensured that all UI elements adapt fluidly, preserving us
 
 Drawers and dropdowns were designed to be intuitive and accessible, allowing users to easily access additional options without cluttering the main interface. I ensured that these components are responsive and function seamlessly across different devices. Maintaining a balance between functionality and simplicity was key in the design of these interactive elements.
 
-<!-- Screenshots of different screens and implementation -->
-
 ### Accessibility Considerations
 The original color palette in mind did not meet WCAG AA contrast standards, so I adjusted colors to ensure sufficient contrast between text and background elements. This enhances readability for users with visual impairments. I implemented keyboard navigation support, allowing users to navigate through the application using only the keyboard. This includes focus indicators for interactive elements and logical tab order. 
 
 I ensured that all interactive elements, such as buttons and links, are properly labeled with ARIA attributes where necessary. This improves screen reader compatibility and provides context for users relying on assistive technologies.
 
-<!-- Lighthouse ACCESSIBILITY Report -->
-
 ### Responsive Design
 Even though the primary target audience is desktop users and was not built with mobile-first principles, I ensured that the application is fully responsive. The layout adapts seamlessly to various screen sizes, providing an optimal experience on tablets and smaller devices. I utilized CSS Flexbox and Grid to create flexible layouts that adjust based on the viewport size. Media queries were employed to fine-tune styles for different device widths, ensuring that text remains legible and UI elements are appropriately sized. I tested the application across multiple devices and browsers to ensure consistent performance and appearance.
 
-<!-- Section for a table with screenshots -->
-
 ### Navigation & Usability
 The navigation structure of Notiq is designed to be intuitive and user-friendly. The primary navigation menu provides clear access to key sections of the application, including Home, About, and Features pages. Within the note editor, users can easily add, edit, and rearrange elements using straightforward controls. The floating action button (FAB) offers quick access to social links without cluttering the main interface. I ensured that all interactive elements provide visual feedback on hover and click, enhancing usability and user confidence.
-
-<!-- Navigation screenshots -->
 
 ### User Onboarding
 AllAuth was implemented to provide a seamless user onboarding experience. New users can easily register and log in using a simple and straightforward process. I ensured that the registration form is user-friendly, with clear instructions and validation feedback. Additionally, I provided a welcoming landing page that highlights the key features of Notiq, encouraging new users to explore the application. The notiq app is only accessible to authenticated users, ensuring that user data remains private and secure, when a user tries to access the notes app without being logged in they are redirected to the login page.
 
 Each of the Auth pages (login, signup, password reset) was customized to match the overall design aesthetic of Notiq, providing a cohesive experience from the moment users first interact with the application.
 
-<!-- Screenshots of Auth pages -->
+| Signup Page | Login Page | Password Reset Page |
+| :--- | :--- | :--- |
+| ![Signup Page Screenshot](readme-images/signup.png) | ![Login Page Screenshot](readme-images/login.png) | ![Password Reset Page Screenshot](readme-images/reset.png) |
 
 ### Wireframes & Prototyping
 Initial wireframes were created using Figma to outline the basic layout and structure of the application. These wireframes served as a blueprint for the design process, allowing for early visualization of key components and user flows. I iteratively refined the wireframes based on usability considerations and feedback, transitioning from low-fidelity sketches to high-fidelity prototypes that closely resemble the final design.
 
-<!-- Wireframe images -->
+| Home Page Wireframe | About Page Wireframe | Features Page Wireframe | Contact Page Wireframe |
+| :--- | :--- | :--- | :--- |
+| ![Home Page Wireframe](readme-images/home-wireframe.png) | ![About Page Wireframe](readme-images/about-wireframe.png) | ![Features Page Wireframe](readme-images/features-wireframe.png) | ![Contact Page Wireframe](readme-images/contact-wireframe.png) |
 
 ### Fonts & Colors
 The typography choices for Notiq were made to enhance readability and align with the modern aesthetic of the application. I selected Google Fonts that provide a clean and professional look, ensuring that text is legible across various screen sizes and resolutions. Font sizes and weights were carefully chosen to create a clear hierarchy of information.
 
 The color palette was selected to create a visually appealing and cohesive design. I utilized a combination of dark backgrounds with vibrant accent colors to highlight key elements and actions within the application. The color choices were also made with accessibility in mind, ensuring sufficient contrast for users with visual impairments.
 
-<!-- Color palette and font images -->
+| Color Palette | Visual Representation | Font Choices |
+| :--- | :--- | :--- |
+| ![Color Palette](readme-images/colors.png) | ![Visual Representation](readme-images/visual-rep.png) | ![Font Choices](readme-images/fonts.png) |
 
 ### Final Design
 The final design of Notiq reflects a balance between aesthetics and functionality. I incorporated user feedback and usability testing results to refine the interface, ensuring that it meets the needs of the target audience. The design emphasizes clarity, ease of use, and visual appeal, creating an engaging environment for users to capture and organize their notes effectively.
-
-<!-- IMGS of final design -->
 
 [↑ Back to Top](#table-of-contents)
 
@@ -198,7 +200,7 @@ Notiq is built on a robust, industry-standard **full-stack architecture**. The t
 | **Lucid ERD Tool** | **Lucidchart** | Used to design the database schema and relationships visually before implementation, ensuring a well-structured data model. |
 | **Database** | **PostgreSQL (or SQLite for development)** | A powerful, reliable, and production-grade relational database, suitable for managing the serialized JSON data with integrity. |
 
-<!-- ERD Screenshot -->
+![ERD Image](readme-images/erd.png)
 
 ### Frontend and UI/UX
 
@@ -210,6 +212,7 @@ Notiq is built on a robust, industry-standard **full-stack architecture**. The t
 | **Icons** | **Font Awesome & Ion-Icons** | Using both libraries shows versatility in integrating different external assets for scalable vector iconography. |
 | **Image Creation** | **Picsart** | Utilized for the design and editing of all static marketing and hero images within the application. |
 | **Prototyping & Wireframing** | **Figma** | Employed for initial wireframing and high-fidelity prototyping to plan the user interface and experience before development. |
+| **Color Palette Tool** | **Coolors** | Used to generate and refine the color scheme, ensuring visual harmony and accessibility compliance. |
 
 ### Hosting and Services
 
@@ -414,6 +417,24 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **User Acceptance Testing (UAT)** | Overall user experience and functionality | Pass |
 | **Validation Tests** | HTML validation | Pass |
 | **Validation Tests** | CSS validation | Pass |
+
+### Python Linter Reports
+| Section | Status | Proof |  |
+| :--- | :--- | :--- | :--- |
+| Models | Pass | Accounts, Core, Notes Screenshots |  |
+| ![Accounts Models](readme-images/accounts-models.png) | ![Core Models](readme-images/core-models.png) | ![Notes Models](readme-images/notes-models.png) |
+| Views | Pass | Accounts, Core, Notes, SPA Screenshots |  |
+| ![Accounts Views](readme-images/accounts-views.png) | ![Core Views](readme-images/core-views.png) | ![Notes Views](readme-images/notes-views.png) | ![SPA Views](readme-images/spa-views.png) |
+| Admin, Serializers & Mixins | Pass | Notes & Core Screenshot |
+| ![Notes Serializers](readme-images/notes-serializers.png) | ![Notes Mixins](readme-images/notes-mixins.png) | ![Notes Admin](readme-images/notes-admin.png) | ![Core Admin](readme-images/core-admin.png) |
+
+### Other Reports
+* **Lighthouse Report for Performance, Accessibility, Best Practices, and SEO:** ![Lighthouse Report](readme-images/lighthouse-report.png)
+
+Autoprefixer was used for CSS vendor prefixes using PostCSS, due to modern techniques being used within the project, the CSS validation was done with CSSTree as the W3C CSS validator was not able to parse some of the newer CSS syntax.
+
+* **Main CSS Validation:** ![CSS Validation](readme-images/mainCSS.png)
+* **Notes App CSS Validation:** ![Notes CSS Validation](readme-images/notesCSS.png)
 
 [↑ Back to Top](#table-of-contents)
 

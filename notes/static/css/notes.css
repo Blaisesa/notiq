@@ -44,9 +44,16 @@ h6 {
     height: 100%;
     background-color: var(--app-secondary-background-color);
     border-left: 1px solid var(--app-border-color);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.4);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: -webkit-transform 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
-    transform: translateX(0); /* Default visible position */
+    transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+    -webkit-transform: translateX(0);
+        -ms-transform: translateX(0);
+            transform: translateX(0); /* Default visible position */
     z-index: 1000;
     padding: 20px 0;
     overflow-y: auto;
@@ -54,12 +61,20 @@ h6 {
 
 /* Class to hide the drawer off-screen */
 .history-drawer.closed {
-    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+            transform: translateX(100%);
 }
 .drawer-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding: 0 20px 10px;
     border-bottom: 1px solid var(--app-border-color);
 }
@@ -69,11 +84,17 @@ h6 {
     font-size: 1.5rem;
     color: var(--primary-font-color);
     cursor: pointer;
+    -webkit-transition: color 0.2s, -webkit-transform 0.2s;
+    transition: color 0.2s, -webkit-transform 0.2s;
+    -o-transition: color 0.2s, transform 0.2s;
     transition: color 0.2s, transform 0.2s;
+    transition: color 0.2s, transform 0.2s, -webkit-transform 0.2s;
 }
 .close-btn:hover {
     color: var(--primary-color);
-    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+        -ms-transform: scale(1.02);
+            transform: scale(1.02);
 }
 .search-container {
     padding: 10px 20px;
@@ -86,6 +107,18 @@ h6 {
     border-radius: 4px;
     background-color: var(--app-background-color);
     color: var(--primary-font-color);
+}
+#history-search-input::-webkit-input-placeholder {
+    color: var(--secondary-font-color);
+}
+#history-search-input::-moz-placeholder {
+    color: var(--secondary-font-color);
+}
+#history-search-input:-ms-input-placeholder {
+    color: var(--secondary-font-color);
+}
+#history-search-input::-ms-input-placeholder {
+    color: var(--secondary-font-color);
 }
 #history-search-input::placeholder {
     color: var(--secondary-font-color);
@@ -103,20 +136,32 @@ h6 {
     padding: 15px 20px;
     border-bottom: 1px solid var(--app-border-color);
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-transition: -webkit-transform 0.1s;
+    transition: -webkit-transform 0.1s;
+    -o-transition: transform 0.1s;
     transition: transform 0.1s;
+    transition: transform 0.1s, -webkit-transform 0.1s;
 }
 
 .history-item:hover {
-    transform: translateX(-15px) scale(1.02);
+    -webkit-transform: translateX(-15px) scale(1.02);
+        -ms-transform: translateX(-15px) scale(1.02);
+            transform: translateX(-15px) scale(1.02);
 }
 
 .history-title {
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
 }
 
 .history-date {
@@ -128,7 +173,8 @@ h6 {
 .history-category {
     font-size: 0.8em;
     color: var(--secondary-font-color);
-    align-self: flex-end;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
     background-color: rgba(0, 0, 0, 0.4);
     padding: 2px 8px;
     border-radius: 8px;
@@ -139,6 +185,8 @@ h6 {
 
 .notes-app {
     background-color: var(--app-background-color);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     height: 100%;
     width: 100%;
@@ -151,7 +199,8 @@ h6 {
     background-color: var(--app-secondary-background-color);
     border-right: 1px solid var(--app-border-color);
     padding: 1.5rem;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     overflow-y: auto;
     width: 280px;
     display: block;
@@ -164,19 +213,30 @@ h6 {
 
 /* Tabs */
 .tabs {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     margin-bottom: 1rem;
 }
 .tab {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     text-align: center;
     padding: 0.5rem 0;
     cursor: pointer;
     border-bottom: 2px solid transparent;
     color: var(--secondary-font-color);
     font-weight: 600;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 .tab.active {
@@ -192,9 +252,13 @@ h6 {
 
 /* Note Elements list */
 .heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 0.5rem;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin: 1rem 0;
 }
 .heading-divider {
@@ -206,21 +270,33 @@ h6 {
     padding: 0.75rem;
     margin-bottom: 0.5rem;
     border-radius: 5px;
+    cursor: -webkit-grabbing;
     cursor: grabbing;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
     color: var(--primary-font-color);
     border: 1px solid var(--app-border-color);
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 .element:hover {
     background-color: var(--app-background-color);
     scale: 1.05;
     border: 1px solid var(--primary-color);
-    transform: translate(5px, -5px);
+    -webkit-transform: translate(5px, -5px);
+        -ms-transform: translate(5px, -5px);
+            transform: translate(5px, -5px);
 }
 .buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 0.5rem;
     margin-top: 1rem;
 }
@@ -235,6 +311,8 @@ h6 {
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
+    -webkit-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
     transition: background-color 0.3s ease;
     color: var(--primary-font-color);
     background-color: var(--primary-color);
@@ -245,11 +323,19 @@ h6 {
 
 /*  Canvas for Notes  */
 .canvas {
-    flex: 1;
-    flex-direction: column;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding: 3rem 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     overflow-y: auto;
     background-color: var(--app-secondary-background-color);
     margin: 1rem 4rem;
@@ -259,9 +345,15 @@ h6 {
 .toolbar {
     position: absolute;
     top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: flex-start;
-    align-items: center; /* Added for vertical centering */
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; /* Added for vertical centering */
     gap: 1rem;
     margin-bottom: 1rem;
     width: calc(100% - 8px);
@@ -281,6 +373,8 @@ h6 {
     font-size: 0.75rem;
     padding: 0.5rem;
     border-radius: 4px;
+    -webkit-transition: background-color 0.2s;
+    -o-transition: background-color 0.2s;
     transition: background-color 0.2s;
     margin-right: 1rem;
 }
@@ -296,8 +390,12 @@ h6 {
     position: relative;
     margin-left: auto; /* Pushes the menu to the far right */
     height: 100%;      /* Matches toolbar height */
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding-right: 5px;
 }
 
@@ -314,7 +412,8 @@ h6 {
     border: 2px solid var(--app-border-color);
     
     border-radius: 0 0 4px 4px; /* Rounded corners on bottom only */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     padding: 5px 0;
     z-index: 1000;
 }
@@ -326,8 +425,12 @@ h6 {
 
 /* Items inside the menu */
 .dropdown-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 8px;
     width: 100%;
     text-align: left;
@@ -407,21 +510,33 @@ h6 {
     margin: 0 2rem;
     border-radius: 8px;
     cursor: default;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     border: 1px solid transparent;
+    -webkit-transition: -webkit-box-shadow 0.2s;
+    transition: -webkit-box-shadow 0.2s;
+    -o-transition: box-shadow 0.2s;
     transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, -webkit-box-shadow 0.2s;
     position: relative;
     padding-left: 35px; /* Ensure space for handle */
     max-width: 100%;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 .note-element:hover {
     opacity: 1;
     border-color: #555;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .drag-handle {
@@ -429,11 +544,15 @@ h6 {
     position: absolute;
     left: 5px;
     top: 15px;
+    cursor: -webkit-grab;
     cursor: grab;
     font-size: 24px;
     color: #888;
     padding: 0 5px; /* Hitbox padding */
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 .drag-handle:hover {
@@ -441,12 +560,15 @@ h6 {
 }
 
 .drag-handle:active {
+    cursor: -webkit-grabbing;
     cursor: grabbing;
 }
 
 /* Content Container inside Note Element */
 .element-content {
-    flex: 1; /* Takes up all space not used by Remove button */
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1; /* Takes up all space not used by Remove button */
     margin-right: 1rem;
     max-width: 100%;
 }
@@ -474,14 +596,20 @@ h6 {
 }
 
 .checklist-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     gap: 8px;
     padding: 4px 0;
 }
 
 .checklist-item .editable-text {
-    flex-grow: 1; /* Allows the text area to expand */
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; /* Allows the text area to expand */
     min-width: 50px;
 }
 
@@ -538,6 +666,8 @@ h6 {
     padding: 5px;
     border: 1px solid #444;
     border-radius: 4px;
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
     transition: opacity 0.2s;
 }
 
@@ -563,17 +693,29 @@ h6 {
 }
 /* Img + Text Row */
 .row-layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 20px;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .row-image {
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     min-height: 100px;
     border-radius: 6px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     color: #aaa;
 }
 .row-image:has(img) {
@@ -581,7 +723,9 @@ h6 {
     background: none;
 }
 .row-text {
-    flex: 2;
+    -webkit-box-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
 }
 
 /*  UI Utilities  */
@@ -594,17 +738,27 @@ h6 {
     height: 25px;
     border-radius: 4px;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    filter: grayscale(0.5);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-filter: grayscale(0.5);
+            filter: grayscale(0.5);
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
     transition: opacity 0.2s;
 }
 .remove-btn:hover {
     opacity: 1;
     background: #ff4d4f;
     color: white;
-    filter: none;
+    -webkit-filter: none;
+            filter: none;
 }
 
 [contenteditable="true"] {
@@ -615,7 +769,8 @@ h6 {
     word-wrap: break-word; 
 }
 [contenteditable="true"]:focus {
-    box-shadow: 0 0 5px var(--primary-color);
+    -webkit-box-shadow: 0 0 5px var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
     border-radius: 4px;
 }
 .image-wrapper {
@@ -626,7 +781,8 @@ h6 {
     height: 300px;
     display: block;
     image-rendering: optimizeQuality;
-    object-fit: contain;
+    -o-object-fit: contain;
+       object-fit: contain;
 }
 .remove-image-btn {
     opacity: 0;
@@ -640,10 +796,18 @@ h6 {
     width: 30px;
     height: 30px;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     border-radius: 4px;
+    -webkit-transition: opacity 0.2s;
+    -o-transition: opacity 0.2s;
     transition: opacity 0.2s;
 }
 
@@ -652,8 +816,12 @@ h6 {
     color: var(--secondary-font-color);
 }
 .audio-controls {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .record-btn {
     background: none;
@@ -663,12 +831,21 @@ h6 {
     font-size: 1.5rem;
 }
 .audio-player {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 .voice-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     gap: 10px;
 }
 
@@ -679,6 +856,8 @@ h6 {
     opacity: 1;
 }
 .note-element:hover .table-actions {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     opacity: 1;
 }
@@ -707,20 +886,30 @@ footer {
     text-align: center;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    -webkit-transition: background-color 0.2s, -webkit-transform 0.2s;
+    transition: background-color 0.2s, -webkit-transform 0.2s;
+    -o-transition: background-color 0.2s, transform 0.2s;
     transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, transform 0.2s, -webkit-transform 0.2s;
 }
 
 .add-element-fab:hover {
     background-color: var(--secondary-color);
 }
 .add-element-fab:active {
-    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+            transform: scale(0.95);
 }
 /* Responsive Design */
 @media (max-width: 900px) {
     .notes-app {
-        flex-direction: column;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
     }
     .sidebar {
         position: fixed;
@@ -732,15 +921,25 @@ footer {
         height: 100%;
         min-height: auto; /* Override desktop min-height */
         padding: 1rem;
-        transform: translateX(-100%);  /* Hidden by default */
+        -webkit-transform: translateX(-100%);
+            -ms-transform: translateX(-100%);
+                transform: translateX(-100%);  /* Hidden by default */
+        -webkit-transition: -webkit-transform 0.3s ease-in-out;
+        transition: -webkit-transform 0.3s ease-in-out;
+        -o-transition: transform 0.3s ease-in-out;
         transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
         z-index: 1000;
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
         /* Ensure drag property is ignored for mobile touch */
-        touch-action: manipulation;
+        -ms-touch-action: manipulation;
+            touch-action: manipulation;
     }
     .sidebar.open {
-        transform: translateX(0);
+        -webkit-transform: translateX(0);
+            -ms-transform: translateX(0);
+                transform: translateX(0);
     }
     .canvas {
         margin: 0;
@@ -749,7 +948,9 @@ footer {
         max-height: none;
         overflow-y: auto;
         width: 100%;
-        flex: 1;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
     }
     .note-element {
         margin: 0;
@@ -762,7 +963,8 @@ footer {
     }
     /* --- Responsive Toolbar --- */
     .toolbar {
-        flex-wrap: nowrap; 
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap; 
         height: 40px; /* Keep height consistent */
         padding: 2px 5px; /* Adjust padding slightly */
         width: 100%; /* Ensure it occupies full screen width */
@@ -773,7 +975,9 @@ footer {
         width: 70px; /* Significantly reduce title width */
         min-width: 80px; /* Prevent collapse */
         font-size: 1rem; /* Reduce font size */
-        flex-grow: 1; /* Allow it to consume remaining space */
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1; /* Allow it to consume remaining space */
         margin-right: 5px; /* Minor margin adjustment */
     }
     #note-category-select {
