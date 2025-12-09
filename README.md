@@ -425,6 +425,13 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | Admin, Serializers & Mixins | Pass | Notes & Core Screenshot |
 | ![Notes Serializers](readme-images/notes-serializers.png) | ![Notes Mixins](readme-images/notes-mixins.png) | ![Notes Admin](readme-images/notes-admin.png) | ![Core Admin](readme-images/core-admin.png) |
 
+### Other Reports
+* **Lighthouse Report for Performance, Accessibility, Best Practices, and SEO:** ![Lighthouse Report](readme-images/lighthouse-report.png)
+
+Autoprefixer was used for CSS vendor prefixes using PostCSS, due to modern techniques being used within the project, the CSS validation was done with CSSTree as the W3C CSS validator was not able to parse some of the newer CSS syntax.
+
+* **Main CSS Validation:** ![CSS Validation](readme-images/mainCSS.png)
+* **Notes App CSS Validation:** ![Notes CSS Validation](readme-images/notesCSS.png)
 
 [↑ Back to Top](#table-of-contents)
 
