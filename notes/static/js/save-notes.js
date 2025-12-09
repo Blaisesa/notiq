@@ -228,7 +228,6 @@ window.saveNote = async function (noteID = window.currentNoteId) {
         const savedNote = await response.json();
         if (method === "POST") window.currentNoteId = savedNote.id;
 
-        console.log("Note saved successfully:", savedNote);
         alert(`Note '${savedNote.title}' saved! ID: ${savedNote.id}`);
         return savedNote;
     } catch (error) {

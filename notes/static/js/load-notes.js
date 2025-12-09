@@ -264,7 +264,6 @@ window.loadNote = async function loadNote(noteId) {
             });
         }
 
-        console.log("Note loaded successfully.");
     } catch (error) {
         console.error("Error loading note:", error);
         alert("Failed to load note. Check console for details.");
