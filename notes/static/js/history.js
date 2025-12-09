@@ -208,6 +208,5 @@ window.clearNote = function clearNote() {
     // This ensures the next save operation uses POST to create a new record.
     window.currentNoteId = null;
 
-    console.log("Canvas cleared and currentNoteId reset to null.");
     alert("New blank note created.");
 };
