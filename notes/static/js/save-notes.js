@@ -126,7 +126,7 @@ window.serializeCanvas = function () {
 // --- SAVE NOTE ---
 window.saveNote = async function (noteID = window.currentNoteId) {
     const titleInput = document.getElementById("note-title");
-    const title = titleInput ? titleInput.value : "Untitled Note";
+    const title = titleInput?.value.trim() || "Untitled Note";
 
     const categorySelector = document.getElementById("note-category-select");
     const selectedCategoryValue = categorySelector
