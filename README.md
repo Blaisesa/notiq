@@ -47,6 +47,10 @@
     - [Capstone Motivation](#capstone-motivation)
     - [Developer](#developer)
 11. [Testing & Validation](#testing--validation)
+    - [User Stories Testing](#user-stories-testing)
+    - [Manual Testing](#manual-testing)
+    - [Python Linter Reports](#python-linter-reports)
+    - [Other Reports](#other-reports)
 12. [License](#license)
 ---
 ## Overview
@@ -494,6 +498,42 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 ---
 
 ## Testing & Validation
+
+### User Story Testing
+The following table outlines the manual test cases executed to validate the functionality and user experience of Notiq. Each test case corresponds to specific user stories and requirements defined during the planning phase.
+
+| Test Category | Test Case | Status |
+| :--- | :--- | :--- |
+| **Frontend SPA View** | Marketing page navigation | Pass |
+| **Frontend SPA View** | Page transition animations | Pass |
+| **Newsletter Signup** | Form submission and validation | Pass |
+| **Deployment** | Heroku deployment and environment variable configuration | Pass |
+| **Authentication** | User registration | Pass |
+| **Authentication** | User login | Pass |
+| **Authentication** | User logout | Pass |
+| **Authentication** | Delete account | Pass |
+| **Authentication** | Restricted access to notes app for unauthenticated users | Pass |
+| **Note Editor** | Create new note | Pass |
+| **Note Editor** | Load existing note | Pass |
+| **Note Editor** | Save note | Pass |
+| **Note Editor** | Edit text elements | Pass |
+| **Note Editor** | Drag and drop reordering | Pass |
+| **Note Editor** | Record and embed voice notes | Pass |
+| **Note Editor** | Delete note elements | Pass |
+| **Note Editor** | Responsive design on various screen sizes | Pass |
+| **Note Editor** | Privacy and security of notes | Pass |
+| **API Endpoints** | Note creation endpoint | Pass |
+| **API Endpoints** | Note retrieval endpoint | Pass |
+| **API Endpoints** | Note update endpoint | Pass |
+| **API Endpoints** | Note deletion endpoint | Pass |
+| **Cloudinary Integration** | Media upload | Pass |
+| **Cloudinary Integration** | Media retrieval | Pass |
+| **Admin Interface** | Management in Django admin | Pass |
+
+Please refer to the detailed test case table below for a comprehensive overview of all manual tests conducted.
+You can also find the Kanban board used for tracking these tests [here](https://github.com/users/Blaisesa/projects/7).
+
+### Manual Test Cases
 | Test Category | Test Case | Status |
 | :--- | :--- | :--- |
 | **Frontend - Editor** | Element creation and deletion | Pass |
@@ -517,8 +557,6 @@ It stands as a testament to my growth as a developer, showcasing my ability to t
 | **Backend - Authentication** | User login | Pass |
 | **Backend - Authentication** | User logout | Pass |
 | **Backend - Security** | CSRF protection | Pass |
-| **Integration** | Cloudinary media upload | Pass |
-| **Integration** | Cloudinary media retrieval | Pass |
 | **Performance** | Page load time | Pass |
 | **Performance** | Editor responsiveness | Pass |
 | **Cross-Browser** | Chrome compatibility | Pass |
