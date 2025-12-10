@@ -33,6 +33,7 @@
 7.  [Installation and Setup](#installation-and-setup)
     - [Prerequisites](#prerequisites)
     - [Local Installation](#local-installation)
+    - [Deploying Notiq on Heroku](#deploying-notiq-on-heroku)
 8.  [AI Implementation](#ai-integration--future-roadmap)
     - [Code Creation](#code-creation)
     - [Debugging](#debugging)
@@ -300,8 +301,110 @@ The notes editor application features a highly modular internal structure, desig
 ## Installation and Setup
 
 ### Prerequisites
+Before deploying Notiq locally, ensure you have the following on your machine:
+- **Python 3.12.x**: [Download Python](https://www.python.org/downloads/)
+- **Pip**: Python package manager (usually included with Python installations)
+- **Virtual Environment**: Recommended for managing dependencies (e.g., `venv` or `virtualenv`)
+- **Git**: For cloning the repository ([Download Git](https://git-scm.com/downloads))
+- **PostgreSQL**: For production-like database setup (optional, SQLite can be used for development)
+- **Cloudinary Account**: For media storage (optional, can be configured later)
 
 ### Local Installation
+
+<details>
+  <summary>Click to view step-by-step local installation instructions</summary>
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/notiq.git
+   ```
+2. **Navigate to the Project Directory**
+   ```bash
+   cd notiq
+   ```
+3. **Create and Activate a Virtual Environment**
+   ```bash
+    python -m venv .venv
+    source .venv/bin/activate  (On Windows: source .venv\Scripts\activate)
+    ```
+4. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. **Set Up Environment Variables**
+    Create a `.env` file in the root directory and add the following variables:
+    ```
+    SECRET_KEY=your_django_secret_key
+    DEBUG=True
+    DATABASE_URL=your_database_url
+    CLOUDINARY_URL=your_cloudinary_url
+    ```
+6. **Apply Database Migrations**
+   ```bash
+   python manage.py migrate
+   ```
+7. **Create a Superuser (Optional)**
+   ```bash
+    python manage.py createsuperuser
+    ```
+8. **Run the Development Server**
+    ```bash
+    python manage.py runserver
+    ```
+9. **Access the Application**
+    Open your web browser and navigate to `http://localhost:8000`
+
+Enjoy exploring Notiq locally!
+
+</details>
+
+### Deploying Notiq on Heroku
+
+<details>
+  <summary>Click to view step-by-step Heroku deployment instructions</summary>
+
+**Note:** Make sure you have a Heroku account and have forked this repository.
+1. **Login to Heroku** at -> https://id.heroku.com/login
+   
+2. **Create a New Heroku App**
+    - Use the Heroku dashboard to create a new application.
+    - Click on "New" -> "Create new app"
+    - Give it a unique name, and select your region.
+
+    | Step 1 | Step 2 | Step 3 |
+    | :--- | :--- | :--- |
+    | ![Heroku Step 1](readme-images/step-1.jpg) | ![Heroku Step 2](readme-images/step-2.jpg) | ![Heroku Step 3](readme-images/step-3.jpg) |
+   
+3. **Link your Github with Heroku**
+    - In the "Deploy" tab of your Heroku app, select "GitHub" as the deployment method.
+    - Search for your forked repository and connect it.
+
+    | Step 4 |
+    | :--- |
+    | ![Heroku Step 4](readme-images/step-4.jpg) |
+
+4. **Configure Environment Variables**
+    - In the "Settings" tab, click on "Reveal Config Vars".
+    - Add the necessary environment variables as per your `.env` file.
+
+    | Step 5 | Step 6 |
+    | :--- | :--- |
+    | ![Heroku Step 5](readme-images/step-5.jpg) | ![Heroku Step 6](readme-images/step-6.jpg) |
+
+5. **Deploy the Application**
+    - In the "Deploy" tab, scroll down to "Manual deploy".
+    - Select the branch you want to deploy, ensure you are deploying the `main` branch, and click "Deploy Branch".
+
+    | Step 7 |
+    | :--- |
+    | ![Heroku Step 7](readme-images/step-7.jpg) |
+
+6. **Open the Application**
+    - Once the deployment is complete, click on "View" to open your live Notiq application.
+
+Enjoy using Notiq on Heroku!
+
+</details>
 
 [↑ Back to Top](#table-of-contents)
 
