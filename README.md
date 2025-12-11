@@ -320,7 +320,7 @@ Before deploying Notiq locally, ensure you have the following on your machine:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/notiq.git
+   git clone https://github.com/blaisesa/notiq.git
    ```
 2. **Navigate to the Project Directory**
    ```bash
@@ -339,7 +339,7 @@ Before deploying Notiq locally, ensure you have the following on your machine:
     Create a `.env` file in the root directory and add the following variables:
     ```
     SECRET_KEY=your_django_secret_key
-    DEBUG=True
+    DEBUG='True'
     DATABASE_URL=your_database_url
     CLOUDINARY_URL=your_cloudinary_url
     ```
