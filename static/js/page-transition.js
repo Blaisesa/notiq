@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Skip external links
         if (href.startsWith("http") && !href.startsWith(location.origin)) return;
 
+        // Skip email link
+        if (link.id === "email-link") return;
+
         link.addEventListener("click", e => {
             e.preventDefault();
             body.style.opacity = 0;
