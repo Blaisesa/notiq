@@ -3,6 +3,7 @@
 // So that the transition looks smooth and not overly different from spa page transitions
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.body;
+    const emailLink = document.getElementById("email-link");
 
     // Wait for next paint + assets to settle
     requestAnimationFrame(() => {
