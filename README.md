@@ -608,9 +608,19 @@ Other validation reports for performance, accessibility, best practices, SEO, an
 
 Autoprefixer was used for CSS vendor prefixes using PostCSS, due to modern techniques being used within the project, the CSS validation was done with CSSTree as the W3C CSS validator was not able to parse some of the newer CSS syntax.
 
+Only issues found within the HTML were linked to HTMX attributes, which are not yet natively supported by the W3C validator. All other info and warnings were related to django template tags, which are also not natively supported by the W3C validator.
 
-* **Main CSS Validation:** ![CSS Validation](readme-images/mainCSS.png)
-* **Notes App CSS Validation:** ![Notes CSS Validation](readme-images/notesCSS.png)
+* **Main HTML & CSS Validation:** 
+
+| HTML Validation | CSS Validation |
+| :--- | :--- |
+| ![Main HTML Validation](readme-images/html-validation2.png) | ![CSS Validation](readme-images/mainCSS.png) |
+
+* **Notes App HTML & CSS Validation:** 
+
+| HTML Validation | CSS Validation |
+| :--- | :--- |
+| ![Notes HTML Validation](readme-images/html-validation1.png) | ![Notes CSS Validation](readme-images/notesCSS.png) |
 
 </details>
 
