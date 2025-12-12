@@ -1,6 +1,8 @@
-{% extends "base.html" %} {% load static %} {% block title %}{{ page.title }}{% endblock title %} {% block extra_head %}
+{% extends "base.html" %} {% load static %} {% block title %}{{ page.title }}{% endblock title %} 
+{% block meta %}
 <meta name="description" content="Notiq - The Note Editor That Thinks With You. Integrated voice notes, mixed media, and intuitive workflow for enhanced productivity and creativity.">
-{% endblock extra_head %} {% block content %}
+{% endblock meta %}
+{% block extra_head %}{% endblock extra_head %} {% block content %}
 {% if page %}
 <div class="container terms">
     <h1>{{ page.title }}</h1>

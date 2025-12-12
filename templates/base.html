@@ -1,4 +1,5 @@
-{% load static %} {% url 'account_login' as login_url %} {% url 'account_signup' as signup_url %} {% url 'account_logout' as logout_url %}
+{% load static %} {% url 'account_login' as login_url %} 
+{% url 'account_signup' as signup_url %} {% url 'account_logout' as logout_url %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,12 +32,32 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <!-- Preconnects for performance -->
         <link rel="preconnect" href="https://kit.fontawesome.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <!-- Link External CSS - Now handles all styling -->
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+        <!-- Ionicons hydration -->
+        <style data-styles>
+            ion-icon { visibility: hidden; }
+            .hydrated { visibility: inherit; }
+        </style>
+
+        <!-- HTMX indicator -->
+        <style>
+            .htmx-indicator {
+                opacity: 0;
+            }
+            .htmx-request .htmx-indicator,
+            .htmx-request.htmx-indicator {
+                opacity: 1;
+                transition: opacity 200ms ease-in;
+            }
+        </style>
+
         {% block extra_head %}{% endblock extra_head %}
     </head>
     <body>
